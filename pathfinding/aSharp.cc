@@ -23,6 +23,12 @@ typedef struct Node
     float cost;				// Cost of node
 } node;
 
+// Create Node and return pointer
+Node* createNode(int xPos, int yPos);
+
+// Analyzes cost of node
+int costCheck(Node* check, Node* end);
+
 // Function for deallocating memory taken up by the node objects in list
 int freeList(Node* list);
 
@@ -43,7 +49,7 @@ int main()
     nodelay(stdscr, false);
     noecho();
 
-    // Generate End coordinates
+    // Generate End Node
     int endX = rand() % n;
     int endY = rand() % n;
 
@@ -54,12 +60,13 @@ int main()
     prosp->last = 0;
     prosp->x = rand() % 20;
     prosp->y = rand() % 20;
-    prosp->cost = sqrt((prosp->x - endX)^2 + (prosp->y - endY)^2); // Distance to destination
+    prosp->cost = 1.2; // Distance to destination
     
     // Ncurses demo
     printw("Beginning coordinates: %d, %d\n", prosp->x, prosp->y);
     printw("End Coordinates: %d, %d\n", endX, endY);
-    printw("Press any key to exit\n");
+    printw("Distance to travel: %f\n", prosp->cost);
+    printw("Press any key to delete Nodes\n");
     refresh();
     getch();
     
@@ -78,12 +85,36 @@ int main()
     freeList(visit);
     freeList(prosp);
     freeList(obst);
-    
+    printw("Press any key to exit\n");
+    refresh();
+    getch();
     endwin();				// End window
 
     return 0;
 }
 
+// Create Node and return pointer
+Node* createNode(
+    int xPos,				// X position of node
+    int yPos				// Y position of node
+)
+{
+    // Allocate memory and then set up node
+    Node* temp = (Node*)malloc(sizeof(Node));
+    temp->x = xPos;
+    temp->y = yPos;
+    temp->next = NULL;
+    temp->last = NULL;
+    temp->cost = 0;
+    return temp;
+}
+
+// Analyze cost of node
+int costCheck(Node* check, Node* end)
+{
+    check->cost = sqrt(check->x - end->x + check->y - end->y);
+    return 0;
+}
 // Function for deallocating memory taken up by the node objects in list
 int freeList(
     Node* list				// List of nodes to deallocate
@@ -91,6 +122,7 @@ int freeList(
 {
     while(list != NULL)
     {
+	printw("Deleting Node at %d, %d\n", list->x, list->y);
 	Node* hold = list->next;
 	free(list);
 	list = hold;
@@ -106,13 +138,15 @@ int nodeTransfer(
     Node* listTo			// Node list to transfer to
 )
 {
-
+    Node* before = 0;			// A holder variable
+    
     // Go through first list and find node preceding
-    while(*listFrom != transfer)
+    while(true)
     {
-	listFrom = listfrom->next
-
-    // Go through first list and find node preceding
+	// Exit if list doesn't contain the transfer node
+	if(listFrom == NULL)
+	    return -1;	
+    }
     // save pointer to the node after transfer
     // zero out transfer node next
     // point previous node of transfer to node after transfer
@@ -129,6 +163,11 @@ int nodeAdd(
     int y				// Y coordinate
 )
 {
+    Node* temp = createNode(x,y);
+    
+    // Loop through and find the end of the list
+    // Make list point to the new Node
+    
     return 0;
 }
 
