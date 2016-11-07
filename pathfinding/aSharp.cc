@@ -14,7 +14,6 @@
 #include <math.h>			// sqrt()
 
 static int n = 20;			// Length and width of mesh
-
 typedef struct Node
 {
     Node* next;				// Next node in list
@@ -41,7 +40,8 @@ int main()
     Node* obst = 0;		// initialize obstacles
     
     initscr();				// Start curses mode
-
+    nodelay(stdscr, false);
+    noecho();
 
     // Generate End coordinates
     int endX = rand() % n;
@@ -56,6 +56,16 @@ int main()
     prosp->y = rand() % 20;
     prosp->cost = sqrt((prosp->x - endX)^2 + (prosp->y - endY)^2); // Distance to destination
     
+    // Ncurses demo
+    printw("Beginning coordinates: %d, %d\n", prosp->x, prosp->y);
+    printw("End Coordinates: %d, %d\n", endX, endY);
+    printw("Press any key to exit\n");
+    refresh();
+    getch();
+    
+
+
+
     // Add Beginning node to the prospected list
 	/* Begin pathfinding algorithm:
 	    1. 
@@ -96,6 +106,19 @@ int nodeTransfer(
     Node* listTo			// Node list to transfer to
 )
 {
+
+    // Go through first list and find node preceding
+    while(*listFrom != transfer)
+    {
+	listFrom = listfrom->next
+
+    // Go through first list and find node preceding
+    // save pointer to the node after transfer
+    // zero out transfer node next
+    // point previous node of transfer to node after transfer
+    // go through second list, make it point to transfer
+    
+    
     return 0;
 }
 
