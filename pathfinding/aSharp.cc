@@ -11,47 +11,50 @@
 #include <ncurses.h>			// For the ncurses environment
 #include <time.h>
 #include <stdlib.h>			// rand()
+#include <math.h>			// sqrt()
 
 static int n = 20;			// Length and width of mesh
 
 typedef struct Node
 {
-    node* next;				// Next node in list
-    node* last;				// Last node in A* algorithm
+    Node* next;				// Next node in list
+    Node* last;				// Last node in A* algorithm
     int x;				// X position of node
     int y;				// Y position of node
-    int cost;				// Cost of node
+    float cost;				// Cost of node
 } node;
 
 // Function for deallocating memory taken up by the node objects in list
-int freeList(node* list)
-{
-    while(list != NULL)
-    {
-	next = list*;
-	free(list);
-	list = next;
-    }
+int freeList(Node* list);
 
-    return 0;
-}
+// Function to transfer a node from one list to another
+int nodeTransfer(Node* transfer, Node* listFrom, Node* listTo);
+
+// Function for adding a node to a list
+int nodeAdd(Node* list, int x, int y);
 
 int main()
 {
     srand(time(NULL));			// Time seed for random generator
     
-    node* prospected = 0;		// initialize prospected list
-    nose* obstacles = 0;		// initialize obstacles
+    Node* visit = 0;		// initialize visit list
+    Node* obst = 0;		// initialize obstacles
     
     initscr();				// Start curses mode
 
 
     // Generate End coordinates
-    endX = rand() % n;
-    endY = rand() % n;
+    int endX = rand() % n;
+    int endY = rand() % n;
 
-    // Generate Beginning node, make sure it isn't the end node
-    node* visited = (node*)malloc(sizeof(Node)); 
+    // Generate Beginning node, make sure it isn't the end node, add to 
+    // prospected 
+    Node* prosp = (node*)malloc(sizeof(Node)); 
+    prosp->next = 0;
+    prosp->last = 0;
+    prosp->x = rand() % 20;
+    prosp->y = rand() % 20;
+    prosp->cost = sqrt((prosp->x - endX)^2 + (prosp->y - endY)^2); // Distance to destination
     
     // Add Beginning node to the prospected list
 	/* Begin pathfinding algorithm:
@@ -62,11 +65,47 @@ int main()
 	*/
     
     // deallocate memory of all the nodes
-    freeList(visited);
-    freeList(prospected);
-    freeList(obstacles);
+    freeList(visit);
+    freeList(prosp);
+    freeList(obst);
     
     endwin();				// End window
 
     return 0;
 }
+
+// Function for deallocating memory taken up by the node objects in list
+int freeList(
+    Node* list				// List of nodes to deallocate
+)
+{
+    while(list != NULL)
+    {
+	Node* hold = list->next;
+	free(list);
+	list = hold;
+    }
+
+    return 0;
+}
+
+// Function to transfer a node from one list to another
+int nodeTransfer(
+    Node* transfer,			// Node to transfer 
+    Node* listFrom,			// Node list to transfer from
+    Node* listTo			// Node list to transfer to
+)
+{
+    return 0;
+}
+
+// Function for adding a node to a list
+int nodeAdd(
+    Node* list,				// List to add to
+    int x,				// X coordinate
+    int y				// Y coordinate
+)
+{
+    return 0;
+}
+
