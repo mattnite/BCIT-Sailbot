@@ -42,16 +42,16 @@ int main()
 {
     srand(time(NULL));			// Time seed for random generator
     
-    Node* visit = 0;		// initialize visit list
-    Node* obst = 0;		// initialize obstacles
+    Node* visit = NULL;		// initialize visit list
+    Node* obst = NULL;		// initialize obstacles
+    Node* prosp = NULL;		// initialize prospeted node list
     
     initscr();				// Start curses mode
     nodelay(stdscr, false);
     noecho();
 
-    // Generate End Node
-    int endX = rand() % n;
-    int endY = rand() % n;
+    // Generate End Node (can be seen as a list of one node)
+    Node* end = createNode(rand() % n, rand() % n);
 
     // Generate Beginning node, make sure it isn't the end node, add to 
     // prospected 
