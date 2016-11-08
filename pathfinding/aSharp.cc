@@ -13,7 +13,12 @@
 #include <stdlib.h>			// rand()
 #include <math.h>			// sqrt()
 
-static int n = 20;			// Length and width of mesh
+// Defines for node lists
+#define END 0
+#define PRO 1
+#define VIS 2
+#define OBS 3
+
 typedef struct Node
 {
     Node* next;				// Next node in list
@@ -23,68 +28,81 @@ typedef struct Node
     float cost;				// Cost of node
 } node;
 
+static int n = 20;			// Length and width of mesh
+static Node* mesh[4];
+
 // Create Node and return pointer
 Node* createNode(int xPos, int yPos);
 
 // Analyzes cost of node
-int costCheck(Node* check, Node* end);
+int costCheck(Node* check, Node* begin, Node* end);
 
 // Function for deallocating memory taken up by the node objects in list
 int freeList(Node* list);
 
 // Function to transfer a node from one list to another
-int nodeTransfer(Node* transfer, Node* listFrom, Node* listTo);
+int transferNode(Node* transfer, Node* listFrom, Node* listTo);
 
 // Function for adding a node to a list
-int nodeAdd(Node* list, int x, int y);
+int addNode(Node* list, int x, int y);
+
+// Returns magnitude of a vector
+float mag(float x, float y);
 
 int main()
 {
     srand(time(NULL));			// Time seed for random generator
-    
-    Node* visit = NULL;		// initialize visit list
-    Node* obst = NULL;		// initialize obstacles
-    Node* prosp = NULL;		// initialize prospeted node list
     
     initscr();				// Start curses mode
     nodelay(stdscr, false);
     noecho();
 
     // Generate End Node (can be seen as a list of one node)
-    Node* end = createNode(rand() % n, rand() % n);
+    mesh[END] = createNode(rand() % n, rand() % n);
 
     // Generate Beginning node, make sure it isn't the end node, add to 
     // prospected 
-    Node* prosp = (node*)malloc(sizeof(Node)); 
-    prosp->next = 0;
-    prosp->last = 0;
-    prosp->x = rand() % 20;
-    prosp->y = rand() % 20;
-    prosp->cost = 1.2; // Distance to destination
+    mesh[PRO] = createNode(rand() % n, rand() % n);
+    costCheck(mesh[PRO], mesh[PRO], mesh[END]);
+
+    // add some node
+    addNode(mesh[PRO], 3, 4);
+    addNode(mesh[PRO], 15, 15);
+
+    // A* Basic algorithm
+    // first we find the lowest cost prospective node
+    Node* lowCost = mesh[PRO];
+    Node* checker = mesh[PRO];
+
+    while(checker->next != NULL)
+    {
+	if(checker->cost < lowCost->cost)
+	    lowCost = checker;
+	checker = checker->next;
+    }
+
+    printw("The lowest cost node is %d, %d with cost of %f\n", lowCost->x, lowCost->y, lowCost->cost);
+    
+    // we then visit that node
+    //transferNode(lowCost, prosp, visit);
+	// visiting that node reqires prospecting all surrounding nodes that havent been visited
+	// check to see if a
+	// if a node has been prospected, the "last" pointer is then
+
     
     // Ncurses demo
-    printw("Beginning coordinates: %d, %d\n", prosp->x, prosp->y);
-    printw("End Coordinates: %d, %d\n", endX, endY);
-    printw("Distance to travel: %f\n", prosp->cost);
+    printw("Beginning coordinates: %d, %d\n", mesh[PRO]->x, mesh[PRO]->y);
+    printw("End Coordinates: %d, %d\n", mesh[END]->x, mesh[END]->y);
+    printw("Cost of beginning node: %f\n", mesh[PRO]->cost);
     printw("Press any key to delete Nodes\n");
     refresh();
     getch();
-    
-
-
-
-    // Add Beginning node to the prospected list
-	/* Begin pathfinding algorithm:
-	    1. 
-	    2. 
-	    3. 
-	    4.  
-	*/
-    
+   
     // deallocate memory of all the nodes
-    freeList(visit);
-    freeList(prosp);
-    freeList(obst);
+    freeList(mesh[VIS]);
+    freeList(mesh[PRO]);
+    freeList(mesh[OBS]);
+    freeList(mesh[END]);
     printw("Press any key to exit\n");
     refresh();
     getch();
@@ -110,11 +128,13 @@ Node* createNode(
 }
 
 // Analyze cost of node
-int costCheck(Node* check, Node* end)
+int costCheck(Node* check, Node* begin, Node* end)
 {
-    check->cost = sqrt(check->x - end->x + check->y - end->y);
+    check->cost = mag(check->x - begin->x, check->y - begin->y)
+	+ mag(check->x - end->x, check->y - end->y);
     return 0;
 }
+
 // Function for deallocating memory taken up by the node objects in list
 int freeList(
     Node* list				// List of nodes to deallocate
@@ -132,42 +152,67 @@ int freeList(
 }
 
 // Function to transfer a node from one list to another
-int nodeTransfer(
+int transferNode(
     Node* transfer,			// Node to transfer 
     Node* listFrom,			// Node list to transfer from
     Node* listTo			// Node list to transfer to
 )
 {
-    Node* before = 0;			// A holder variable
-    
+    // Exit if empty list
+    if(listFrom == NULL)
+	return -1;
+
     // Go through first list and find node preceding
-    while(true)
+    while(listFrom->next != transfer)
     {
-	// Exit if list doesn't contain the transfer node
-	if(listFrom == NULL)
-	    return -1;	
+	// Exit if list doesn't contain the transfer node, otherwise
+	// move pointer up the list
+	if(listFrom->next == NULL)
+	    return -2;
+	
+	listFrom = listFrom->next;
     }
-    // save pointer to the node after transfer
-    // zero out transfer node next
-    // point previous node of transfer to node after transfer
-    // go through second list, make it point to transfer
     
-    
+    // The node preceding points to node after transfer reset transfer ptr
+    listFrom->next = transfer->next;
+    transfer->next = NULL;
+
+    // If second list is empty
+    if(listTo == NULL)
+	listTo = transfer;
+    else
+    {
+	// Find end of second list, insert transfer at end
+	while(listTo->next != NULL)
+	    listTo = listTo->next;
+	listTo->next = transfer;
+    }
     return 0;
 }
 
 // Function for adding a node to a list
-int nodeAdd(
+int addNode(
     Node* list,				// List to add to
     int x,				// X coordinate
     int y				// Y coordinate
 )
 {
-    Node* temp = createNode(x,y);
+    if(list == NULL)
+	list = createNode(x,y);
+    else
+    {
+	// Loop through and find the end of the list
+	while(list->next != NULL)
+	    list = list->next;
     
-    // Loop through and find the end of the list
-    // Make list point to the new Node
-    
+	// Make list point to the new Node
+	list->next = createNode(x,y);
+    }
     return 0;
 }
 
+// Calculate magnitude of a vector
+float mag(float x, float y)
+{
+    return sqrt(x*x + y*y);
+}
