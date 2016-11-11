@@ -29,13 +29,16 @@ typedef struct Node
 } node;
 
 static int n = 20;			// Length and width of mesh
-static Node* mesh[4];
+static Node* mesh[4] = {    NULL, 
+			    NULL, 
+			    NULL,
+			    NULL    };
 
 // Create Node and return pointer
 Node* createNode(int xPos, int yPos);
 
 // Analyzes cost of node
-int costCheck(Node* check, Node* begin, Node* end);
+int costCheck(int xPos, int yPos);
 
 // Function for deallocating memory taken up by the node objects in list
 int freeList(Node* list);
@@ -44,7 +47,7 @@ int freeList(Node* list);
 int transferNode(Node* transfer, Node* listFrom, Node* listTo);
 
 // Function for adding a node to a list
-int addNode(Node* list, int x, int y);
+int addNode(Node** list, int xPos, int yPos);
 
 // Returns magnitude of a vector
 float mag(float x, float y);
@@ -56,44 +59,71 @@ int main()
     initscr();				// Start curses mode
     nodelay(stdscr, false);
     noecho();
+    scrollok(stdscr, true);
+    start_color();
+    
+    // Color modes
 
+    enum colorPair
+    {
+	endPoint = 1,
+	prospected,
+	visited,
+	obstacles
+    };
+
+    init_pair(endPoint, COLOR_BLACK, COLOR_YELLOW);
+    init_pair(visited, COLOR_BLACK, COLOR_RED);
+    init_pair(prospected, COLOR_BLACK, COLOR_GREEN);
+    init_pair(obstacles, COLOR_BLACK, COLOR_WHITE);
+   
     // Generate End Node (can be seen as a list of one node)
-    mesh[END] = createNode(rand() % n, rand() % n);
+    addNode(&mesh[END], rand() % n, rand() % n);
 
     // Generate Beginning node, make sure it isn't the end node, add to 
-    // prospected 
-    mesh[PRO] = createNode(rand() % n, rand() % n);
-    costCheck(mesh[PRO], mesh[PRO], mesh[END]);
-
-    // add some node
-    addNode(mesh[PRO], 3, 4);
-    addNode(mesh[PRO], 15, 15);
-
+    // visited
+    addNode(&mesh[VIS], rand() % n, rand() % n);
+    
+    // Look at all the nodes around the beginning, add to prospected list, evaluate cost
+    for(int i = mesh[VIS]->x - 1; i < mesh[VIS]->x + 2; i++)
+    {
+	for(int j = mesh[VIS]->y - 1; j < mesh[VIS]->y + 2; j++)
+	{
+	    if(!(i == mesh[VIS]->x && j == mesh[VIS]->y))
+	    {		
+		addNode(&mesh[PRO], i, j);
+		//costCheck(i, j);
+	    }
+	}
+    }
+    
     // A* Basic algorithm
     // first we find the lowest cost prospective node
-    Node* lowCost = mesh[PRO];
-    Node* checker = mesh[PRO];
+    //Node* lowCost = mesh[PRO];
+	//for(Node* check = mesh[PRO]; check->next != NULL; check = check->next)
+	    //if(check->cost < lowCost->cost)
+		//lowCost = check;
 
-    while(checker->next != NULL)
-    {
-	if(checker->cost < lowCost->cost)
-	    lowCost = checker;
-	checker = checker->next;
-    }
-
-    printw("The lowest cost node is %d, %d with cost of %f\n", lowCost->x, lowCost->y, lowCost->cost);
-    
     // we then visit that node
     //transferNode(lowCost, prosp, visit);
 	// visiting that node reqires prospecting all surrounding nodes that havent been visited
 	// check to see if a
 	// if a node has been prospected, the "last" pointer is then
-
+    
     
     // Ncurses demo
-    printw("Beginning coordinates: %d, %d\n", mesh[PRO]->x, mesh[PRO]->y);
+    for(int list = 0; list < 4; list ++)
+    {
+	attron(COLOR_PAIR(list + 1));
+	for(Node* check = mesh[list]; check != NULL; check = check->next)
+	    if(check->x < n && check->x >= 0 && check->y < n && check->y >= 0)
+		mvaddch(n - 1 - check->y, check->x, ' ');
+	attroff(COLOR_PAIR(list + 1));
+    }
+
+    move(n,0);
+    printw("Beginning coordinates: %d, %d\n", mesh[VIS]->x, mesh[VIS]->y);
     printw("End Coordinates: %d, %d\n", mesh[END]->x, mesh[END]->y);
-    printw("Cost of beginning node: %f\n", mesh[PRO]->cost);
     printw("Press any key to delete Nodes\n");
     refresh();
     getch();
@@ -128,10 +158,17 @@ Node* createNode(
 }
 
 // Analyze cost of node
-int costCheck(Node* check, Node* begin, Node* end)
+int costCheck(int xPos, int yPos)
 {
-    check->cost = mag(check->x - begin->x, check->y - begin->y)
-	+ mag(check->x - end->x, check->y - end->y);
+    // look through prospected and find node
+    Node* check = mesh[PRO];
+    for(;   !(check->x == xPos && check->y == yPos) | check != NULL; 
+	    check = check->next)
+    if(check == NULL)
+	return -1;
+
+    check->cost = mag(check->x - mesh[VIS]->x, check->y - mesh[VIS]->y)
+	+ mag(check->x - mesh[END]->x, check->y - mesh[END]->y);
     return 0;
 }
 
@@ -142,7 +179,7 @@ int freeList(
 {
     while(list != NULL)
     {
-	printw("Deleting Node at %d, %d\n", list->x, list->y);
+	printw("Deleting Node at %d, %d Cost: %f\n", list->x, list->y, list->cost);
 	Node* hold = list->next;
 	free(list);
 	list = hold;
@@ -192,21 +229,21 @@ int transferNode(
 
 // Function for adding a node to a list
 int addNode(
-    Node* list,				// List to add to
-    int x,				// X coordinate
-    int y				// Y coordinate
+    Node** list,
+    int xPos,				// X coordinate
+    int yPos				// Y coordinate
 )
 {
-    if(list == NULL)
-	list = createNode(x,y);
+    Node* check = *list;
+    if(*list == NULL)
+	*list = createNode(xPos ,yPos);
     else
     {
 	// Loop through and find the end of the list
-	while(list->next != NULL)
-	    list = list->next;
-    
+	for(; check->next != NULL; check = check->next)
+	    ;    
 	// Make list point to the new Node
-	list->next = createNode(x,y);
+	check->next = createNode(xPos, yPos);
     }
     return 0;
 }
