@@ -18,6 +18,7 @@
 #define PRO 1
 #define VIS 2
 #define OBS 3
+#define PTH 4
 
 typedef struct Node
 {
@@ -28,7 +29,7 @@ typedef struct Node
     float cost;				// Cost of node
 } node;
 
-static int n = 20;			// Length and width of mesh
+static int n = 30;			// Length and width of mesh
 static Node* mesh[4] = {    NULL, 
 			    NULL, 
 			    NULL,
@@ -36,9 +37,6 @@ static Node* mesh[4] = {    NULL,
 
 // Create Node and return pointer
 Node* createNode(int xPos, int yPos);
-
-// Analyzes cost of node
-int costCheck(int xPos, int yPos);
 
 // Function for deallocating memory taken up by the node objects in list
 int freeList(Node* list);
@@ -51,6 +49,12 @@ int addNode(Node** list, int xPos, int yPos);
 
 // Returns magnitude of a vector
 float mag(float x, float y);
+
+// Checks cost of a node 
+int costCheck(Node* list, int xPos, int yPos, Node* pointTo);
+
+// Tells you if a node exsists within a list
+bool findNode(Node* list, int xPos, int yPos);
 
 int main()
 {
@@ -69,13 +73,15 @@ int main()
 	endPoint = 1,
 	prospected,
 	visited,
-	obstacles
+	obstacles,
+	pathTaken
     };
 
     init_pair(endPoint, COLOR_BLACK, COLOR_YELLOW);
     init_pair(visited, COLOR_BLACK, COLOR_RED);
     init_pair(prospected, COLOR_BLACK, COLOR_GREEN);
     init_pair(obstacles, COLOR_BLACK, COLOR_WHITE);
+    init_pair(pathTaken, COLOR_BLACK, COLOR_CYAN);
    
     // Generate End Node (can be seen as a list of one node)
     addNode(&mesh[END], rand() % n, rand() % n);
@@ -83,36 +89,57 @@ int main()
     // Generate Beginning node, make sure it isn't the end node, add to 
     // visited
     addNode(&mesh[VIS], rand() % n, rand() % n);
-    
+   
     // Look at all the nodes around the beginning, add to prospected list, evaluate cost
     for(int i = mesh[VIS]->x - 1; i < mesh[VIS]->x + 2; i++)
-    {
 	for(int j = mesh[VIS]->y - 1; j < mesh[VIS]->y + 2; j++)
-	{
 	    if(!(i == mesh[VIS]->x && j == mesh[VIS]->y))
-	    {		
+	    {
 		addNode(&mesh[PRO], i, j);
-		//costCheck(i, j);
+		costCheck(mesh[PRO], i, j, mesh[VIS]);
+	    }
+    
+    // A* Basic algorithm
+    // Runs until a node matching the end node is visited
+    while(!findNode(mesh[VIS], mesh[END]->x, mesh[END]->y))
+    {
+	// first we find the lowest cost prospective node
+	Node* lowCost = mesh[PRO];
+	for(Node* check = mesh[PRO]; check->next != NULL; check = check->next)
+	    if(check->cost < lowCost->cost)
+		lowCost = check;
+
+	// we then visit that node
+	transferNode(lowCost, mesh[PRO], mesh[VIS]);
+    
+	// visiting that node reqires prospecting all surrounding nodes that havent been visited
+	for(int i = lowCost->x - 1; i < lowCost->x + 2; i++)
+	{
+	    for(int j = lowCost->y - 1; j < lowCost->y + 2; j++)
+	    {
+		// Make sure the node isnt the current node isn't visited, or an obstacle
+		if(!(findNode(mesh[VIS], i, j) || findNode(mesh[OBS], i,j)))
+		{
+		    if(!findNode(mesh[PRO], i, j))
+			addNode(&mesh[PRO], i, j);
+		    costCheck(mesh[PRO], i, j, lowCost);
+		}
 	    }
 	}
     }
     
-    // A* Basic algorithm
-    // first we find the lowest cost prospective node
-    //Node* lowCost = mesh[PRO];
-	//for(Node* check = mesh[PRO]; check->next != NULL; check = check->next)
-	    //if(check->cost < lowCost->cost)
-		//lowCost = check;
+    Node* path = mesh[VIS];
+    while(!(path->x == mesh[END]->x && path->y == mesh[END]->y))
+	path = path->next;
+    
+    while(path->last != NULL)
+    {
+	addNode(&mesh[PTH], path->x, path->y);
+	path = path->last;
+    }
 
-    // we then visit that node
-    //transferNode(lowCost, prosp, visit);
-	// visiting that node reqires prospecting all surrounding nodes that havent been visited
-	// check to see if a
-	// if a node has been prospected, the "last" pointer is then
-    
-    
     // Ncurses demo
-    for(int list = 0; list < 4; list ++)
+    for(int list = 0; list < 5; list ++)
     {
 	attron(COLOR_PAIR(list + 1));
 	for(Node* check = mesh[list]; check != NULL; check = check->next)
@@ -120,13 +147,11 @@ int main()
 		mvaddch(n - 1 - check->y, check->x, ' ');
 	attroff(COLOR_PAIR(list + 1));
     }
-
+    attron(COLOR_PAIR(endPoint));
+    mvaddch(n - 1 - mesh[END]->y, mesh[END]->x, ' ');
+    attroff(COLOR_PAIR(endPoint));
     move(n,0);
-    printw("Beginning coordinates: %d, %d\n", mesh[VIS]->x, mesh[VIS]->y);
-    printw("End Coordinates: %d, %d\n", mesh[END]->x, mesh[END]->y);
-    printw("Press any key to delete Nodes\n");
     refresh();
-    getch();
    
     // deallocate memory of all the nodes
     freeList(mesh[VIS]);
@@ -139,8 +164,8 @@ int main()
     endwin();				// End window
 
     return 0;
-}
 
+}
 // Create Node and return pointer
 Node* createNode(
     int xPos,				// X position of node
@@ -157,21 +182,6 @@ Node* createNode(
     return temp;
 }
 
-// Analyze cost of node
-int costCheck(int xPos, int yPos)
-{
-    // look through prospected and find node
-    Node* check = mesh[PRO];
-    for(;   !(check->x == xPos && check->y == yPos) | check != NULL; 
-	    check = check->next)
-    if(check == NULL)
-	return -1;
-
-    check->cost = mag(check->x - mesh[VIS]->x, check->y - mesh[VIS]->y)
-	+ mag(check->x - mesh[END]->x, check->y - mesh[END]->y);
-    return 0;
-}
-
 // Function for deallocating memory taken up by the node objects in list
 int freeList(
     Node* list				// List of nodes to deallocate
@@ -179,7 +189,6 @@ int freeList(
 {
     while(list != NULL)
     {
-	printw("Deleting Node at %d, %d Cost: %f\n", list->x, list->y, list->cost);
 	Node* hold = list->next;
 	free(list);
 	list = hold;
@@ -249,7 +258,45 @@ int addNode(
 }
 
 // Calculate magnitude of a vector
-float mag(float x, float y)
+float mag(
+    float x, 
+    float y
+)
 {
     return sqrt(x*x + y*y);
+}
+
+int costCheck(Node* list, int xPos, int yPos, Node* pointTo)
+{
+    // Loop through list and find node
+    for(; !(list->x == xPos && list->y == yPos); list = list->next)
+	if(list == NULL)
+	    return -1;
+
+    // Point the last pointer to the current visited node   
+    list->last = pointTo;
+
+    // Cost evaluation
+    list->cost = mag(list->x - mesh[VIS]->x, list->y - mesh[VIS]->y) 
+	+ mag(list->x - mesh[END]->x, list->y - mesh[END]->y);
+}
+
+// Find out if a node exists within a list
+bool findNode(
+    Node* list, 
+    int xPos, 
+    int yPos
+)
+{
+    // If list is empty
+    if(list == NULL)
+	return false;
+    
+    // If the node is in the list, return true
+    for(; list != NULL; list = list->next)
+	if(list->x == xPos && list->y == yPos)
+	    return true;
+
+    // It isn't, so return false
+    return false;
 }
