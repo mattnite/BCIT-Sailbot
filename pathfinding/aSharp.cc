@@ -11,7 +11,6 @@
 #include <ncurses.h>			// For the ncurses environment
 #include <time.h>
 #include <stdlib.h>			// rand()
-#include <math.h>			// sqrt()
 #include "node.h"			// Linked lists for A*
 
 static int n = 30;			// Length and width of mesh

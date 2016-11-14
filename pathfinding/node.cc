@@ -5,6 +5,20 @@
 
 // This file contains functions used for the A* Algorithm using linked lists
 
+#include <stdlib.h>
+#include <math.h>
+#include "node.h"
+
+// Pointer table for the node lists
+Node* mesh[5] = {   NULL,
+		    NULL,
+		    NULL,
+		    NULL,
+		    NULL    };
+
+// Create Node and return pointer
+Node* createNode(int xPos, int yPos);
+
 // Gives the magnitude of a vector
 float mag(float x, float y);
 
