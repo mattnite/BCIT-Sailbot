@@ -11,9 +11,14 @@
 #include <ncurses.h>			// For the ncurses environment
 #include <time.h>
 #include <stdlib.h>			// rand()
+#include <unistd.h>
 #include "node.h"			// Linked lists for A*
 
 static int n = 30;			// Length and width of mesh
+
+// print lists
+int printLists(void);
+
 
 int main()
 {
@@ -48,6 +53,7 @@ int main()
     // Generate Beginning node, make sure it isn't the end node, add to 
     // visited
     addNode(&mesh[VIS], rand() % n, rand() % n);
+
    
     // Look at all the nodes around the beginning, add to prospected list, evaluate cost
     for(int i = mesh[VIS]->x - 1; i < mesh[VIS]->x + 2; i++)
@@ -66,6 +72,8 @@ int main()
     // Runs until a node matching the end node is visited
     while(!findNode(mesh[VIS], mesh[END]->x, mesh[END]->y))
     {
+	printLists();
+	usleep(100000);
 	// first we find the lowest cost prospective node
 	Node* lowCost = mesh[PRO];
 	for(Node* check = mesh[PRO]; check->next != NULL; check = check->next)
@@ -106,20 +114,8 @@ int main()
 	path = path->last;
     }
 
-    // Print all nodes in their respective colors
-    for(int list = 0; list < 5; list ++)
-    {
-	attron(COLOR_PAIR(list + 1));
-	for(Node* check = mesh[list]; check != NULL; check = check->next)
-	    if(check->x < n && check->x >= 0 && check->y < n && check->y >= 0)
-		mvaddch(n - 1 - check->y, check->x, ' ');
-	attroff(COLOR_PAIR(list + 1));
-    }
-    
-    // Reprint the end point
-    attron(COLOR_PAIR(endPoint));
-    mvaddch(n - 1 - mesh[END]->y, mesh[END]->x, ' ');
-    attroff(COLOR_PAIR(endPoint));
+    printLists();
+
    
     // deallocate memory of all the nodes
     freeList(mesh[VIS]);
@@ -135,3 +131,25 @@ int main()
 
     return 0;
 }
+
+// Print all nodes in their respective colors
+int printLists(void)
+{
+    for(int list = 0; list < 5; list ++)
+    {
+	attron(COLOR_PAIR(list + 1));
+	for(Node* check = mesh[list]; check != NULL; check = check->next)
+	    if(check->x < n && check->x >= 0 && check->y < n && check->y >= 0)
+		mvaddch(n - 1 - check->y, check->x, ' ');
+	attroff(COLOR_PAIR(list + 1));
+    }
+    
+    // Reprint the end point
+    attron(COLOR_PAIR(1));
+    mvaddch(n - 1 - mesh[END]->y, mesh[END]->x, ' ');
+    attroff(COLOR_PAIR(1));
+    
+    refresh();
+    return 0;
+}   
+
