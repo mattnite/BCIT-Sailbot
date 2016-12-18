@@ -54,7 +54,8 @@ int main()
     // visited
     addNode(&mesh[VIS], rand() % n, rand() % n);
 
-   
+    for (int i = 0; i < n/2; i++)
+	addNode(&mesh[OBS], i + 5, 10);
     // Look at all the nodes around the beginning, add to prospected list, evaluate cost
     for(int i = mesh[VIS]->x - 1; i < mesh[VIS]->x + 2; i++)
     {

@@ -133,7 +133,7 @@ int costCheck(Node* list, int xPos, int yPos, Node* pointTo)
     list->last = pointTo;
 
     // Cost evaluation
-    list->cost = mag(list->x - mesh[VIS]->x, list->y - mesh[VIS]->y) 
+    list->cost = mag(list->x - mesh[VIS]->x, list->y - mesh[VIS]->y)
 	+ mag(list->x - mesh[END]->x, list->y - mesh[END]->y);
 }
 
