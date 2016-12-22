@@ -93,15 +93,15 @@ int addNode(
     list->next = added;
 
     // Evaluate Cost
-    costEval(list, xPos, yPos, NULL);
+    costEval(list, NULL, xPos, yPos);
 }
 
 // Evaluate cost of a node
 int costEval(
     Node *list, 
+    Node *newParent,
     int xPos, 
-    int yPos, 
-    Node *newParent
+    int yPos 
 )
 {
     Node *evalNode;
@@ -131,13 +131,13 @@ int costEval(
     if (temp->x != nodeData->x && temp->y != nodeData->y)
 	gCost += 14;
     else
-	gCost += 10;
+	gCost += 10;	
 
-    int difX = abs(temp->x - endX);
-    int difY = abs(temp->y - endY);
+    int difX = temp->x - endX;
+    int difY = temp->y - endY;
     int diag = min(difX, difY);
-    int hCost = 14*diag + difX + difY - 2*diag;
-    
+    int hCost = 14*diag + difX + difY - 2*diag; 
+
     // Later: THE Algorithm goes here
     int fCost = gCost + hCost;
     
@@ -162,7 +162,7 @@ Node *findNode(
 )
 {    
     // If the node is in the list, return true
-    while (list->next != NULL)
+    for (; list->next != NULL; list = list->next)
     {
 	// if Node is non-empty, we check it out
 	if (list->data != NULL)
@@ -173,9 +173,6 @@ Node *findNode(
 	    if (temp->x == xPos && temp->y == yPos)
 		return list;
 	}
-	// Let's check out the next guy
-        list = list->next;
-	
     }
 
     // It isn't, so return NULL

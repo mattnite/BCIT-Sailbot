@@ -40,7 +40,7 @@ int transferNode(Node *transfer, Node *listFrom, Node *listTo);
 int addNode(Node *list, Node *parent, int xPos, int yPos);
 
 // Re-evaluates the cost of a node, points the node to the current visited
-int costEval(Node *list, int xPos, int yPos, Node *newParent);
+int costEval(Node *list, Node *newParent, int xPos, int yPos);
 
 // Tells you if a node exsists within a list
 Node *findNode(Node *list, int xPos, int yPos);

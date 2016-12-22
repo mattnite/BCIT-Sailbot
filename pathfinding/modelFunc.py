@@ -1,4 +1,4 @@
-# This is a python function to model the sailbot.
+#This is a python function to model the sailbot.
 
 import numpy as np
 
