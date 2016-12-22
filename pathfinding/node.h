@@ -1,4 +1,4 @@
-// Node Interface File
+// Linked List Interface File
 
 // Author: Matthew Knight
 // Date: 2016-11-12
@@ -9,38 +9,40 @@
 #ifndef NODE_H_
 #define NODE_H_
 
-// Defines for node lists
-#define END 0
-#define PRO 1
-#define VIS 2
-#define OBS 3
-#define PTH 4
-
-// This Node structure makes up the linked lists for the A* algorithm
-typedef struct Node
+// Generic node structure for linked lists
+typedef struct Node_
 {
-    Node* next;				// Next node in list
-    Node* last;				// Last node in A* algorithm
-    int x;				// X position of node
-    int y;				// Y position of node
-    float cost;				// Cost of node
-} node;
+    struct Node_ *next;				// Next node in list
+    void *data;				// Generic pointer to element
+} Node;
 
-extern Node* mesh[5];
+// Element of a path node linked list
+typedef struct PathNode_
+{
+    Node *parent;			// Pointer to parent node
+    int x;				// X position
+    int y;				// Y position
+    int g;				// G cost
+    int h;				// H cost
+    int f;				// F cost
+} PathNode;
+
+// Initialize Node or List
+Node *createNode();
 
 // Function for deallocating memory taken up by the node objects in list
-int freeList(Node* list);
+int freeList(Node *list);
 
 // Function to transfer a node from one list to another
-int transferNode(Node* transfer, Node* listFrom, Node* listTo);
+int transferNode(Node *transfer, Node *listFrom, Node *listTo);
 
 // Function for adding a node to a list with specific coordinates
-int addNode(Node** list, int xPos, int yPos);
+int addNode(Node *list, Node *parent, int xPos, int yPos);
 
 // Re-evaluates the cost of a node, points the node to the current visited
-int costCheck(Node* list, int xPos, int yPos, Node* pointTo);
+int costEval(Node *list, int xPos, int yPos, Node *newParent);
 
 // Tells you if a node exsists within a list
-bool findNode(Node* list, int xPos, int yPos);
+Node *findNode(Node *list, int xPos, int yPos);
 
 #endif
