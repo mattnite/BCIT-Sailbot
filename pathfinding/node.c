@@ -5,12 +5,22 @@
 
 // This file contains functions used for the A* Algorithm using linked lists
 #include <stdlib.h>
+#include <stdio.h>
 #include <math.h>
 #include "node.h"
 
 // Global Var
 int endX = 0;
 int endY = 0;
+
+// Returns minimum integer
+int min(int a, int b);
+
+// Returns maximum integer
+int max(int a, int b);
+
+// Returns absolute of integer
+int abs(int a);
 
 // Create Node and return pointer
 Node *createNode(
@@ -28,10 +38,11 @@ int freeList(
     Node *list				// List of nodes to deallocate
 )
 {
-    while(list != NULL)
+    while (list != NULL)
     {
 	Node *hold = list->next;
-	free(list->data);
+	if (list->data != NULL)
+	    free(list->data);
 	free(list);
 	list = hold;
     }
@@ -85,6 +96,7 @@ int addNode(
     newData->parent = parent;
     added->data = newData;
     
+
     // Find end of list
     while(list->next != NULL)
 	list = list->next;
@@ -93,6 +105,7 @@ int addNode(
     list->next = added;
 
     // Evaluate Cost
+
     costEval(list, NULL, xPos, yPos);
 }
 
@@ -104,13 +117,14 @@ int costEval(
     int yPos 
 )
 {
-    Node *evalNode;
-    // First check if node is in the list
-    if (!(evalNode = (Node*)findNode(list, xPos, yPos)));
-	return -1;
+    Node *evalNode = findNode(list, xPos, yPos);
 
+    // First check if node is in the list
+    if (!evalNode)
+	return -1;
+    
     // Load up data
-    PathNode *temp = (PathNode*)evalNode->data;
+    PathNode *temp = evalNode->data;
 
     // If the parent is Null, exit (we don't care)
     if (!temp->parent)
@@ -120,9 +134,9 @@ int costEval(
 
     // check if we will be comparing with current costs
     if (newParent)
-	nodeData = (PathNode*)newParent->data;	
+	nodeData = newParent->data;	
     else
-	nodeData = (PathNode*)temp->parent->data;
+	nodeData = temp->parent->data;
 	
     // Evaluate costs
     int gCost = nodeData->g;
@@ -133,24 +147,27 @@ int costEval(
     else
 	gCost += 10;	
 
-    int difX = temp->x - endX;
-    int difY = temp->y - endY;
+    
+    int difX = abs(temp->x - endX);
+    int difY = abs(temp->y - endY);
     int diag = min(difX, difY);
-    int hCost = 14*diag + difX + difY - 2*diag; 
-
+    int hCost = 14*diag + 10*difX + 10*difY - 20*diag; 
+    
     // Later: THE Algorithm goes here
     int fCost = gCost + hCost;
-    
-    // exit if the old cost is greater
-    if (newParent && fCost < temp->f)
+   
+    // exit if the old cost is less
+    if (newParent && fCost > temp->f)
 	return 0;
-    
-    // update
-    temp->g = gCost;
-    temp->h = hCost;
-    temp->f = fCost;
+    else
+    {
+	// update
+	temp->g = gCost;
+	temp->h = hCost;
+	temp->f = fCost;
 
-    return 0;
+	return 0;
+    }
 }
 
 // Find out if a node exists within a list, return pointer is found, else return
@@ -162,12 +179,12 @@ Node *findNode(
 )
 {    
     // If the node is in the list, return true
-    for (; list->next != NULL; list = list->next)
+    for (; list != NULL; list = list->next)
     {
 	// if Node is non-empty, we check it out
 	if (list->data != NULL)
 	{
-	    PathNode *temp = (PathNode*)list->data;
+	    PathNode *temp = list->data;
 	
 	    // If it matches, then we're golden
 	    if (temp->x == xPos && temp->y == yPos)
@@ -178,3 +195,32 @@ Node *findNode(
     // It isn't, so return NULL
     return NULL;
 }
+
+// Returns minimum integer
+int min(int a, int b)
+{
+    if (a < b)
+	return a;
+    else
+	return b;
+}
+
+// Returns maximum integer
+int max(int a, int b)
+{
+    if (a > b)
+	return a;
+    else
+	return b;
+}
+
+// Returns absolute of integer
+int abs(int a)
+{
+    if (a < 0)
+	return a*-1;
+    else
+	return a;
+}
+
+

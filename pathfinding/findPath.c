@@ -10,6 +10,7 @@
 #include <unistd.h>			// For getopt()
 #include <stdlib.h>
 #include "node.h"
+#include "stack.h"
 
 extern int endX;
 extern int endY;
@@ -86,33 +87,20 @@ int main(int argc, char *argv[])
 	    current = current->next;
 
 	PathNode *cData = (PathNode*)current->data;
-	printf("Looking around (%d, %d)\n", cData->x, cData->y);	
 	// evaluate nodes around
 	int i, j;
 	for (i = cData->x - 1; i < cData->x + 2; i++)	
-	{
 	    for (j = cData->y - 1; j < cData->y + 2; j++)
-		{
 		    if (!findNode(obs, i, j))
-		    {
 			if (!findNode(closed, i, j))
-			{
 			    if(!findNode(open, i, j))
-			    {
 				addNode(open, current, i, j);
-				printf("open <- (%d, %d)\n", i, j);
-			    }
 			    else
-			    {
 				costEval(open, current, i, j);
-			    }
-			}
-		    }
-		}
-	}
 	
 	// look for cheapest node
 	char fFlag = 0;
+	int count = 0;
 	int cost;
 	Node *lowest, *parser = open;
 	
@@ -136,7 +124,7 @@ int main(int argc, char *argv[])
 		}
 	    }
 	}
-	
+
 	// Check hCost
 	if (fFlag)
 	{
@@ -154,19 +142,40 @@ int main(int argc, char *argv[])
 		    if (check->f == cost)
 			lowest = parser;
 		}
-		
 	    }
 	}
-
+	
 	// transfer open to closed
 	transferNode(lowest, open, closed);
     }
 
+    // Initialize the stack
+    Node *stack = createNode();
+    
+    // Find end node
+    Node *endNode = findNode(closed, endX, endY);
+    PathNode *endData = endNode->data;
+    
+    // pushing to the stack
+    while (endData->parent)
+    {	
+	push(stack, endNode);
+	endNode = endData->parent;
+	endData = endNode->data;
+    }
+
+    // Pop and print
+    while (stack->next)
+    {
+	PathNode *look = pop(stack)->data;
+	printf("%d,%d\n", look->x, look->y);
+    }
+    
     // Free the lists
     freeList(obs);
     freeList(open);
     freeList(closed);
-
+    freeList(stack);
     return 0;
 }
 
