@@ -48,7 +48,8 @@ void sailbot::advance(float rudder)
 
     
     // New Theta Value
-    thetaH[0] = (1/(b*dt + J))*((b*dt + 2*J)*thetaH[1] - J*thetaH[2] + (rudder*velocity*kr*dt*dt));
+    thetaH[0] = (1/(b*dt + J))*((b*dt + 2*J)*thetaH[1] - J*thetaH[2] 
+	+ (rudder*velocity*kr*dt*dt));
 
     // New coordinate values
     xPos[0] = xPos[1] + dt*velocity*sinf(thetaH[0]);
@@ -82,4 +83,16 @@ float sailbot::saturate(float val, float max)
     if (val < -max)
 	return -max;
     return val;
+}
+
+// Keep angle between 0 and 2*pi
+float sailbot::normalizeAngle(float angle)
+{
+    if (angle > 0)
+	if (angle/(2*M_PI) > 1)
+	    return fmod(angle/(2*M_PI))*2*M_PI;
+	else 
+	    return angle;
+    else
+	
 }
