@@ -1,9 +1,15 @@
 \documentclass{article}
 \usepackage{graphicx}
+    \graphicspath{ {images/} }
 \usepackage[margin=1in]{geometry}
 \usepackage{pdfpages}
 \usepackage[colorlinks, urlcolor=blue]{hyperref}
+\usepackage{tikz}
+\usepackage{calc}
 \renewcommand{\familydefault}{\sfdefault}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
 
 \begin{document}
 \includepdf{./images/frontPage.pdf}
@@ -12,14 +18,18 @@
 BCIT Sailbot is a student initiative under IEEE BCIT to design and build an
 autonomous sailboat, or "sailbot" for the International Robotic Sailing Regatta 
 (IRSR) in June 2017. This will be BCIT's first time competing and we intend to 
-win.
+win. 
 
-Our team consists of over a dozen students that come from BCIT's Mechatronics, 
+Our team consists of a dozen students that come from BCIT's Mechatronics, 
 Electrical Engineering and Mechanical Engineering programs. These are students, 
 who come together not for class credit or financial gain, but to further their 
 abilities by being a part of a challenging project. Designing and builing the 
 sailbot will help them improve both their technical, and non-technical skill 
 sets as well as some MacGyvering skills like any good engineering project.
+
+\begin{center}
+    \includegraphics[scale=0.1]{Sailing.jpg}
+\end{center}
 
 \section*{Sail What?}
 A sailbot is an autonomous sailboat. By relying on the wind for propulsion, and 
@@ -31,18 +41,20 @@ environmental monitoring for the mining and petroleum industries and
 oceanography. It is a developing technology and competitions like the IRSR allow
 students to take part in its advancement.
 
+\begin{center}
+    \includegraphics[scale=0.6]{sailbotRender.png}
+\end{center}
+
 \section*{The Competition}
 Every year teams from across the world come to compete at the International 
 Robotic Sailing Regatta competition. At the IRSR, there are a number of races 
 that test navigation, tactics and design. During the competiton, the saiboat 
 must steer and trim sails based on measurements of the wind, position, and 
-direction without human intervention. 
+direction without human intervention.
 
 This year IRSR takes place in Annapolis, Maryland June 11 - 16th at the United 
-States Naval Academy. 
-
-If you'd like to check out the IRSR some more, their website is right 
-\href{http://sailbot.org}{here}.
+States Naval Academy. If you'd like to check out the IRSR some more, their 
+website is right \href{http://sailbot.org}{here}.
 
 \section*{Why We Need Your Help}
 
@@ -52,11 +64,42 @@ microcontrollers, accurate sensors and powerful communication equipment. These
 items are expensive, and this is why your support is so critical to the success 
 of our team.
 
-Sailbot Budget
+\subsection*{Sailbot Budget: \$14700}
 
-Project Timeline 
+\begin{center}
+    \begin{tikzpicture}[scale=4]
+	\path[fill=purple] (0,0) -- (0,1) arc (90:53.3:1);   % Mech
+	\path[fill=cyan] (0,0) -- (0.598, 0.801) arc (53.3:-59.4:1); % Elex
+	\path[fill=orange] (0,0) -- (0.509, -0.861) arc (-59.4:-71.6:1); % Testing
+	\path[fill=red] (0,0) -- (0.316, -0.949) arc (-71.6:-221:1); % Travel
+	\path[fill=brown] (0,0) -- (-0.755, 0.656) arc (-221:-270:1); % Accomodations
+    \end{tikzpicture}
+\end{center}
 
-Sponsorship Levels 
+\subsection*{Project Timeline}
+
+\begin{center}
+    \begin{tikzpicture}
+
+    \end{tikzpicture}
+\end{center}
+
+\subsection*{Sponsorship Levels}
+
+\subsubsection*{Bronze - \$1000}
+
+A Bronze level sponsor will get a logo placed on the wingsail of the sailbot as
+well as a thanks on our webpage.
+
+\subsubsection*{Silver - \$2500}
+
+A Silver level sponsor will get a large logo placed on the wingsail of the
+sailbot as well as a thanks on our webpage.
+
+\subsubsection*{Gold - \$5000}
+
+A Gold level sponsor will get a very prominent logo on the sailbot as well as
+an article on the sponsor.
 
 \section*{Contact Information}
 If you would like further information regarding the BCIT Sailbot team, or
