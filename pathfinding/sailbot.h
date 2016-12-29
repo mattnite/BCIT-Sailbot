@@ -53,11 +53,6 @@ private:
 	float val,			// Value to be saturated
 	float max			// upper and lower limit of saturation
     );
-
-    // Keep angle between 0 and 2pi
-    float normalizeAngle(
-	float angle			// angle to be normalized
-    );
 };
 
 #endif

@@ -7,6 +7,7 @@
 // position and wind speed and direction
 
 #include <math.h>
+#include <stdio.h>
 #include "sailbot.h"
 
 // ctor
@@ -51,6 +52,18 @@ void sailbot::advance(float rudder)
     thetaH[0] = (1/(b*dt + J))*((b*dt + 2*J)*thetaH[1] - J*thetaH[2] 
 	+ (rudder*velocity*kr*dt*dt));
 
+    if (thetaH[0] > M_PI)
+    {
+	thetaH[0] -= 2*M_PI;
+	thetaH[1] -= 2*M_PI;
+	thetaH[2] -= 2*M_PI;
+    }
+    if (thetaH[0] <= -M_PI)
+    {
+	thetaH[0] += 2*M_PI;
+	thetaH[1] += 2*M_PI;
+	thetaH[2] += 2*M_PI;
+    }
     // New coordinate values
     xPos[0] = xPos[1] + dt*velocity*sinf(thetaH[0]);
     yPos[0] = yPos[1] + dt*velocity*cosf(thetaH[0]);
@@ -85,14 +98,3 @@ float sailbot::saturate(float val, float max)
     return val;
 }
 
-// Keep angle between 0 and 2*pi
-float sailbot::normalizeAngle(float angle)
-{
-    if (angle > 0)
-	if (angle/(2*M_PI) > 1)
-	    return fmod(angle/(2*M_PI))*2*M_PI;
-	else 
-	    return angle;
-    else
-	
-}
