@@ -24,9 +24,9 @@ sailbot::sailbot(
 :dt(time), velocity(vel), kr(rudderK), J(mInertia), b(waterDrag)
 {
     // Initialize heading
-    thetaH[0] = initHead;
-    thetaH[1] = initHead;
-    thetaH[2] = initHead;
+    thetaH[0] = initHead*(M_PI/180);
+    thetaH[1] = initHead*(M_PI/180);
+    thetaH[2] = initHead*(M_PI/180);
 
     // Initialize position
     xPos[0] = initX;
