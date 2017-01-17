@@ -124,7 +124,7 @@ int costEval(
 	return -1;
     
     // Load up data
-    PathNode *temp = evalNode->data;
+    PathNode *temp = (PathNode*)evalNode->data;
 
     // If the parent is Null, exit (we don't care)
     if (!temp->parent)
@@ -134,9 +134,9 @@ int costEval(
 
     // check if we will be comparing with current costs
     if (newParent)
-	nodeData = newParent->data;	
+	nodeData = (PathNode*)newParent->data;	
     else
-	nodeData = temp->parent->data;
+	nodeData = (PathNode*)temp->parent->data;
 	
     // Evaluate costs
     int gCost = nodeData->g;
@@ -184,7 +184,7 @@ Node *findNode(
 	// if Node is non-empty, we check it out
 	if (list->data != NULL)
 	{
-	    PathNode *temp = list->data;
+	    PathNode *temp = (PathNode*)list->data;
 	
 	    // If it matches, then we're golden
 	    if (temp->x == xPos && temp->y == yPos)
