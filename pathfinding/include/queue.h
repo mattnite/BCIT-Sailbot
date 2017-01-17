@@ -1,24 +1,41 @@
 // Queue Interface File
 
 // Author: Matthew Knight
-// Date: 2016-12-29
+// Date: 2016-12-31
+
+// The queue is for storing the list of nodes for the path
 
 #ifndef QUEUE_H_
 #define QUEUE_H_
 
-#include "node.h"
+#include "./cpp/node.h"
 
-// Add node to the queue
-void addToQueue(Node *q, int xPos, int yPos);
+class Queue
+{
+    Node *top;				// Pointer to the top node
 
-// get the x coord of the next node
-int getNextX(Node *q);
+public:
+    // ctor
+    Queue();
 
-// get the y coord of the next node
-int getNextY(Node *q);
+    // add Node to queue
+    void add(int xPos, int yPos);
 
-// advance the queue
-int advanceQ(Node *q);
+    // return x coordinate of top node
+    int getX();
 
+    // return y coordinate of top node
+    int getY();
+
+    // delete top node and move to teh next one
+    void next();
+
+    // check if the queue is empty
+    int empty();
+
+    //dtor
+    ~Queue();
+    
+};
 
 #endif

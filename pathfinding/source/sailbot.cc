@@ -8,7 +8,7 @@
 
 #include <math.h>
 #include <stdio.h>
-#include "sailbot.h"
+#include "../include/sailbot.h"
 
 // ctor
 sailbot::sailbot(
@@ -21,53 +21,60 @@ sailbot::sailbot(
     float initX,
     float initY
 )
-:dt(time), velocity(vel), kr(rudderK), J(mInertia), b(waterDrag)
+:dt(time), v(vel), kr(rudderK), J(mInertia), br(wDragR), xPos(initX), 
+    yPos(initY), a(0)
 {
     // Initialize heading
     thetaH[0] = initHead*(M_PI/180);
     thetaH[1] = initHead*(M_PI/180);
     thetaH[2] = initHead*(M_PI/180);
-
-    // Initialize position
-    xPos[0] = initX;
-    xPos[1] = initX;
-    yPos[0] = initY;
-    yPos[1] = initY;
 }
 
 // advance the sailbot by one time period
-void sailbot::advance(float rudder)
+void sailbot::advance(float rudder, float aileron, float ws, float wd)
 {
     // saturate input
     rudder = saturate(rudder, 1);
-    
+    aileron = saturate(aileron, 1); 
+     
     // Roll back values:
-    thetaH[2] = thetaH[1];
-    thetaH[1] = thetaH[0];
-    xPos[1] = xPos[0];
-    yPos[1] = yPos[0];
+    ThetaH[2] = ThetaH[1];
+    ThetaH[1] = ThetaH[0];
 
-    
+    // Calculate acceleration
+    float Fw; 
+    wd = wd*(M_PI/180);			    // Convert to radians
+    if (wd - ThetaH[0] < 85*(M_PI/180) || wd - ThetaH[0] > -85*(M_PI/180))
+	Fw = kw*ws*cosf(wd - thetaH[0]);
+    else
+	Fw = aileron*ws*kw*cosf(wd - thetaH[0] - M_PI);
+    a = (Fw/m) - (bl/m)*v;
+
+    // Velocity
+    v = v + a*dt;
+
     // New Theta Value
     thetaH[0] = (1/(b*dt + J))*((b*dt + 2*J)*thetaH[1] - J*thetaH[2] 
-	+ (rudder*velocity*kr*dt*dt));
+	+ (rudder*v*kr*dt*dt));
 
     if (thetaH[0] > M_PI)
-    {
-	thetaH[0] -= 2*M_PI;
-	thetaH[1] -= 2*M_PI;
-	thetaH[2] -= 2*M_PI;
-    }
+	for (int i = 0; i < 3; i++)
+	    thetaH[i] -= 2*M_PI;
+    
     if (thetaH[0] <= -M_PI)
-    {
-	thetaH[0] += 2*M_PI;
-	thetaH[1] += 2*M_PI;
-	thetaH[2] += 2*M_PI;
-    }
+	for (int i = 0; i < 3; i++)
+	    thetaH[i] += 2*M_PI;
+   
     // New coordinate values
-    xPos[0] = xPos[1] + dt*velocity*sinf(thetaH[0]);
-    yPos[0] = yPos[1] + dt*velocity*cosf(thetaH[0]);
+    xPos = xPos + dt*v*sinf(thetaH[0]);
+    yPos = yPos + dt*v*cosf(thetaH[0]);
 
+}
+
+// return acceleration
+float sailbot::acc()
+{
+    return a;
 }
 
 // return heading
@@ -97,4 +104,3 @@ float sailbot::saturate(float val, float max)
 	return -max;
     return val;
 }
-

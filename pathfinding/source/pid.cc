@@ -5,7 +5,7 @@
 
 // This module allows for the implemenation of PID control loops
 
-#include "pid.h"
+#include "../include/pid.h"
 
 // ctor
 pid::pid(float time, float saturate, float kP, float kI, float kD)

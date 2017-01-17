@@ -1,17 +1,39 @@
-// Simple Stack Interface File
+// Stack Interface File
 
 // Author: Matthew Knight
-// Date: 2016-12-24
+// Date: 2016-12-31
 
-// This is a module for a very simple stack for the linked list in the Sailbot
+// This is a simple implementation of a stack that stores Nodes with an x and
+// y coordinate.
 
 #ifndef STACK_H_
 #define STACK_H_
- 
-// Push Node onto the stack
-int push(Node *stack, Node *element);
 
-// Pop node from the stack
-Node *pop(Node *stack);
+class Stack
+{
+    Node* top;				// Pointer to the top of the stack
+
+public:
+    // ctor
+    Stack();
+
+    // push onto the stack
+    void push(int x, int y);
+
+    // check x coordinate
+    int x();
+    
+    // check y coordinate
+    int y();
+
+    // pop off the stack
+    void pop();
+
+    // check if it's empty
+    int empty();
+
+    // dtor
+    ~Stack();
+};
 
 #endif
