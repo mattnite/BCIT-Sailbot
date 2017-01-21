@@ -21,6 +21,14 @@ Electrical
 	- Look into sockets and ZeroMQ
 	- Start on server to listen for requests for IMU data.
 
+    Cam:
+	- Work with everyone to create protocol for communication with sailbot
+	- Research Xbee
+	- Design a manual controller
+	- Design a GUI
+	- Can we stream video?
+	- 
+
     Visiliy:
 	- Things to read to catch up on:
 	    - Linux/Unix Operating system
