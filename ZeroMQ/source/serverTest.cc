@@ -19,6 +19,7 @@
 
 int main()
 {
+   int wait = 5000;
    zmq::context_t context(1);
    zmq::socket_t socket(context, ZMQ_REP);
    socket.bind("tcp://*:5555");
@@ -28,16 +29,20 @@ int main()
 	zmq::message_t request;
 
 	// wait for next request
-	socket.recv(&request);
-	std::cout << "Recieved Hello" << std::endl;
+	if (socket.recv(&request) == EAGAIN)
+	    std::cout << "Timed Out" << std::endl;
+	else
+	{
+	    std::cout << "Recieved Hello" << std::endl;
 	
-	// Do "work"
-	sleep(1);
+	    // Do "work"
+	    sleep(1);
 	
-	// Send Reply to client
-	zmq::message_t reply(5);
-	memcpy(reply.data(), "World", 5);
-	socket.send(reply);
+	    // Send Reply to client
+	    zmq::message_t reply(5);
+	    memcpy(reply.data(), "World", 5);
+	    socket.send(reply);
+	}
    }
    return 0;
 }
