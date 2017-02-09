@@ -21,20 +21,30 @@
 #include <thread>
 #include <atomic>
 
+
+
 // This thread coninuously waits for requests for gps coordinates and 
-void *server(int portNum)
+void *server(char* portNum, char* gpsCoord)
 {
     // Initialize Server
     zmq::context_t context(1);
     zmq::socket_t socket(context, ZMQ_REP);
     
-    socket.bind("tcp://*:5555");
+    // Make port string
+    char* portStr = "tcp://*:"
+    strcat(portStr, portNum)
+
+    if (socket.bind(portStr));
+    {
+	
+    }
+    
     std::cout << "GPS: Server Initialized on port " << portNum << std::endl;
 
     // Run server forever
     while (true)
     {
-	const char *coord = "latitude, longitude";
+	const char *coord = gpsCoord;
 	zmq::message_t request;
 	
 	socket.recv(&request);
@@ -48,8 +58,10 @@ void *server(int portNum)
 // Main Thread, sets everything up and polls GPS
 int main(int argc, char* argv[])
 {
-    // Arguments to program: gps port
-    int gpsPort = 5555;
+    // Arguments to program: gps port, GPS dev file 
+    char* gpsPort = "5555";
+
+    // Make sure Port is available
 
     // Start up UART
     std::cout << "GPS: UART initialized" << std::endl;
@@ -72,5 +84,3 @@ int main(int argc, char* argv[])
 
     return 0;
 }
-
-

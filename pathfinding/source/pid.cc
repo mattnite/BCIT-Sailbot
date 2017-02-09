@@ -4,7 +4,6 @@
 // Date: 2016-12-22
 
 // This module allows for the implemenation of PID control loops
-
 #include "../include/pid.h"
 
 // ctor
