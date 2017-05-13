@@ -2,4 +2,4 @@
 
 <bcit.sailbot@gmail.com>
 
-[Git Repo](github.com/matt1795/bcit-sailbot)
+[Git Repo](https://github.com/matt1795/bcit-sailbot)
