@@ -20,7 +20,7 @@ and add Zenhub to your Github.
 From the main screen of the repository you'll find a "Boards" tab, go to that and
 you'll find something like this:
 
-[Kanban](images/kanban.png)
+![Kanban](images/kanban.png)
 
 This is called a Kanban. This is a visual tool the team uses to represent how
 work is going and help plan future work. You'll notice that there are
@@ -31,7 +31,7 @@ Issues are the smaller boxes you see inside the pipelines and they are project
 broken down into relatively simple tasks. Click on one and you'll find something
 like the following:
 
-[Issue](images/issue.png)
+![Issue](images/issue.png)
 
 Here we will find more information on the issue, there are assignees who are the
 ones responsible for closing the issue (completing the task), Milestones and
