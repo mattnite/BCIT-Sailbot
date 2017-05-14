@@ -3,4 +3,9 @@ site_name: BCIT Sailbot
 site_url: http://bcit-sailbot.ca
 repo_url: https://github.com/matt1795/BCiT-Sailbot
 
-
+pages:
+- Home: 'index.md'
+- Sponsorship: 'sponsorship.md'
+- Team Documents:
+    - Using Zenhub: 'zenhub.md'
+- Contact Us: 'contact.md'
