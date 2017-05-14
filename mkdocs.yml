@@ -5,8 +5,12 @@ repo_url: https://github.com/matt1795/BCiT-Sailbot
 
 pages:
 - Home: 'index.md'
-- Sponsorship: 'sponsorship.md'
+- About Us:
+    - The Team: 'about/team.md'
+    - Sponsorship: 'about/sponsorship.md'
+    - Contact Us: 'about/contact.md'
 - Design Documentation:
+    - Control System: 'design/control.md'
 - Team Documents:
-    - Using Zenhub: 'zenhub.md'
-- Contact Us: 'contact.md'
+    - Using Zenhub: 'team/zenhub.md'
+
