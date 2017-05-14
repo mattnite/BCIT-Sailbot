@@ -6,6 +6,7 @@ repo_url: https://github.com/matt1795/BCiT-Sailbot
 pages:
 - Home: 'index.md'
 - Sponsorship: 'sponsorship.md'
+- Design Documentation:
 - Team Documents:
     - Using Zenhub: 'zenhub.md'
 - Contact Us: 'contact.md'

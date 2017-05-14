@@ -1,5 +1,7 @@
 # We need your help
 
+## Budget
+
 ## Sponsorship Levels
 
 ### Captain - $500
