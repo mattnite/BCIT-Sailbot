@@ -1,4 +1,6 @@
-# BCIT Sailbot
+# The Team
+
+[The Team](../image/team.jpg)
 
 BCIT Sailbot is a student initiative under the IEEE BCIT Student Branch to 
 design and build an autonomous sailboat, or "sailbot" for the International 
