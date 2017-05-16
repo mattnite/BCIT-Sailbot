@@ -15,9 +15,27 @@
 
 using namespace std;
 
+class node
+{
+    tuple <int, int> pos;
+    tuple <int, int> cost;
+    node *parent;
+    vector<node*> children;
+public:
+    // ctor 1
+    node(int x, int y);
+    
+    // connect
+    void connect(node *parent)
+
+    // evaluate cost
+    void eval(&node end);
+
+    // overload == operator
+}
+
 int main (void)
 {
-    typedef tuple<int, int> node;
     node begin(0, 0), end(5,6);
 
     list<node> open;
@@ -30,17 +48,32 @@ int main (void)
     // evaluate nodes around
     int xPos = get<x>(closed.back());
     int yPos = get<y>(closed.back());
-    
-    for (int i = xPos - 1; i < xPos + 2; i++)
+    while true: // Need exit clause like a timeout 
     {
-	for (int j = yPos - 1; j < yPos + 2; j++)
+	for (int i = xPos - 1; i < xPos + 2; i++)
 	{
-	    node test(i, j);
-	    if (!find(closed, test))
-		cout << i << ", " << j << endl;		
+	    for (int j = yPos - 1; j < yPos + 2; j++)
+	    {
+		node test(i, j);
+		// make sure it isnt already visited or an obstacle
+		if (!find(closed, test))
+		    // if not open already, then add
+		    if (!isin(open, test)
+			open.push_back(test)
+		    // set iterator to test
+			
+		    // now connect and evaluate
+		    it->connect(closed.back);
+		    it->eval(end);
+
+		    // find lowest cost in open list
+			// if it is end node, return path
+
+			// else add to closed
+	    }
 	}
     }
-		
+}		
 //			    if (!closed.find(i, j))
 //				if(!open.find(i, j))
 //				    open.add(i, j, cur);
@@ -49,7 +82,7 @@ int main (void)
 	
 	// transfer open to closed
 //	open.transfer(open.cheapest(), closed);
-}
+
 /*
     // A* is done when the end point is added to the closed list
     while (!closed.findEnd())
