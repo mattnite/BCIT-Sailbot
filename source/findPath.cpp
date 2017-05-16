@@ -15,18 +15,21 @@
 
 using namespace std;
 
+typedef tuple<int, int> node;
+
+// Simple list search
+bool isin(list<node> elemList, node elem);
+
 int main (void)
 {
-    typedef tuple<int, int> node;
-    node begin(0, 0), end(5,6);
+    node begin(0, 0), end(5, 6);
 
     list<node> open;
     list<node> closed;
     list<node> obs;
     
     closed.push_back(begin);
-    open.push_back(node(3,4));
-
+    
     // evaluate nodes around
     int xPos = get<x>(closed.back());
     int yPos = get<y>(closed.back());
@@ -36,11 +39,27 @@ int main (void)
 	for (int j = yPos - 1; j < yPos + 2; j++)
 	{
 	    node test(i, j);
-	    if (!find(closed, test))
-		cout << i << ", " << j << endl;		
+	    if (!isin(closed, test) & !isin(obs, test))
+		open.push_back(test);
+	
 	}
     }
-		
+
+}
+
+// Simple list search
+bool isin(list<node> elemList, node elem)
+{
+    // Loop through list
+    for (list<node>::iterator it = elemList.begin(); it != elemList.end(); ++it)
+    {
+	if (*it == elem)
+	    return true;
+    }
+
+    return false;
+}
+
 //			    if (!closed.find(i, j))
 //				if(!open.find(i, j))
 //				    open.add(i, j, cur);
@@ -49,7 +68,7 @@ int main (void)
 	
 	// transfer open to closed
 //	open.transfer(open.cheapest(), closed);
-}
+
 /*
     // A* is done when the end point is added to the closed list
     while (!closed.findEnd())
