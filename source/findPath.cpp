@@ -15,14 +15,39 @@
 
 using namespace std;
 
-typedef tuple<int, int> node;
 
 // Simple list search
 bool isin(list<node> elemList, node elem);
 
+class node
+{
+    tuple <int, int> pos;
+    tuple <int, int> cost;
+    node *parent;
+    vector<node*> children;
+public:
+    // ctor 1
+    node(int x, int y);
+    
+    // return x position
+    int x();
+
+    // return y position
+    int y();
+
+    // connect
+    void connect(node *parent)
+
+    // evaluate cost
+    void eval(&node end);
+
+    // overload == operator
+}
+
+
 int main (void)
 {
-    node begin(0, 0), end(5, 6);
+    node begin(0, 0), end(5,6);
 
     list<node> open;
     list<node> closed;
@@ -31,21 +56,36 @@ int main (void)
     closed.push_back(begin);
     
     // evaluate nodes around
-    int xPos = get<x>(closed.back());
-    int yPos = get<y>(closed.back());
-    
-    for (int i = xPos - 1; i < xPos + 2; i++)
+    int xPos = closed.back().x();
+    int yPos = closed.back().y();
+    while true: // Need exit clause like a timeout 
     {
-	for (int j = yPos - 1; j < yPos + 2; j++)
+	for (int i = xPos - 1; i < xPos + 2; i++)
 	{
-	    node test(i, j);
-	    if (!isin(closed, test) & !isin(obs, test))
-		open.push_back(test);
-	
+	    for (int j = yPos - 1; j < yPos + 2; j++)
+	    {
+		node test(i, j);
+		// make sure it isnt already visited or an obstacle
+		if (!find(closed, test))
+		{
+		    // if not open already, then add
+		    if (!isin(open, test)
+			open.push_back(test)
+		    // set iterator to test
+			
+		    // now connect and evaluate
+		    it->connect(closed.back);
+		    it->eval(end);
+
+		    // find lowest cost in open list
+			// if it is end node, return path
+
+			// else add to closed
+		}
+	    }
 	}
     }
-
-}
+}		
 
 // Simple list search
 bool isin(list<node> elemList, node elem)
@@ -59,51 +99,3 @@ bool isin(list<node> elemList, node elem)
 
     return false;
 }
-
-//			    if (!closed.find(i, j))
-//				if(!open.find(i, j))
-//				    open.add(i, j, cur);
-//				else
-//				    open.costEval(i, j, cur);
-	
-	// transfer open to closed
-//	open.transfer(open.cheapest(), closed);
-
-/*
-    // A* is done when the end point is added to the closed list
-    while (!closed.findEnd())
-    {
-	// The last node added to the closed list
-	PathNode *cur = closed.last();
-
-
-
-    // Initialize stack and find end node
-    Stack path;
-    PathNode *endNode = closed.findEnd();
-
-    // pushing to the stack
-    for (; endNode->parent; endNode = endNode->parent)
-	    path.push(endNode->x, endNode->y);
-
-    // Pop and print
-    for(!path.empty())
-    {
-	cout << path.x() << "," << path.y() << endl;
-	path.pop();
-    }
-}
-
-// Function for converting coordinate string into integer coordinates
-int coordToInt(
-    char *str,				// Ptr to coordinate str
-    int *x,				// Ptr to X int
-    int *y				// Ptr to Y int
-)
-{
-    char *yStr;				// Holds Y coord str
-
-    *x = strtol(str, &yStr, 10);
-    *y = strtol(yStr + 1, NULL, 10);
-}
-*/
