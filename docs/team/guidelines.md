@@ -34,7 +34,7 @@ Github integration, provides a platform for the team do this. Please see [Using
 Zenhub](zenhub.md) for details. We use git as our version control software under
 github, sice it is widely used and works well for groups of programmers. It is
 important to note that we use the
-[Gitflow](nvie.com/posts/a-successful-git-branching-model/) methodology as our
+[Gitflow](http://nvie.com/posts/a-successful-git-branching-model/) methodology as our
 git branching model.
 
 ## Decision Making
