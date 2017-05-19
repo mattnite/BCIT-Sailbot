@@ -29,9 +29,13 @@ is that you finish what you say you'll do.
 
 ## Project Management
 
-We will organize our project around the Agile methodology. [Zenhub](), which is
-a Github integration, provides a platform for the team do this. Please see
-[Using Zenhub](zenhub.md) for details.
+We will organize our project around the Agile methodology. Zenhub, which is a
+Github integration, provides a platform for the team do this. Please see [Using
+Zenhub](zenhub.md) for details. We use git as our version control software under
+github, sice it is widely used and works well for groups of programmers. It is
+important to note that we use the
+[Gitflow](nvie.com/posts/a-successful-git-branching-model/) methodology as our
+git branching model.
 
 ## Decision Making
 
@@ -41,7 +45,7 @@ are explored. It will then be recorded in Zenhub under the relevent issue.
 
 ## Communication
 
-The team has three main avenues of communication, [Zenhub](), Facebook
+The team has three main avenues of communication, Zenhub, Facebook
 Messenger, and in-person meetings. Zenhub, as outlined above, is meant for
 formal discussion and organization of the project, it is where design questions,
 suggestions, and decisions take place, or at least where they are recorded.
@@ -52,4 +56,35 @@ Team unity is important and so there is likely to be drinks afterwards as well!
 
 ## Organization of Repository
 
-### 
+The repository organization for this project follows the main conventions of
+many C++ projects. Each directory is quickly described below:
+
+### bin
+
+This is where executables are compiled to after running make. Do not commit
+files in here
+
+### build
+
+This directory houses the object files during the compilation process. Do not
+commit files in here
+
+### source
+
+The source directory is where all the source and implementaiton files are
+located.
+
+### include
+
+All header files are stored in include. 
+
+### test
+
+Any code written to test components of the software systems in the sailbot are
+contained here. We use [Google Test](https://github.com/google/googletest) to
+test our C++ code.
+
+### docs
+
+And finally the docs folder contains all the markdown files used to generate
+this site.
