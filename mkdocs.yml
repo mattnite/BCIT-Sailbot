@@ -12,5 +12,7 @@ pages:
 - Design Documentation:
     - Control System: 'design/control.md'
 - Team Documents:
+    - Project Guidelines: 'team/guidelines.md'
     - Using Zenhub: 'team/zenhub.md'
-
+    - Coding Standard: 'team/standard.md'
+    - Testing: 'team/testing.md'
