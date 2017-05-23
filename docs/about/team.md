@@ -7,10 +7,10 @@ design and build an autonomous sailboat, or "sailbot" for the International
 Robotic Sailing Regatta (IRSR) in June 2018. This will be BCIT's first time 
 competing!
 
-Our team consists of a half-dozen students that come from BCIT's Mechatronics,
-Electrical Engineering and Mechanical Engineering programs. These are students 
-who, ontop of their formal education in engineering, wish to dedicate even more 
-time to be part of a challenging project. 
+Our team consists of a students that come from BCIT's Mechatronics, Electrical
+Engineering and Mechanical Engineering programs. These are students who, ontop
+of their formal education in engineering, wish to dedicate even more time to be
+part of a challenging project. 
 
 ![Sailing](../images/Sailing.jpg)
 
@@ -42,6 +42,5 @@ that test navigation, tactics and design. During the competiton, the saiboat
 must steer and trim sails based on measurements of the wind, position, and 
 direction without human intervention. 
 
-This year IRSR takes place in Annapolis, Maryland June 11 - 16th at the United 
-States Naval Academy. If you'd like to check out the IRSR some more, their 
-website is right [here](http://sailbot.org).
+If you'd like to check out the IRSR some more, their website is right
+[here](http://sailbot.org).
