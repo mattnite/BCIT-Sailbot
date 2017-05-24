@@ -13,11 +13,6 @@
 #include <complex>
 #include <vector>
 
-class sail
-{
-
-};
-
 class sailbot
 {
     // Dynamic variables
