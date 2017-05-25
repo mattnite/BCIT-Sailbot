@@ -18,4 +18,4 @@ pages:
     - Testing: 'team/testing.md'
 
 markdown_extensions:
-    - math
+    - Markdown-Latex
