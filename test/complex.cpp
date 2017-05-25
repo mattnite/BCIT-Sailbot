@@ -18,12 +18,47 @@ T dot(complex<T> a, complex<T> b);
 template <typename T>
 complex<T> project(complex<T> a, complex<T> b);
 
+// Vector rotation
+template <typename T>
+complex<T> rotate(complex<T> a, double beta);
+
+// [m^2/s] Kinetic viscosity of air at sealevel
+const double v = 1.460e-5;		
+
+class foil
+{
+    complex<double> a;			// direction of airfoil
+    double s;				// wing area
+    double c;				// chord length
+public:
+    //ctor
+    foil(
+	double theta,			// angle of foil
+	double area,			// wing area
+	double chord			// chord length
+    );
+
+    calcLift(
+	double w,			// wind velocity vector
+
+    );
+};
+
+class wingSail
+{
+    foil main;				// main foil component
+    foil aileron;			// aileron component
+};
 int main (void)
 {
-    complex<float> s(1,0);
-    complex<float> w(1, 1);
 
-    cout << normal(w)  << endl;
+    const double c = 0.6096;		// [m] chord length
+    double V, R;
+    
+    V = 7.7;			// [m/s] air velocity
+    R = (V*c)/v;
+
+    cout << "Reynold's number: " << R << endl;
 
 }
 
@@ -47,5 +82,15 @@ T dot(complex<T> a, complex<T> b)
 template <typename T>
 complex<T> project(complex<T> a, complex<T> b)
 {
-    
+   return (dot(a, b)/abs(b))*normal(b);
+};
+
+// Vector rotation
+template <typename T>
+complex<T> rotate(complex<T> a, double beta)
+{
+    double c = cos(beta);
+    double s = sin(beta);
+    complex <T> b((real(a)*c) - (imag(a)*s), (real(a)*s) + (imag(a)*c));
+    return b;
 };
