@@ -18,10 +18,9 @@ thanked on our webpage and a 64 in^2 logo on the wingsail.
 ### Admiral - $1000
 
 A Silver Level sponsor is thanked with an article on our webpage as well as
-the placement of their logo on the sailbot.
+a 144 in^2 logo on the wingsail.
 
 ### Blackbeard - $2500
 
 For donating a large fraction of the sailbot budget, a Gold Level sponsor is
-thanked with an article on our webpage as well as prominant graphic of their
-logo on the sailbot.
+thanked with an article on our webpage as well as 400 in^2 logo on the wingsail.
