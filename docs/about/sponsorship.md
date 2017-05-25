@@ -13,7 +13,7 @@
 ### Captain - $500
 
 For helping the sailbot team achieve their goals, a Bronze Level sponsor is
-thanked on our webpage and a 64 in<sup>2</sup> logo on the wingsail.
+thanked on our webpage and a 64 in^2 logo on the wingsail.
 
 ### Admiral - $1000
 
