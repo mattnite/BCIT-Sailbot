@@ -16,3 +16,6 @@ pages:
     - Using Zenhub: 'team/zenhub.md'
     - Coding Standard: 'team/standard.md'
     - Testing: 'team/testing.md'
+
+markdown_extensions:
+    - math
