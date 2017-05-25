@@ -17,5 +17,3 @@ pages:
     - Coding Standard: 'team/standard.md'
     - Testing: 'team/testing.md'
 
-markdown_extensions:
-    - Markdown-Latex
