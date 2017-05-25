@@ -1,15 +1,19 @@
-# We need your help
+# We Need Your Help
 
-
-##
 ## Budget
 
-## Sponsorship Levels
+# How You Can Get Involved
+
+## Mentorship
+
+## Networking
+
+## Financial Sponsorship
 
 ### Captain - $500
 
 For helping the sailbot team achieve their goals, a Bronze Level sponsor is
-thanked on our webpage and a small logo on the sailbot.
+thanked on our webpage and a 64 in<sup>2</sup> logo on the wingsail.
 
 ### Admiral - $1000
 
