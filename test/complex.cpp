@@ -8,17 +8,20 @@
 using namespace std;
 
 // [m^2/s] Kinetic viscosity of air at sealevel
-const double v = 1.460e-5;		
 
 int main (void)
 {
+    complex<double> a, b, c;
 
-    const double c = 0.6096;		// [m] chord length
-    double V, R;
+    a = polar(1.0, 0.75);
+    b = polar(1.0, 0.6);
+    c = polar(1.0, 0.9);
     
-    V = 7.7;			// [m/s] air velocity
-    R = (V*c)/v;
+    cout << b - a << endl
+	<< arg(b) - arg(a) << endl
+	<< c - a << endl
+	<< arg(c) - arg(a) << endl;
 
-    cout << "Reynold's number: " << R << endl;
+
 
 }

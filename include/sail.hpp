@@ -11,11 +11,15 @@
 #define SAIL_H_
 
 #include <complex>
+#include "LUT.hpp"
 
 using namespace std;
 
 class foil
 {
+    LUT cLift;				// look up tables for lift and drag
+    LUT cDrag;
+    
     complex<double> a;			// direction of airfoil
     double s;				// wing area
     double c;				// chord length
@@ -26,17 +30,15 @@ public:
 	double area,			// wing area
 	double chord			// chord length
     );
-
-    calcLift(
-	double w,			// wind velocity vector
-
+    
+    void turn(
+	double r			// rotate foil in r degrees
     );
-};
 
-class wingSail
-{
-    foil main;				// main foil component
-    foil aileron;			// aileron component
+    // Calculate force vector
+    complex<double> force(
+	complex<double> wind		// Wind velocity vector
+    );
 };
 
 #endif
