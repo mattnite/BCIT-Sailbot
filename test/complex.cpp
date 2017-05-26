@@ -3,6 +3,7 @@
 #include <iostream>
 #include <complex>
 #include <cmath>
+#include "../include/vect.hpp"
 
 using namespace std;
 

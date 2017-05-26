@@ -8,7 +8,7 @@
 
 #include <complex>
 #include <cmath>
-#include "vect.hpp"
+#include "../include/vect.hpp"
 
 using namespace std;
 
