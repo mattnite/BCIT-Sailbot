@@ -1,6 +1,6 @@
 # The Team
 
-![The Team](../image/team.jpg)
+![The Team](../images/team.jpg)
 
 BCIT Sailbot is a student initiative under the IEEE BCIT Student Branch to 
 design and build an autonomous sailboat, or "sailbot" for the International 
@@ -14,7 +14,7 @@ part of a challenging project.
 
 ![Sailing](../images/Sailing.jpg)
 
-## Sail What?
+## Sail Whaaaat?
 
 A sailbot is an autonomous sailboat. By relying on the wind for propulsion, and 
 using solar power to reliably power the entire craft we have a vehicle that is
@@ -36,11 +36,8 @@ facilities.
 
 ## The Competition
 
-Every year teams from across the world come to compete at the International 
-Robotic Sailing Regatta competition. At the IRSR, there are a number of races 
-that test navigation, tactics and design. During the competiton, the saiboat 
-must steer and trim sails based on measurements of the wind, position, and 
-direction without human intervention. 
-
-If you'd like to check out the IRSR some more, their website is right
-[here](http://sailbot.org).
+Every year teams from across the world come to compete at the [International
+Robotic Sailing Regatta](http://sailbot.org). At the IRSR, there are a number of
+races that test navigation, tactics and design. During the competiton, the
+saiboat must steer and trim sails based on measurements of the wind, position,
+and direction without human intervention. 
