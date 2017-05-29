@@ -11,6 +11,8 @@
 #include <vector>
 #include <string>
 
+#define strLen 256
+
 using namespace std;
 
 // ctor
@@ -20,11 +22,16 @@ LUT::LUT(string fileName)
     ifstream inFile(fileName);
 
     // Read first line, 
+    string line, buf;
+    getline(inFile, line);
+    stringstream lineStream(line);
+
     // first element is name string, 
+    getline(lineStream, name, ',');
+
     // count columns, i
-    
-    // initialize column vector, 
-    col = vector<double> (colNum, 0);
+    while (getline(lineStream, 
+
     // fill it up.
     
     // Go through entire file and count lines
