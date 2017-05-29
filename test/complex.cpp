@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <complex>
+#include <vector>
 #include <cmath>
 #include "../include/vect.hpp"
 
@@ -11,17 +12,10 @@ using namespace std;
 
 int main (void)
 {
-    complex<double> a, b, c;
+    vector<double> a (4, 1.0);
 
-    a = polar(1.0, 0.75);
-    b = polar(1.0, 0.6);
-    c = polar(1.0, 0.9);
-    
-    cout << b - a << endl
-	<< arg(b) - arg(a) << endl
-	<< c - a << endl
-	<< arg(c) - arg(a) << endl;
-
+    vector< vector<double> > b (4, vector<double> (5, 1.0));
+    cout << b[0][0] << endl;
 
 
 }
