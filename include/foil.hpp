@@ -13,31 +13,24 @@
 #include <complex>
 #include "LUT.hpp"
 
-using namespace std;
-
 class foil
 {
-    LUT cLift;				// look up tables for lift and drag
-    LUT cDrag;
+    LUT cl;				// look up tables for lift and drag
+    LUT cd;
     
-    complex<double> a;			// direction of airfoil
     double s;				// wing area
     double c;				// chord length
 public:
     //ctor
     foil(
-	double theta,			// angle of foil
 	double area,			// wing area
 	double chord			// chord length
     );
     
-    void turn(
-	double r			// rotate foil in r degrees
-    );
-
     // Calculate force vector
-    complex<double> force(
-	complex<double> wind		// Wind velocity vector
+    std::complex<double> force(
+	std::complex<double> wind		// Wind velocity vector
+	
     );
 };
 
