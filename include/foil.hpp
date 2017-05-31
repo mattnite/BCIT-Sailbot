@@ -1,10 +1,10 @@
-// Sail Simulation Interface File
+// foil Simulation Interface File
 
 // Author: Matthew Knight
-// File Name: sail.hpp
+// File Name: foil.hpp
 // Date: 2017-05-25
 
-// These classes are used to model the wingsail on the sailbot. Air conditions
+// These classes are used to model the foils on the wingsail. Air conditions
 // assume to be at sea level.
 
 #ifndef SAIL_H_
