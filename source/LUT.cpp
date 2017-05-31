@@ -24,28 +24,31 @@ LUT::LUT(const char *file)
     std::ifstream inFile(file);
 
     // Read first line, 
-    std::string line, buf;
-    getline(inFile, line);
-    std::stringstream lineStream(line);
-
+    std::string buf;
+    std::stringstream line;
+    getline(inFile, buf);
+    line.str(buf);
+    
     // first element is name string, 
-    getline(lineStream, name, ',');
+    getline(line, name, ',');
    
     // fill column vector
-    for (;getline(lineStream, buf, ','); colNum++)	
+    for (;getline(line, buf, ','); colNum++)	
 	col.push_back(strtod(buf.c_str(), NULL));
     
     // fill row and data vectors
-    for (;getline(inFile, line); rowNum++)
+    for (;getline(inFile, buf); rowNum++)
     {
-	getline(lineStream, buf, ',');
+	line.clear();
+	line.str(buf);
+	getline(line, buf, ',');
 	row.push_back(strtod(buf.c_str(), NULL));
-	
+		
 	std::vector<double> dataLine;
 
-	while (getline(lineStream, buf, ','))
+	while (getline(line, buf, ','))
 	    dataLine.push_back(strtod(buf.c_str(), NULL));
-
+	
 	data.push_back(dataLine);
     }
     
@@ -56,14 +59,36 @@ LUT::LUT(const char *file)
 double LUT::interp(double x, double y)
 {
     // Find interpolation points
-    int i j;
-    for (i = 0; i < rowNum; i++)
+    int i, j;
+
+    for (i = 1; i < rowNum; i++)
 	if (row[i] > x)
 	    break;
 
-    for (j = 0; j < colNum; j++)
+    for (j = 1; j < colNum; j++)
 	if (col[j] > y)
 	    break;
-
-    cout
+    
+    // Load up values
+    double m = 1/((row[i] - row[i-1])*(col[j] - col[j-1]));
+    
+    double a[] = {  row[i] - x,
+		    x - row[i-1]};
+    
+    double b[] = {  col[j] - y,
+		    y - col[j-1]};
+   
+    double c[][2] = {{	data[i-1][j-1], 
+			data[i-1][j]}, 
+		    {	data[i][j-1], 
+			data[i][j]}};
+    
+    double val = 0;
+    
+    // calculate
+    for (i = 0; i<2; i++)
+	for (j = 0; j<2; j++)
+	    val += a[i]*b[j]*c[i][j];
+    
+    return val*m;    
 };

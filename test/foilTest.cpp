@@ -13,7 +13,11 @@ int main (void)
     cout << sailData.fileName << endl
 	<< sailData.name << endl
 	<< "Rows: " << sailData.rowNum << endl
-	<< "Columns: " << sailData.colNum << endl;
+	<< "Columns: " << sailData.colNum << endl << endl;
 
-    sailData.interp(5.0, 75000.0);
+    double alpha = 5.25, R = 1100000;
+    cout 
+	<< "Alpha: " << alpha << " Degrees" << endl
+	<< "Reynold's Number: " << R << endl
+	<< "Lift Coefficient:" << sailData.interp(alpha, R) << endl;
 }
