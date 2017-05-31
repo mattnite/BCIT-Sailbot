@@ -8,50 +8,59 @@
 // the data is importeed from a csv file.
 
 #include <fstream>
+#include <sstream>
 #include <vector>
 #include <string>
+#include <cstdlib>
+#include "LUT.hpp"
 
 #define strLen 256
 
-using namespace std;
-
 // ctor
-LUT::LUT(string fileName)
+LUT::LUT(const char *file)
+:fileName(file), rowNum(0), colNum(0)
 {
     // Open File
-    ifstream inFile(fileName);
+    std::ifstream inFile(file);
 
     // Read first line, 
-    string line, buf;
+    std::string line, buf;
     getline(inFile, line);
-    stringstream lineStream(line);
+    std::stringstream lineStream(line);
 
     // first element is name string, 
     getline(lineStream, name, ',');
-
-    // count columns, i
-    while (getline(lineStream, 
-
-    // fill it up.
+   
+    // fill column vector
+    for (;getline(lineStream, buf, ','); colNum++)	
+	col.push_back(strtod(buf.c_str(), NULL));
     
-    // Go through entire file and count lines
+    // fill row and data vectors
+    for (;getline(inFile, line); rowNum++)
+    {
+	getline(lineStream, buf, ',');
+	row.push_back(strtod(buf.c_str(), NULL));
+	
+	std::vector<double> dataLine;
 
-    // initialize row and data vector
-    row = vector<double> (rowNum, 0);
-    data = vector<double> (rowNum, vector<double> (colNum, 0));
+	while (getline(lineStream, buf, ','))
+	    dataLine.push_back(strtod(buf.c_str(), NULL));
 
-    // go to second line
-
-    // first element goes to row vector, rest go to first row of data vector
-
-    // loop through and repeat for entire file
-
-    // close file
+	data.push_back(dataLine);
+    }
+    
     inFile.close();
 };
 
 // interpolate 
 double LUT::interp(double x, double y)
 {
-    return 0.0;
+    // Make sure it's in the data space
+    if (
+    {
+	std::cerr << "Error: out of interpolation range" << std::endl;
+	return 0.0;
+    }
+
+    return m*(a1*b1*Q11 + a1*b2*Q12 + a2*b1*Q21 + a2*b2*Q22);
 };

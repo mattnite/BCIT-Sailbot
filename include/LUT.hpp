@@ -15,20 +15,18 @@
 #include <vector>
 #include <string>
 
-using namespace std;
-
 class LUT
 {
-    string fileName;
-    string name;
-    int rowNum, colNum;
-    vector<double> row, col;
-    vector< vector<double> > data;
-
 public:
-    // ctor
-    LUT(string file);
+    const char *fileName;
+    std::string name;
+    int rowNum, colNum;
+    std::vector<double> row, col;
+    std::vector< std::vector<double> > data;
 
+    // ctor
+    LUT(const char *file);
+    
     // interpolate 
     double interp(double x, double y);
 };
