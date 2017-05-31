@@ -55,12 +55,15 @@ LUT::LUT(const char *file)
 // interpolate 
 double LUT::interp(double x, double y)
 {
-    // Make sure it's in the data space
-    if (
-    {
-	std::cerr << "Error: out of interpolation range" << std::endl;
-	return 0.0;
-    }
+    // Find interpolation points
+    int i j;
+    for (i = 0; i < rowNum; i++)
+	if (row[i] > x)
+	    break;
 
-    return m*(a1*b1*Q11 + a1*b2*Q12 + a2*b1*Q21 + a2*b2*Q22);
+    for (j = 0; j < colNum; j++)
+	if (col[j] > y)
+	    break;
+
+    cout
 };
