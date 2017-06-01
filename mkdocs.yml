@@ -10,7 +10,7 @@ pages:
     - Sponsorship: 'about/sponsorship.md'
     - Contact Us: 'about/contact.md'
 - Design Documentation:
-    - Control System: 'design/control.md'
+    - Project Overview: 'design/overview.md'
 - Team Documents:
     - Project Guidelines: 'team/guidelines.md'
     - Using Zenhub: 'team/zenhub.md'
