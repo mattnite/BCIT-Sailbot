@@ -11,22 +11,20 @@
 
 #include <complex>
 
-using namespace std;
-
 // normal of a complex number
 template <typename T>
-complex<T> normal(complex<T> a);
+std::complex<T> normal(std::complex<T> a);
 
 // dot product
 template <typename T>
-T dot(complex<T> a, complex<T> b);
+T dot(complex<T> a, std::complex<T> b);
 
 // Projection
 template <typename T>
-complex<T> project(complex<T> a, complex<T> b);
+std::complex<T> project(std::complex<T> a, std::complex<T> b);
 
 // Vector rotation
 template <typename T>
-complex<T> rotate(complex<T> a, double beta);
+std::complex<T> rotate(std::complex<T> a, double beta);
 
 #endif

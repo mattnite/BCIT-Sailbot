@@ -12,50 +12,37 @@
 #include "sail.hpp"
 #include "vect.hpp"
 
-// [m^2/s] Kinetic viscosity of air at sealevel
-const double v = 1.460e-5;	    
+const double v = 1.460e-5;		// [m^2/s] Kinetic viscosity of air at
+					// sealevel
 const double d = 1.225;			// [kg/m^3] Mass Density of air
 
-using namespace std;
-
-// FOIL CLASS
 
 //ctor
-foil::foil( double theta, double area, double chord):
-a(polar(1.0, theta)), s(area), c(chord)
+foil::foil( double area, double chord):
+s(area), c(chord)
 {};
 
-void foil::turn(double r)
-{
-    // convert to radians and rotate counter clockwise
-    double ang =  r*(M_PI/180.0);
-    a = rotate(a, ang);
-};
-
-
-// Calculate force vector
-complex<double> foil::force(
-    complex<double> vel		// Relative flow velocity vector
+// Calculate force vector in newtons
+std::complex<double> foil::force(
+    double alpha,			// [Deg.] angle of attack
+    double vel				// [m/s] Relative flow velocity
 )
 {
-    double val = 0.5*d*pow(abs(vel), 2)*s;
+    double val = 0.5*d*pow(vel, 2)*s;
+    double R = vel*c/v;			// Reynold's number
+    double beta = alpha*(180.0/M_PI);	// convert to degrees
     
-    // Calculate Lift and drag coefficients via table lookup
-    double lift = 1.0;
-    double drag = 1.0;
+    // Calculate Lift and drag Forces
+    std::complex<double> Fr;
+    Fr.real = val*cl.interp(alpha, R);
+    Fr.imag = val*cd,intero(alpha, R);
 
-    // Calculate lift and Drag Forces
-    lift *= val;
-    drag *= val;
+    // right the lift direction
+    if (alpha < 0)
+	Fr.imag *= -1;
 
-    // Orient them in the right direction
-    double liftAng;
-    if ( arg(vel) > arg(a))
-	liftAng = arg(vel) - M_PI;
-    else
-	liftAng = arg(vel) + M_PI;
+    // Rotate to proper position
+    rotate(Fr, alpha);
 
-    return drag*normal(vel) + polar(lift, liftAng);
+    return Fr;
 };
-
-// WINGSET CLASS

@@ -10,36 +10,34 @@
 #include <cmath>
 #include "../include/vect.hpp"
 
-using namespace std;
-
 // normal of a complex number
 template <typename T>
-complex<T> normal(complex<T> a)
+std::complex<T> normal(std::complex<T> a)
 {
-    complex<T> b(real(a)/abs(a), imag(a)/abs(a));
+    std::complex<T> b(real(a)/abs(a), imag(a)/abs(a));
     return b;
 };
 
 // dot product
 template <typename T>
-T dot(complex<T> a, complex<T> b)
+T dot(complex<T> a, std::complex<T> b)
 {
     return (real(a)*real(b)) + (imag(a)*imag(b));
 };
 
 // Projection
 template <typename T>
-complex<T> project(complex<T> a, complex<T> b)
+std::complex<T> project(std::complex<T> a, std::complex<T> b)
 {
    return (dot(a, b)/abs(b))*normal(b);
 };
 
 // Vector rotation
 template <typename T>
-complex<T> rotate(complex<T> a, double beta)
+std::complex<T> rotate(std::complex<T> a, double beta)
 {
     double c = cos(beta);
     double s = sin(beta);
-    complex <T> b((real(a)*c) - (imag(a)*s), (real(a)*s) + (imag(a)*c));
+    std::complex <T> b((real(a)*c) - (imag(a)*s), (real(a)*s) + (imag(a)*c));
     return b;
 };
