@@ -37,7 +37,7 @@ s(area), c(chord)
 
 // Calculate force vector in newtons
 std::complex<double> foil::force(
-    double alpha,			// [Deg.] angle of attack
+    double alpha,			// [rad] angle of attack
     double vel				// [m/s] Relative flow velocity
 )
 {
@@ -55,7 +55,7 @@ std::complex<double> foil::force(
 	Fr.imag(-1*Fr.imag());
 
     // Rotate to proper position
-    rotate(Fr, beta);
+    // Fr = rotate(Fr, beta);
 
     return Fr;
 };
