@@ -17,7 +17,7 @@ std::complex<T> normal(std::complex<T> a);
 
 // dot product
 template <typename T>
-T dot(complex<T> a, std::complex<T> b);
+T dot(std::complex<T> a, std::complex<T> b);
 
 // Projection
 template <typename T>

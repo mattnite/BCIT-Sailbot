@@ -13,18 +13,15 @@
 #define x 0
 #define y 1
 
-using namespace std;
-
-
 // Simple list search
-bool isin(list<node> elemList, node elem);
+bool isin(std::list<node> elemList, node elem);
 
 class node
 {
-    tuple <int, int> pos;
-    tuple <int, int> cost;
+    std::tuple <int, int> pos;
+    std::tuple <int, int> cost;
     node *parent;
-    vector<node*> children;
+    std::vector<node*> children;
 public:
     // ctor 1
     node(int x, int y);
@@ -49,9 +46,9 @@ int main (void)
 {
     node begin(0, 0), end(5,6);
 
-    list<node> open;
-    list<node> closed;
-    list<node> obs;
+    std::list<node> open;
+    std::list<node> closed;
+    std::list<node> obs;
     
     closed.push_back(begin);
     
@@ -88,10 +85,11 @@ int main (void)
 }		
 
 // Simple list search
-bool isin(list<node> elemList, node elem)
+bool isin(std::list<node> elemList, node elem)
 {
     // Loop through list
-    for (list<node>::iterator it = elemList.begin(); it != elemList.end(); ++it)
+    for (std::list<node>::iterator it = elemList.begin(); 
+        it != elemList.end(); ++it)
     {
 	if (*it == elem)
 	    return true;

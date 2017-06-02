@@ -23,14 +23,15 @@ class foil
 public:
     //ctor
     foil(
+	const char *name,
 	double area,			// wing area
 	double chord			// chord length
     );
     
     // Calculate force vector
     std::complex<double> force(
-	std::complex<double> wind		// Wind velocity vector
-	
+	double alpha,			// angle of attack
+	double vel			// Wind velocity
     );
 };
 

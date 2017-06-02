@@ -16,6 +16,10 @@
 
 #define strLen 256
 
+// default ctor
+LUT::LUT()
+{};
+
 // ctor
 LUT::LUT(const char *file)
 :fileName(file), rowNum(0), colNum(0)

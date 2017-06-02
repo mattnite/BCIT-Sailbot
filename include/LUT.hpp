@@ -24,6 +24,9 @@ public:
     std::vector<double> row, col;
     std::vector< std::vector<double> > data;
 
+    // Default ctor
+    LUT();
+
     // ctor
     LUT(const char *file);
     

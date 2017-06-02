@@ -1,4 +1,4 @@
-// Sail Simulation Implementation File
+// foil Simulation Implementation File
 
 // Author: Matthew Knight
 // File Name: sail.cpp
@@ -8,9 +8,10 @@
 // assume to be at sea level.
 
 #include <complex>
+#include <string>
 #include <cmath>
-#include "sail.hpp"
 #include "vect.hpp"
+#include "foil.hpp"
 
 const double v = 1.460e-5;		// [m^2/s] Kinetic viscosity of air at
 					// sealevel
@@ -18,9 +19,21 @@ const double d = 1.225;			// [kg/m^3] Mass Density of air
 
 
 //ctor
-foil::foil( double area, double chord):
+foil::foil( const char *name, double area, double chord):
 s(area), c(chord)
-{};
+{
+    // build strings out of name
+    std::string lift(name);
+    std::string drag(name);
+
+    lift += "_lift.csv";
+    drag += "_drag.csv";
+
+    // construct look up tables
+    cl = LUT(lift.c_str());
+    cd = LUT(drag.c_str());
+
+};
 
 // Calculate force vector in newtons
 std::complex<double> foil::force(
@@ -33,16 +46,16 @@ std::complex<double> foil::force(
     double beta = alpha*(180.0/M_PI);	// convert to degrees
     
     // Calculate Lift and drag Forces
-    std::complex<double> Fr;
-    Fr.real = val*cl.interp(alpha, R);
-    Fr.imag = val*cd,intero(alpha, R);
+    std::complex<double> Fr = val*
+    	(cl.interp(alpha, R),
+	cd.interp(alpha, R));
 
     // right the lift direction
     if (alpha < 0)
-	Fr.imag *= -1;
+	Fr.imag(-1*Fr.imag());
 
     // Rotate to proper position
-    rotate(Fr, alpha);
+    rotate(Fr, beta);
 
     return Fr;
 };

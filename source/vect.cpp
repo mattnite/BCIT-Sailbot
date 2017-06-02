@@ -8,7 +8,7 @@
 
 #include <complex>
 #include <cmath>
-#include "../include/vect.hpp"
+#include "vect.hpp"
 
 // normal of a complex number
 template <typename T>
@@ -20,7 +20,7 @@ std::complex<T> normal(std::complex<T> a)
 
 // dot product
 template <typename T>
-T dot(complex<T> a, std::complex<T> b)
+T dot(std::complex<T> a, std::complex<T> b)
 {
     return (real(a)*real(b)) + (imag(a)*imag(b));
 };
@@ -40,4 +40,5 @@ std::complex<T> rotate(std::complex<T> a, double beta)
     double s = sin(beta);
     std::complex <T> b((real(a)*c) - (imag(a)*s), (real(a)*s) + (imag(a)*c));
     return b;
-};
+}
+
