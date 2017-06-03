@@ -4,27 +4,21 @@
 // File Name: vect.hpp
 // Date: 2017-05-25
 
-// These functions are mostly for use in simulation of the sailbot
+// doublehese functions are mostly for use in simulation of the sailbot
 
-#ifndef VECT_H_
-#define VECT_H_
-
-#include <complex>
+#ifndef VECdouble_H_
+#define VECdouble_H_
 
 // normal of a complex number
-template <typename T>
-std::complex<T> normal(std::complex<T> a);
+std::complex<double> normal(std::complex<double> a);
 
 // dot product
-template <typename T>
-T dot(std::complex<T> a, std::complex<T> b);
+double dot(std::complex<double> a, std::complex<double> b);
 
 // Projection
-template <typename T>
-std::complex<T> project(std::complex<T> a, std::complex<T> b);
+std::complex<double> project(std::complex<double> a, std::complex<double> b);
 
 // Vector rotation
-template <typename T>
-std::complex<T> rotate(std::complex<T> a, double beta);
+std::complex<double> rotate(std::complex<double> a, double beta);
 
 #endif

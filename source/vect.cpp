@@ -4,41 +4,37 @@
 // File Name: vect.cpp
 // Date: 2017-05-25
 
-// These functions are mostly for use in simulating the sailbot
+// doublehese functions are mostly for use in simulating the sailbot
 
 #include <complex>
 #include <cmath>
 #include "vect.hpp"
 
 // normal of a complex number
-template <typename T>
-std::complex<T> normal(std::complex<T> a)
+std::complex<double> normal(std::complex<double> a)
 {
-    std::complex<T> b(real(a)/abs(a), imag(a)/abs(a));
+    std::complex<double> b(real(a)/abs(a), imag(a)/abs(a));
     return b;
 };
 
 // dot product
-template <typename T>
-T dot(std::complex<T> a, std::complex<T> b)
+double dot(std::complex<double> a, std::complex<double> b)
 {
     return (real(a)*real(b)) + (imag(a)*imag(b));
 };
 
 // Projection
-template <typename T>
-std::complex<T> project(std::complex<T> a, std::complex<T> b)
+std::complex<double> project(std::complex<double> a, std::complex<double> b)
 {
    return (dot(a, b)/abs(b))*normal(b);
 };
 
 // Vector rotation
-template <typename T>
-std::complex<T> rotate(std::complex<T> a, double beta)
+std::complex<double> rotate(std::complex<double> a, double beta)
 {
     double c = cos(beta);
     double s = sin(beta);
-    std::complex <T> b((real(a)*c) - (imag(a)*s), (real(a)*s) + (imag(a)*c));
+    std::complex <double> b((real(a)*c) - (imag(a)*s), 
+	(real(a)*s) + (imag(a)*c));
     return b;
 }
-

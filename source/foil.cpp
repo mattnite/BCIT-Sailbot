@@ -55,7 +55,7 @@ std::complex<double> foil::force(
 	Fr.imag(-1*Fr.imag());
 
     // Rotate to proper position
-    // Fr = rotate(Fr, beta);
+    Fr = rotate(Fr, beta);
 
     return Fr;
 };
