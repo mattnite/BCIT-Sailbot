@@ -14,9 +14,27 @@
 #include "zmq.hpp"
 
 // Sampling thread
+void gps(void)
+{
+    std::chrono::duration interval(milliseconds(100));
+    while (true)
+    {
+	std::chrono::time_point current = std::chrono::system_clock::now();
+	
+	// Do things
+
+	if (current + interval > std::chrono::system_clock::now();)
+	    std::this_thread::sleep_until(current+interval);
+    }
+}
 
 // Main thread (server thread)
 int main(void)
 {
+    // create sampling thread
+    std::thread (gps, NULL).detach();
 
+    // run forever
+    while (true)
+	;
 }
