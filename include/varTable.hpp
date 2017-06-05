@@ -1,0 +1,1 @@
+// System variable table class
