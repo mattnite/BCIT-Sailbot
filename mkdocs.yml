@@ -4,7 +4,7 @@ site_url: http://bcit-sailbot.ca
 repo_url: https://github.com/matt1795/BCiT-Sailbot
 
 pages:
-- Home: 'index.md'
+- Home: 'home.md'
 - About Us:
     - The Team: 'about/team.md'
     - Sponsorship: 'about/sponsorship.md'
