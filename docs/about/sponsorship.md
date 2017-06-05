@@ -1,6 +1,8 @@
 # We Need Your Help
 
-This project is large, and 
+This project is large. We have enough team members who have the drive to make it
+happen, but in order to make this project come together we need help. We mainly
+need help financially and we always welcome any sort of mentorship and guidance.
 
 ## Budget
 
