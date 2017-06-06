@@ -8,24 +8,26 @@
 // that the task threads in the control system have access to these atomic
 // variables and operate on them.
 
+#ifndef VARTABLE_H_
+#define VARTABLE_H_
 #include <atomic>
 #include <chrono>
 #include <string>
 
 using namespace std::chrono;
 
-class varTable
+typedef struct
 {
     // System constants
     
     // Sampling periods (ms)
-    std::atomic<int> Tgps;
+    std::atomic< duration<int, std::milli> > Tgps;
 
     // Wind Vars
 
 
     // GPS vars
-    std::atomic<double> lat, long;
+    std::atomic<double> lat, lon;
 
     // IMU vars
 
@@ -34,4 +36,6 @@ class varTable
     // Rudder Vars
 
     // Setpoints
-}
+} varTable;
+
+#endif

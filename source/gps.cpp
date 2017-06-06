@@ -12,33 +12,24 @@
 #include <thread>
 #include <chrono>
 #include <ctime>
+#include "varTable.hpp"
+#include "gps.hpp"
 
 // Sampling thread
-void gps(void)
+void gps(varTable *systemVar)
 {
-    std::chrono::duration<int, std::milli> interval;
+    std::chrono::duration<int, std::milli> interval(500);
     std::chrono::system_clock::time_point current;
-    
+     
     while (true)
     {
 	current = std::chrono::system_clock::now();
 	
 	// Do things
-	std::cout << "Reading GPS at " << std::endl;
+	std::cout << "Latitude: " << systemVar->lat << ", "
+	    << "Longitude: " << systemVar->lon << std::endl;
 
 	if (current + interval > std::chrono::system_clock::now())
 	    std::this_thread::sleep_until(current+interval);
     }
-}
-
-// Main thread (server thread)
-int main(void)
-{
-    // create sampling thread
-
-    std::thread (gps, NULL).detach();
-
-    // run forever
-    while (true)
-	;
 }

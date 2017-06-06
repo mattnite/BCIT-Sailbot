@@ -5,7 +5,7 @@
 CC=g++
 
 # Options Passed to compiler
-CFLAGS=-c -Wall -std=c++11 -I./include
+CFLAGS=-c -Wall -std=c++11 -I./include -lpthread
 
 # Directories
 sourceDir = source/
