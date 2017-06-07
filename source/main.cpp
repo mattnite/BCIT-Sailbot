@@ -10,7 +10,7 @@
 #include <thread>
 #include <functional>
 #include "varTable.hpp"
-#include "gps.hpp"
+#include "gps.cpp"
 
 // Main thread (server thread)
 int main(void)
