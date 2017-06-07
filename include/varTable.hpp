@@ -10,14 +10,17 @@
 
 #ifndef VARTABLE_H_
 #define VARTABLE_H_
+
 #include <atomic>
 #include <chrono>
 #include <string>
+#include "datapoint.hpp"
 
 using namespace std::chrono;
 
-typedef struct
+class varTable
 {
+public:
     // System constants
     
     // Sampling periods (ms)
@@ -36,6 +39,13 @@ typedef struct
     // Rudder Vars
 
     // Setpoints
-} varTable;
+
+// Methods
+    // ctor
+    varTable();
+
+
+
+};
 
 #endif
