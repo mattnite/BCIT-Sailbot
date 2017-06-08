@@ -14,13 +14,13 @@
 
 class LUT
 {
-public:
     const char *fileName;
     std::string name;
     int rowNum, colNum;
     std::vector<double> row, col;
     std::vector< std::vector<double> > data;
 
+public:
     // Default ctor
     LUT();
 

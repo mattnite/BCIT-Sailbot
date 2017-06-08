@@ -29,6 +29,7 @@ class sail
     double theta;			// angle of wingsail
     double w;				// angular velocity
     double a;				// angular acceleration
+
 public:
     //ctor
     sail();

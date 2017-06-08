@@ -20,6 +20,7 @@ class foil
     
     double s;				// wing area
     double c;				// chord length
+
 public:
     // default ctor
     foil();
