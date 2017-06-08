@@ -9,21 +9,29 @@
 #include <iostream>
 #include <thread>
 #include <functional>
+#include <atomic>
 #include "varTable.hpp"
+#include <unistd.h>
+// Thread source files
 #include "gps.cpp"
 
 // Main thread (server thread)
 int main(void)
 {
+    double val = 0.0;
+
     // Initialize system variables
     varTable system;
-    system.lat = 1.0;
+    system.lat.store(val);
     // create gps sampling thread
     std::thread gpsThread(gps, &system);
-    std::cout << "Made GPS Thread" << std::endl;
-    
+     
     gpsThread.detach();
+    
     // run forever
     while (true)
-	;
+    {
+	sleep(3);
+	system.lat.store(++val);
+    }
 }

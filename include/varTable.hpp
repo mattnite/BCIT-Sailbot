@@ -14,7 +14,6 @@
 #include <atomic>
 #include <chrono>
 #include <string>
-#include "datapoint.hpp"
 
 using namespace std::chrono;
 
@@ -30,7 +29,7 @@ public:
 
 
     // GPS vars
-    std::atomic<double> lat, lon;
+    std::atomic<double> lat, lon; 
 
     // IMU vars
 
@@ -43,9 +42,6 @@ public:
 // Methods
     // ctor
     varTable();
-
-
-
 };
 
 #endif
