@@ -10,10 +10,7 @@
 #ifndef LUT_H_
 #define LUT_H_
 
-#include <iostream>
-#include <fstream>
 #include <vector>
-#include <string>
 
 class LUT
 {

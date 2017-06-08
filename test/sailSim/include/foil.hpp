@@ -1,4 +1,4 @@
-// foil Simulation Interface File
+// Foil Simulation Interface File
 
 // Author: Matthew Knight
 // File Name: foil.hpp
@@ -7,10 +7,10 @@
 // These classes are used to model the foils on the wingsail. Air conditions
 // assume to be at sea level.
 
-#ifndef SAIL_H_
-#define SAIL_H_
+#ifndef FOIL_H_
+#define FOIL_H_
 
-#include <complex>
+#include <complex> 
 #include "LUT.hpp"
 
 class foil
@@ -21,6 +21,9 @@ class foil
     double s;				// wing area
     double c;				// chord length
 public:
+    // default ctor
+    foil();
+    
     //ctor
     foil(
 	const char *name,

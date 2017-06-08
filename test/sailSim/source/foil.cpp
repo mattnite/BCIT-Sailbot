@@ -17,6 +17,10 @@ const double v = 1.460e-5;		// [m^2/s] Kinetic viscosity of air at
 					// sealevel
 const double d = 1.225;			// [kg/m^3] Mass Density of air
 
+// default ctor
+foil::foil()
+:s(0), c(0)
+{};
 
 //ctor
 foil::foil( const char *name, double area, double chord):

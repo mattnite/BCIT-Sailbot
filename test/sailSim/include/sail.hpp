@@ -10,6 +10,7 @@
 #define SAIL_H_
 
 #include <complex>
+#include <vector>
 #include "foil.hpp"
 
 class sail
@@ -21,12 +22,13 @@ class sail
     foil aileron;			// Aileron foil, NACA0009
     
     // Rotational mechanics
-    double I;				// Moment of interia
+    double J;				// Moment of interia
     double b;				// Angular friction 
     double d;				// Distance between pivot points
     double tD;				// angle between aileron and main
-    double tM[3];			// last 3 main angles
-    
+    double theta;			// angle of wingsail
+    double w;				// angular velocity
+    double a;				// angular acceleration
 public:
     //ctor
     sail();
@@ -40,6 +42,6 @@ public:
     void update (
 	double rate			// angular velocity of aileron in rad/s
     );
-}
+};
 
 #endif

@@ -14,11 +14,10 @@ buildDir = build/
 sources = $(wildcard $(sourceDir)*.cpp)
 objects = $(patsubst $(sourceDir)%.cpp, $(buildDir)%.o, $(sources))
 
-all: print $(objects)
+all: $(objects) sailSim
 
-print: 
-	echo $(objects)
+sailSim: $(objects)
+	$(CC) -o bin/sailSim $(objects) -std=c++11 -I./include
 
-# Makefile syntax
 $(objects): $(buildDir)%.o : $(sourceDir)%.cpp
 	-$(CC) $(CFLAGS) $< -o $@
