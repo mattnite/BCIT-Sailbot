@@ -11,6 +11,7 @@ pages:
     - Contact Us: 'about/contact.md'
 - Design Documentation:
     - Project Overview: 'design/overview.md'
+    - Wing Sail Design and Manufacturing Report: 'design/wingSailReport.md'
 - Team Documents:
     - Project Guidelines: 'team/guidelines.md'
     - Using Zenhub: 'team/zenhub.md'
