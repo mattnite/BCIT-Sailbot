@@ -15,6 +15,7 @@
 
 class sail
 {
+public:
     double t;				// Simulation time interval
 
     // The foils
@@ -30,7 +31,6 @@ class sail
     double w;				// angular velocity
     double a;				// angular acceleration
 
-public:
     //ctor
     sail();
 

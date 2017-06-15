@@ -15,13 +15,13 @@
 
 class foil
 {
+public:
     LUT cl;				// look up tables for lift and drag
     LUT cd;
     
     double s;				// wing area
     double c;				// chord length
 
-public:
     // default ctor
     foil();
     

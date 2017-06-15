@@ -5,7 +5,7 @@
 CC=g++
 
 # Options Passed to compiler
-CFLAGS=-c -Wall -std=c++11 -I./include
+CFLAGS=-c -Wall -std=c++11 -I./include -g
 
 # Directories
 sourceDir = source/
@@ -17,7 +17,7 @@ objects = $(patsubst $(sourceDir)%.cpp, $(buildDir)%.o, $(sources))
 all: $(objects) sailSim
 
 sailSim: $(objects)
-	$(CC) -o bin/sailSim $(objects) -std=c++11 -I./include
+	$(CC) -o source/sailSim $(objects) -std=c++11 -I./include
 
 $(objects): $(buildDir)%.o : $(sourceDir)%.cpp
 	-$(CC) $(CFLAGS) $< -o $@

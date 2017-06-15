@@ -7,6 +7,7 @@
 // These classes are used to model the wingsail on the sailbot. Air conditions
 // assume to be at sea level.
 
+#include <iostream>
 #include <complex>
 #include <string>
 #include <cmath>
@@ -19,12 +20,14 @@ const double d = 1.225;			// [kg/m^3] Mass Density of air
 
 // default ctor
 foil::foil()
-:s(0), c(0)
+    : s(0)
+    , c(0)
 {};
 
 //ctor
-foil::foil( const char *name, double area, double chord):
-s(area), c(chord)
+foil::foil( const char *name, double area, double chord)
+    : s(area)
+    , c(chord)
 {
     // build strings out of name
     std::string lift(name);
@@ -37,6 +40,13 @@ s(area), c(chord)
     cl = LUT(lift.c_str());
     cd = LUT(drag.c_str());
 
+    // Print size of look up tables
+    std::cout
+	<< name << " Air Foil:" << std::endl
+	<< "\tLift table size: " << cl.rowNum <<  ", " << cl.colNum <<std::endl
+	<< "\tDrag table size: " << cd.rowNum <<  ", " << cd.colNum <<std::endl
+	<< std::endl;
+	
 };
 
 // Calculate force vector in newtons

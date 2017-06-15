@@ -11,10 +11,10 @@
 #include <sstream>
 #include <vector>
 #include <string>
+#include <exception>
 #include <cstdlib>
+#include <iostream>
 #include "LUT.hpp"
-
-#define strLen 256
 
 // default ctor
 LUT::LUT()
@@ -22,10 +22,12 @@ LUT::LUT()
 
 // ctor
 LUT::LUT(const char *file)
-:fileName(file), rowNum(0), colNum(0)
+    : fileName(file)
+    , rowNum(0)
+    , colNum(0)
 {
     // Open File
-    std::ifstream inFile(file);
+    std::ifstream inFile(file); 
 
     // Read first line, 
     std::string buf;
@@ -35,11 +37,12 @@ LUT::LUT(const char *file)
     
     // first element is name string, 
     getline(line, name, ',');
-   
+    
+
     // fill column vector
     for (;getline(line, buf, ','); colNum++)	
 	col.push_back(strtod(buf.c_str(), NULL));
-    
+	    
     // fill row and data vectors
     for (;getline(inFile, buf); rowNum++)
     {
@@ -55,8 +58,6 @@ LUT::LUT(const char *file)
 	
 	data.push_back(dataLine);
     }
-    
-    inFile.close();
 };
 
 // interpolate 
