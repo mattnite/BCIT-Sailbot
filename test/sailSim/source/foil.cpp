@@ -61,15 +61,15 @@ std::complex<double> foil::force(
     
     // Calculate Lift and drag Forces
     std::complex<double> Fr = val*
-    	(cl.interp(alpha, R),
-	cd.interp(alpha, R));
+    	(cl.interp(beta, R),
+	cd.interp(beta, R));
 
     // right the lift direction
     if (alpha < 0)
 	Fr.imag(-1*Fr.imag());
 
     // Rotate to proper position
-    Fr = rotate(Fr, beta);
+    Fr = rotate(Fr, alpha);
 
     return Fr;
 };
