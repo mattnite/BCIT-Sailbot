@@ -7,6 +7,9 @@
 // This class is used to simulate the wingsail.
 
 #include "sail.hpp"
+#include "vect.hpp"
+
+#define PLEN 0.4191			// [m] Distance between pivots
 
 //ctor
 sail::sail()
@@ -26,30 +29,27 @@ sail::sail()
 // get force vector
 std::complex<double> sail::force()	// Wind vector
 {
-    double alpha = arg(wind) - theta;
-    return rotate(main.force(abs(wind), alpha), theta);
+    return rotate(main.force(abs(wind), arg(wind) - theta), theta);
 }
 
 // update for time interval
-void sail::update(std::complex<double> windVect, double ang)		
+void sail::update(std::complex<double> &windVect, double ang)		
 {
-    // Update wind value
+    // Update values
     wind = windVect;
-    
-    // Determine angle between wind and aileron
+    tD = ang;
+
+    // Determine angle of attack
     double alpha = arg(wind) - (tD + theta);
 
-    // Get absolute force vector
+    // Get force from aileron
+    std::complex<double> F = rotate(aileron.force(alpha, abs(wind)), theta + tD);
 
-
-    // Find force perpendicular to wingsail
-    
-
-    // Calc torque
-    T = * //d = 16.5 inches
+    // Find Torque
+    double T = dot(F, std::polar(PLEN, theta));
 
     // update knematics
-    a = ;
+    a = T/J;
     w += a*t;
     theta += w*t;
 }

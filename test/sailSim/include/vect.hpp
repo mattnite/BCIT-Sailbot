@@ -6,8 +6,8 @@
 
 // doublehese functions are mostly for use in simulation of the sailbot
 
-#ifndef VECdouble_H_
-#define VECdouble_H_
+#ifndef VECT_H_
+#define VECT_H_
 
 // normal of a complex number
 std::complex<double> normal(std::complex<double> a);

@@ -15,8 +15,8 @@
 
 class sail
 {
-public:
     double t;				// Simulation time interval
+    std::complex<double> wind;		// variable for holding last wind read
 
     // The foils
     foil main;				// Main foil, NACA0018
@@ -30,18 +30,17 @@ public:
     double theta;			// angle of wingsail
     double w;				// angular velocity
     double a;				// angular acceleration
-
+public:
     //ctor
     sail();
 
     // get force vector
-    std::complex<double> force(
-	std::complex<double> wind	// Wind vector
-    );
+    std::complex<double> force();
 
     // update for time interval
     void update (
-	double rate			// angular velocity of aileron in rad/s
+	std::complex<double> &windVect,
+	double ang			// New angle of aileron wrt main
     );
 };
 

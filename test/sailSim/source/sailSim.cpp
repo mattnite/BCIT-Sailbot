@@ -8,10 +8,14 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <complex>
 #include "sail.hpp"
-#include "foil.hpp"
 
 int main(void)
 {
+    // Create our environment and apparatus
+    std::complex<double> wind = std::polar(10.0, 0.0);
     sail wingSail();
+
+
 }
