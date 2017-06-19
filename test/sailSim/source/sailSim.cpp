@@ -15,7 +15,23 @@ int main(void)
 {
     // Create our environment and apparatus
     std::complex<double> wind = std::polar(10.0, 0.0);
-    sail wingSail();
+    sail wingSail;
+    double time = 0.0;
 
+    std::cout 
+	<< "Interval Period: " << wingSail.t << "s" << std::endl << std::endl
+	<< "Starting Simulation..." << std::endl << std::endl;
 
+    for (; time < 2.0; time += wingSail.t)
+    {
+	wingSail.update(wind, 0.1);
+	std::complex<double> force = wingSail.force();
+	std::cout
+	    << time << ","
+	    << wingSail.theta << ","
+	    << real(force) << ","
+	    << imag(force) << std::endl;
+    }
+
+    std::cout << std::endl << "Simulation Complete" << std::endl << std::endl;
 }

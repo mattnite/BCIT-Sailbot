@@ -58,7 +58,9 @@ std::complex<double> foil::force(
     double val = 0.5*d*pow(vel, 2)*s;
     double R = vel*c/v;			// Reynold's number
     double beta = alpha*(180.0/M_PI);	// convert to degrees
-    
+
+    if (beta < 0)
+	beta *= -1;
     // Calculate Lift and drag Forces
     std::complex<double> Fr = val*
     	(cl.interp(beta, R),

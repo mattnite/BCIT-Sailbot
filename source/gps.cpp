@@ -7,11 +7,15 @@
 // This is the gps thread for the sailbot. It periodically updates the gps
 // coordinates in the system variables table.
 
+#ifndef GPS_THREAD
+#define GPS_THREAD
+
 #include <iostream>
 #include <atomic>
 #include <thread>
 #include <chrono>
 #include <ctime>
+#include <gps.h>
 #include "varTable.hpp"
 
 void gps(varTable *systemVar);
@@ -21,10 +25,24 @@ void gps(varTable *systemVar)
 {
     std::cout << "GPS: Initializing..." << std::endl;
 
-    // Set up serial port
+    // Initialize access to GPS Daemon
+    struct gps_data_t gpsdata;
     
+    try
+    {
 
-    // Configure GPS
+	int gpsHandle = gps_open("localhost","5555", &gpsdata);
+	if (gpsHandle < 0)
+	    throw "Can't access gpsd";
+    }
+    catch (...)
+    {
+	// If exception thrown then notify main thread
+	std::cout 
+	    << "GPS: Error: Could not access GPS Daemon" << std::endl
+	    << "GPS: Shuting Down..." << std::endl;
+	return;
+    }
     
     // Set up timing
     std::chrono::duration<int, std::milli> interval(2000), timer;
@@ -44,4 +62,9 @@ void gps(varTable *systemVar)
 	if (current + interval > std::chrono::system_clock::now())
 	    std::this_thread::sleep_until(current+interval);
     }
+    
+    // Close gps on termination
+    gps_close(&gpsdata);
 }
+
+#endif
