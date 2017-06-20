@@ -12,59 +12,55 @@
 
 #include <iostream>
 #include <atomic>
-#include <thread>
 #include <chrono>
-#include <ctime>
-#include <gps.h>
+#include <thread>
+#include <libgpsmm.h>
 #include "varTable.hpp"
 
 void gps(varTable *systemVar);
 
-// Sampling thread
+// GPS interface thread
 void gps(varTable *systemVar)
 {
     std::cout << "GPS: Initializing..." << std::endl;
 
-    // Initialize access to GPS Daemon
-    struct gps_data_t gpsdata;
+    // Initialize connection to GPS Daemon
+    gpsmm gpsRec("localhost", "5555");
     
-    try
+    if (!gpsRec.is_open())
     {
-
-	int gpsHandle = gps_open("localhost","5555", &gpsdata);
-	if (gpsHandle < 0)
-	    throw "Can't access gpsd";
-    }
-    catch (...)
-    {
-	// If exception thrown then notify main thread
-	std::cout 
-	    << "GPS: Error: Could not access GPS Daemon" << std::endl
-	    << "GPS: Shuting Down..." << std::endl;
+	std::cout << "GPS: Error constructor failed" << std::endl;
 	return;
     }
-    
-    // Set up timing
-    std::chrono::duration<int, std::milli> interval(2000), timer;
-    std::chrono::system_clock::time_point current;
-     
+
+    if (gpsRec.stream(WATCH_ENABLE|WATCH_JSON) == NULL)
+    {
+	std::cout << "GPS: gpsd is not running!" << std::endl;
+	return;
+    }
+
     // Print system message
     std::cout << "GPS: Initialized!" << std::endl;
 
     while (true)
     {
-	current = std::chrono::system_clock::now();
-	
-	// Do things
-	std::cout << "GPS: Lat: " << systemVar->lat.load() <<std::endl;
-	
-	
-	if (current + interval > std::chrono::system_clock::now())
-	    std::this_thread::sleep_until(current+interval);
+	struct gps_data_t *newData;
+
+	if (!gpsRec.waiting(5000000))
+	    continue;
+
+	if ((newData = gpsRec.read()) == NULL)
+	    std::cout << "GPS: Read Error" << std::endl;
+	else
+	{
+	    if (newData->status)
+	    {
+		if (LATLON_SET & newData->set)
+		    std::cout << "GPS: New coordinates" << std::endl;
+	    
+	    }
+	}
     }
-    
-    // Close gps on termination
-    gps_close(&gpsdata);
 }
 
 #endif

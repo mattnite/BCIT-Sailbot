@@ -21,7 +21,9 @@ class varTable
 {
 public:
     // System constants
-    
+    const char *gpsPort;
+    const char *gpsCommPort;
+
     // Sampling periods (ms)
     std::atomic< duration<int, std::milli> > Tgps;
 
@@ -30,7 +32,7 @@ public:
 
     // GPS vars
     std::atomic<double> lat, lon; 
-
+    
     // IMU vars
 
     // Wingsail Vars
