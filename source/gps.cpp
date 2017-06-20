@@ -12,6 +12,7 @@
 #include <thread>
 #include <chrono>
 #include <ctime>
+#include <termios.h>
 #include "varTable.hpp"
 
 void gps(varTable *systemVar);
@@ -22,7 +23,9 @@ void gps(varTable *systemVar)
     std::cout << "GPS: Initializing..." << std::endl;
 
     // Set up serial port
-    
+    struct termios *newTio, *oldTio;
+
+    tcgetattr
 
     // Configure GPS
     
@@ -45,3 +48,5 @@ void gps(varTable *systemVar)
 	    std::this_thread::sleep_until(current+interval);
     }
 }
+
+
