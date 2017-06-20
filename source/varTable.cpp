@@ -11,6 +11,6 @@
 #include "varTable.hpp"
 
 varTable::varTable()
-{
-
-}
+    : gpsPort("5555")
+    , gpsCommPort("5554")
+{}

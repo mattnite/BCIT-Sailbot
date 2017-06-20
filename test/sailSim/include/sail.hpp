@@ -15,6 +15,7 @@
 
 class sail
 {
+public:
     double t;				// Simulation time interval
     std::complex<double> wind;		// variable for holding last wind read
 
