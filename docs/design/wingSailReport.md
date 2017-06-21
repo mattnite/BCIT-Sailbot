@@ -178,7 +178,7 @@ Following this they were drilled and tapped for #10–24 (NACA 0019) and #6-32
 (NACA 0009) fasteners to accept the stringers; this was done on a drill press at
 BCIT. 
 
-![Figure 9: NACA 0009 and 0019 Wing Sections ](../images/drawing.png)
+![Figure 9: NACA 0009 and 0019 Wing Sections ](../images/drawing.jpg)
 
 Figure 9: NACA 0009 and 0019 Wing Sections 
 
@@ -208,7 +208,7 @@ Figure 12: Boring Inner Diameter of Mast Housing
 
 Figure 13: Bottom and Top Spacers (Displayed as named Left to Right) 
 
-![Figure 14: Teflon Bushing](../images/teflong.jpg)
+![Figure 14: Teflon Bushing](../images/teflon.jpg)
 
 Figure 14: Teflon Bushing 
 
