@@ -18,11 +18,10 @@
 // Main thread (server thread)
 int main(void)
 {
-    double val = 0.0;
 
     // Initialize system variables
     varTable system;
-    system.lat.store(val);
+    
     // create gps sampling thread
     std::thread gpsThread(gps, &system);
      
@@ -30,8 +29,6 @@ int main(void)
     
     // run forever
     while (true)
-    {
-	sleep(3);
-	system.lat.store(++val);
-    }
+	;
+
 }
