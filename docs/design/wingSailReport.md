@@ -1,5 +1,14 @@
 # Wing Sail Design and Manufacturing
 
+Prepared By: Keight Jeras
+
+Date: 2017-05-23
+
+Prepared For:
+
+- Darlene Webb - COMM 2269 Instructor
+- Dave Lewis - Manufacturing Program Head
+
 ## Summary
 
 This project entails the design and manufacturing of a rigid, self-trimming wing
