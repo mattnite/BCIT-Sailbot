@@ -60,7 +60,8 @@ subsequently the scope of this report, was regarding the design and
 manufacturing of a rigid, self-trimming wing sail assembly.
 
 
-[Figure 1: The BCIT SailBot](../images/sailbot.png)
+![Figure 1: The BCIT SailBot](../images/sailbot.png)
+
 Figure 1: The BCIT SailBot
 
 ## Background
@@ -73,7 +74,8 @@ change in the pressure distribution across the wing surface (as seen in Figure
 2). The pressure distribution causes the sail assembly to rotate about its
 freely pivoting mast, causing the sail to find its desired sailing position.
 
-[Figure 2: Pressure Distribution Across a Wing Profile](../images/foil.png)
+![Figure 2: Pressure Distribution Across a Wing Profile](../images/foil.png)
+
 Figure 2: Pressure Distribution Across a Wing Profile
 
 The key design feature distinguishing the BCIT SailBot wing sail from other sail
@@ -82,10 +84,12 @@ configurations is the lack of any traditional rigging (eg. UBC ADA Figure 3)
 tension to the lines with winches) and the lack of a servo motor used to
 position the rear wing (eg. SailDrone Figure 4). 
 
-[Figure 3: UBC, ADA Rigging Example](../images/UBC.png)
+![Figure 3: UBC, ADA Rigging Example](../images/UBC.png)
+
 Figure 3: UBC, ADA Rigging Example
 
-[Figure 4: SailDrone Servo Control Example](../images/saildrone.png)
+![Figure 4: SailDrone Servo Control Example](../images/saildrone.png)
+
 Figure 4: SailDrone Servo Control Example
 
 The BCIT sailboat utilizes a mechanical design solution and a linear actuator to
@@ -121,7 +125,8 @@ sufficiently low friction material for bushings in the mounting base. Like
 Delrin, Teflon is often used in marine applications and was more than sufficient
 for the operating conditions of the wing sail.
 
-[Figure 5: Project Budget](../images/budget.png)
+![Figure 5: Project Budget](../images/budget.png)
+
 Figure 5: Project Budget
 
 ## Production Timeline
@@ -132,7 +137,8 @@ was be used to produce all required parts.  The project was 18 hrs over the
 estimated timeline. As mentioned above, the extra hours were caused by my
 inexperience with manual machining processes. 
 
-[Figure 6:  Project Time Line](../images/timeline.png)
+![Figure 6:  Project Time Line](../images/timeline.png)
+
 Figure 6:  Project Time Line
 
 ## The Manufacturing Process
@@ -140,7 +146,8 @@ Figure 6:  Project Time Line
 1) The Wing Sail Structure (Figure 7) The wing structure is made entirely out of
 6061 aluminum and consists of 6 main parts labeled below in corresponding color.
 
-[Figure 7: BCIT Sailbot Wing Sail α prototype ](../images/fullReal.png)
+![Figure 7: BCIT Sailbot Wing Sail α prototype ](../images/fullReal.png)
+
 Figure 7: BCIT Sailbot Wing Sail α prototype 
 
 Stringers The stringers for both the main and rear wing section were made on the
@@ -150,7 +157,8 @@ repeatedly locate the notches. A 3/16” endmill was used to make the notches in
 the stringers. An 80 degree countersink was used to countersink the fasteners
 flush with the outside of the rear and main sections.   
 
-[Figure 8: Stringer set up at Avanti Aerospace](../images/mill.jpg)
+![Figure 8: Stringer set up at Avanti Aerospace](../images/mill.jpg)
+
 Figure 8: Stringer set up at Avanti Aerospace
 
 Masts The rear and main mast were purchased components. The rear mast did not
@@ -170,7 +178,8 @@ Following this they were drilled and tapped for #10–24 (NACA 0019) and #6-32
 (NACA 0009) fasteners to accept the stringers; this was done on a drill press at
 BCIT. 
 
-[Figure 9: NACA 0009 and 0019 Wing Sections ](../images/drawing.png)
+![Figure 9: NACA 0009 and 0019 Wing Sections ](../images/drawing.png)
+
 Figure 9: NACA 0009 and 0019 Wing Sections 
 
 2) The Wing Sail Mounting Base (Figure 10) The mounting flange and mast housing,
@@ -182,20 +191,25 @@ rad, diamond shaped, carbide insert. The inner bore diameter was machined with a
 (Figure 13) along with the Teflon bushings (Figure 14) were turned on the manual
 lathe as well.
 
-[Figure 10: Mounting Base](../images/mountBase.jpg)
+![Figure 10: Mounting Base](../images/mountBase.jpg)
+
 Figure 10: Mounting Base
 
-[Figure 11: Facing Mounting Flange ](../images/faceMountBase.jpg)
+![Figure 11: Facing Mounting Flange ](../images/faceMountBase.jpg)
+
 Figure 11: Facing Mounting Flange 
 
-[Figure 12: Boring Inner Diameter of Mast Housing
+![Figure 12: Boring Inner Diameter of Mast Housing
 ](../images/boreMountHousing.jpg)
+
 Figure 12: Boring Inner Diameter of Mast Housing 
 
-[Figure 13: Bottom and Top Spacers](../images/Spacers.jpg)
+![Figure 13: Bottom and Top Spacers](../images/Spacers.jpg)
+
 Figure 13: Bottom and Top Spacers (Displayed as named Left to Right) 
 
-[Figure 14: Teflon Bushing](../images/teflong.jpg)
+![Figure 14: Teflon Bushing](../images/teflong.jpg)
+
 Figure 14: Teflon Bushing 
 
 Assembly The final assembly of the wing sail took 1 hr to complete. The only
