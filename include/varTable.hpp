@@ -18,12 +18,24 @@
 
 using namespace std::chrono;
 
+struct actuator
+{
+    varTable *systemVar;
+    int dir;
+    int pwm;
+    int feedback;
+    int dc;
+    int period;
+    double tol;
+};
+
 class varTable
 {
 public:
     // System constants
     const char *gpsPort;
     const char *gpsCommPort;
+    struct actuator *ail, *rud;
 
     // Sampling periods (ms)
     datapoint<int> Tgps;
