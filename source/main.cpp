@@ -10,10 +10,10 @@
 #include <thread>
 #include <functional>
 #include <atomic>
-#include "varTable.hpp"
 #include <unistd.h>
-// Thread source files
-#include "gps.cpp"
+
+#include "varTable.hpp"
+#include "sbThreads.hpp"
 
 // Main thread (server thread)
 int main(void)
@@ -23,6 +23,7 @@ int main(void)
     // Initialize system variables
     varTable system;
     system.lat.store(val);
+    
     // create gps sampling thread
     std::thread gpsThread(gps, &system);
      

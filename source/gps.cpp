@@ -16,8 +16,7 @@
 #include <thread>
 #include <libgpsmm.h>
 #include "varTable.hpp"
-
-void gps(varTable *systemVar);
+#include "sbThreads.hpp"
 
 // GPS interface thread
 void gps(varTable *systemVar)
