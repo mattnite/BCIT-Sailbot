@@ -14,6 +14,7 @@
 #include <atomic>
 #include <chrono>
 #include <string>
+#include "datapoint.hpp"
 
 using namespace std::chrono;
 
@@ -24,24 +25,28 @@ public:
     const char *gpsPort;
     const char *gpsCommPort;
 
-    // Sampling periods (ms) (100 - 10000)
-    std::atomic<int> Tgps;
+    // Sampling periods (ms)
+    datapoint<int> Tgps;
+    datapoint<int> Timu;
+    datapoint<int> Twind;
+    datapoint<int> Tlin;
 
     // Wind Vars
-
+    datapoint<double> windSpeed;
+    datapoint<double> windDir;
 
     // GPS vars
-    std::atomic< tuple<double,double> > pos; 
-    
+    datapoint< tuple<double,double> > pos; 
+    datapoint< tuple<double,double> > error;
+
     // IMU vars
-
-    // Wingsail Vars
-
-    // Rudder Vars
+    datapoint< tuple<double,double,double> > quat;
+    datapoint< tuple<double,double,double> > linAcc;
+    datapoint<double> heading;
 
     // Setpoints (-1 to 1)
-    std::atomic<double> ailOut;
-    std::atomic<double> rudOut;
+    datapoint<double> ailOut;
+    datapoint<double> rudOut;
 
 // Methods
     // ctor
