@@ -18,7 +18,7 @@
 
 using namespace std::chrono;
 
-struct actuator
+struct actData
 {
     varTable *systemVar;
     int dir;
@@ -35,7 +35,7 @@ public:
     // System constants
     const char *gpsPort;
     const char *gpsCommPort;
-    struct actuator *ail, *rud;
+    struct actData *ail, *rud;
 
     // Sampling periods (ms)
     datapoint<int> Tgps;

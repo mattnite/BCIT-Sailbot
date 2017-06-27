@@ -16,4 +16,13 @@
 // GPS polling thread, this thread updates the gps coordinates
 void gps(varTable *systemVar);
 
+// IMU polling thread
+void imu(varTable *systemVar);
+
+// Wind polling thread
+void wind(varTable *systemVar);
+
+// Linear actuator Control thread
+void actControl(struct actData *actuator);
+
 #endif

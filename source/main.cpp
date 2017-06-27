@@ -22,10 +22,18 @@ int main(void)
     // Initialize system variables
     varTable system;
     
-    // create gps sampling thread
+    // create threads
     std::thread gpsThread(gps, &system);
-     
+    std::thread imuThread(imu, &system);
+    std::thread windThread(wind, &system);
+    std::thread ailThread(actControl, system->ail);
+    std::thread rudThread(actControl, system->rud);
+
     gpsThread.detach();
+    imuThread.detach();
+    windThread.detach();
+    ailThread.detach();
+    rudThread.detach();
     
     // run forever
     while (true)
