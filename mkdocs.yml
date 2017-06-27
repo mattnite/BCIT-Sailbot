@@ -8,6 +8,10 @@ pages:
 - About Us:
     - The Team: 'about/team.md'
     - Sponsorship: 'about/sponsorship.md'
+    - Budget: 'about/budget.md'
+    - Current Progress: 'about/progress.md'
+    - Our Mentors: 'aboutmentors.md'
+    - Our Sponsors: 'about/sponsors.md'
     - Contact Us: 'about/contact.md'
 - Design Documentation:
     - Project Overview: 'design/overview.md'
