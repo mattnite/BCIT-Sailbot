@@ -24,14 +24,14 @@ public:
     const char *gpsPort;
     const char *gpsCommPort;
 
-    // Sampling periods (ms)
-    std::atomic< duration<int, std::milli> > Tgps;
+    // Sampling periods (ms) (100 - 10000)
+    std::atomic<int> Tgps;
 
     // Wind Vars
 
 
     // GPS vars
-    std::atomic<double> lat, lon; 
+    std::atomic< tuple<double,double> > pos; 
     
     // IMU vars
 
@@ -39,7 +39,9 @@ public:
 
     // Rudder Vars
 
-    // Setpoints
+    // Setpoints (-1 to 1)
+    std::atomic<double> ailOut;
+    std::atomic<double> rudOut;
 
 // Methods
     // ctor

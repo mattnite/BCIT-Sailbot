@@ -49,10 +49,10 @@ void gps(varTable *systemVar)
 	    if (newData->status)
 	    {
 		if (LATLON_SET & newData->set)
-		    std::cout 
-			<< "Latitude: " << newData->fix.latitude << ", "
-			<< "Longitude: " << newData->fix.longitude << std::endl;
-	    
+		{
+		    systemVar->lat.store(newData->fix.latitude);
+		    systemVar->lon.store(newData->fix.longitude);
+		}
 	    }
 	}
     }
