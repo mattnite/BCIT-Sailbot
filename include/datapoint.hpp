@@ -29,6 +29,9 @@ public:
     // initialized ctor
     datapoint(T initVal);
 
+    // milliseconds since last update
+    int time_since();
+
     // operator overload
     void operator=(const T &val);
 
@@ -38,14 +41,22 @@ public:
 
 template <typename T>
 datapoint<T>::datapoint()
-:sampTime(std::chrono::system_clock::now())
+:sampTime(system_clock::now())
 {}
 
 template <typename T>
 datapoint<T>::datapoint(T initVal)
-:sampTime(std::chrono::system_clock::now())
+:sampTime(std::system_clock::now())
 {
     data.store(initVal);
+}
+
+template <typename T>
+int datapoint<T>::time_since()
+{
+    duration<int,milliseconds> period;
+    period = system_clock::now() - sampTime;
+    return period.count();
 }
 
 template <typename T>
