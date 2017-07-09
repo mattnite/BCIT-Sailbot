@@ -8,30 +8,30 @@
 
 // ctor 1
 node::node(int x, int y)
-{
-
-}
+:pos(x,y)
+{}
 
 // return x position
-int x()
+int node::x()
 {
-
+    return std::get<0>(x);
 }
 
 // return y position
-int y()
+int node::y()
 {
-
+    return std::get<1>(y);
 }
 
 // connect
-void connect(node *parent)
+void node::connect(node *newParent)
 {
-
+    parent = newParent;
+    parent->children.push_pack(this);
 }
 
 // evaluate cost
-void eval(node &end)
+void node::eval(node &end)
 {
 
 }

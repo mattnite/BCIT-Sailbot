@@ -9,7 +9,7 @@
 #ifndef NODE_H_
 #define NODE_H_
 
-
+#include <tuple>
 
 class node
 {
@@ -29,7 +29,7 @@ public:
     int y();
 
     // connect
-    void connect(node *parent);
+    void connect(node *newParent);
 
     // evaluate cost
     void eval(node &end);

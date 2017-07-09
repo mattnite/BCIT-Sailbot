@@ -22,7 +22,10 @@ void imu(varTable *systemVar);
 // Wind polling thread
 void wind(varTable *systemVar);
 
-// Linear actuator Control thread
-void actControl(struct actData *actuator);
+// Linear actuator thread
+void actControl(varTable *systemVar);
+
+// Pathfinding thread
+void path(varTable *systemVar);
 
 #endif
