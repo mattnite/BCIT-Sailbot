@@ -10,39 +10,11 @@
 #include <tuple>
 #include <list>
 #include <algorithm>
-#define x 0
-#define y 1
-/*
+
 // Simple list search
 bool isin(std::list<node> elemList, node elem);
 
-class node
-{
-    std::tuple <int, int> pos;
-    std::tuple <int, int> cost;
-    node *parent;
-    std::vector<node*> children;
-public:
-    // ctor 1
-    node(int x, int y);
-    
-    // return x position
-    int x();
-
-    // return y position
-    int y();
-
-    // connect
-    void connect(node *parent)
-
-    // evaluate cost
-    void eval(&node end);
-
-    // overload == operator
-}
-
-
-int main (void)
+void path(va
 {
     node begin(0, 0), end(5,6);
 
@@ -55,7 +27,8 @@ int main (void)
     // evaluate nodes around
     int xPos = closed.back().x();
     int yPos = closed.back().y();
-    while true: // Need exit clause like a timeout 
+    
+    while (true): // Need exit clause like a timeout 
     {
 	for (int i = xPos - 1; i < xPos + 2; i++)
 	{
@@ -67,12 +40,12 @@ int main (void)
 		{
 		    // if not open already, then add
 		    if (!isin(open, test)
-			open.push_back(test)
+			open.push_back(test);
 		    // set iterator to test
 			
 		    // now connect and evaluate
-		    it->connect(closed.back);
-		    it->eval(end);
+		    //it->connect(closed.back);
+		    //it->eval(end);
 
 		    // find lowest cost in open list
 			// if it is end node, return path
@@ -97,4 +70,3 @@ bool isin(std::list<node> elemList, node elem)
 
     return false;
 }
-*/
