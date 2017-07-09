@@ -16,8 +16,7 @@
 #include <thread>
 #include <libgpsmm.h>
 #include "varTable.hpp"
-
-void gps(varTable *systemVar);
+#include "sbThreads.hpp"
 
 // GPS interface thread
 void gps(varTable *systemVar)
@@ -25,14 +24,8 @@ void gps(varTable *systemVar)
     std::cout << "GPS: Initializing..." << std::endl;
 
     // Initialize connection to GPS Daemon
-    gpsmm gpsRec("localhost", "5555");
+    gpsmm gpsRec("localhost", "2947");
     
-    if (!gpsRec.is_open())
-    {
-	std::cout << "GPS: Error constructor failed" << std::endl;
-	return;
-    }
-
     if (gpsRec.stream(WATCH_ENABLE|WATCH_JSON) == NULL)
     {
 	std::cout << "GPS: gpsd is not running!" << std::endl;
@@ -56,8 +49,10 @@ void gps(varTable *systemVar)
 	    if (newData->status)
 	    {
 		if (LATLON_SET & newData->set)
-		    std::cout << "GPS: New coordinates" << std::endl;
-	    
+		{
+		    systemVar->lat.store(newData->fix.latitude);
+		    systemVar->lon.store(newData->fix.longitude);
+		}
 	    }
 	}
     }

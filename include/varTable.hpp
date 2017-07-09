@@ -14,8 +14,20 @@
 #include <atomic>
 #include <chrono>
 #include <string>
+#include "datapoint.hpp"
 
 using namespace std::chrono;
+
+struct actData
+{
+    varTable *systemVar;
+    int dir;
+    int pwm;
+    int feedback;
+    int dc;
+    int period;
+    double tol;
+};
 
 class varTable
 {
@@ -23,23 +35,30 @@ public:
     // System constants
     const char *gpsPort;
     const char *gpsCommPort;
+    struct actData *ail, *rud;
 
     // Sampling periods (ms)
-    std::atomic< duration<int, std::milli> > Tgps;
+    datapoint<int> Tgps;
+    datapoint<int> Timu;
+    datapoint<int> Twind;
+    datapoint<int> Tlin;
 
     // Wind Vars
-
+    datapoint<double> windSpeed;
+    datapoint<double> windDir;
 
     // GPS vars
-    std::atomic<double> lat, lon; 
-    
+    datapoint< tuple<double,double> > pos; 
+    datapoint< tuple<double,double> > error;
+
     // IMU vars
+    datapoint< tuple<double,double,double> > quat;
+    datapoint< tuple<double,double,double> > linAcc;
+    datapoint<double> heading;
 
-    // Wingsail Vars
-
-    // Rudder Vars
-
-    // Setpoints
+    // Setpoints (-1 to 1)
+    datapoint<double> ailOut;
+    datapoint<double> rudOut;
 
 // Methods
     // ctor
