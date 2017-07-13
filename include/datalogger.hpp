@@ -15,7 +15,7 @@
 #include "varTable.hpp"
 
 // Helper function for creating timestamp string in UTC.
-string time_stamp(std::chrono::system_clock::time_point time);
+std::string time_stamp(std::chrono::system_clock::time_point time);
 
 // datalogger class
 class datalogger
@@ -34,10 +34,10 @@ public:
     void clear(int newFlags);
 
     // header gives column names
-    string header();
+    std::string header();
 
     // csv line of selected variables
-    string sample();
+    std::string sample();
 };
 
 #endif

@@ -7,6 +7,9 @@
 // This Thread periodically reads the interface to the wind sensor and updates
 // the values in the variable table accordingly.
 
+#include <iostream>
+#include <chrono>
+#include <thread>
 #include "sbThreads.hpp"
 
 void wind(varTable *systemVar)

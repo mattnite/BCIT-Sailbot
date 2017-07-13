@@ -7,7 +7,9 @@
 // This class generates csv lines to be either written to a file, or sent to
 // the console interface of the sailbot.
 
+#include <iostream>
 #include <string>
+#include <sstream>
 #include <chrono>
 #include <ctime>
 #include <cstdio>
@@ -29,7 +31,7 @@
 using namespace std::chrono;
 
 // Helper function for creating timestamp string in UTC.
-string time_stamp(system_clock::time_point time)
+std::string time_stamp(system_clock::time_point time)
 {
     // get milliseconds count
     system_clock::duration tp = time.time_since_epoch();
@@ -50,7 +52,7 @@ string time_stamp(system_clock::time_point time)
 	static_cast<unsigned>(tp/milliseconds(1))
     );
     
-    return string(buf);
+    return std::string(buf);
 }
 
 // datalogger ctor
@@ -72,10 +74,10 @@ void datalogger::clear(int newFlags)
 }
 
 // Make header
-string datalogger::header()
+std::string datalogger::header()
 {
-    string buf;
-    sstream line;
+    std::string buf;
+    std::stringstream line;
     
     line << "Date/Time,";
 
@@ -95,38 +97,38 @@ string datalogger::header()
 	line << "Wind Direction,";
 
     // delete last comma and end line
-    buf.pop_back();
     line << std::endl;
-
+    
+    line >> buf;
     return buf;
 }
 
 // sample variables
-string datalogger::sample()
+std::string datalogger::sample()
 {
-    string buf;
-    sstream line;
+    std::string buf;
+    std::stringstream line;
 
     line << time_stamp(system_clock::now()) << ",";
 
     if (flags & D_POS)
-	line << pos << ",";
+	line << systemVar->getPosition() << ",";
     if (flags & D_POS_ERR)
-	line << error << ",";
+	line << systemVar->getError() << ",";
     if (flags & D_ACC)
-	line << linAcc << ",";
+	line << systemVar->getAcc << ",";
     if (flags & D_HEAD)
-	line << heading << ",";
+	line << systemVar->getHeading << ",";
     if (flags & D_QUAT)
-	line << quat << ",";
+	line << systemVar->getQuat << ",";
     if (flags & D_W_SPD)
-	line << windSpeed << ",";
+	line << systemVar->getWindSpeed() << ",";
     if (flags & D_W_DIR)
-	line << windDir << ",";
+	line << systemVar->getWindDir() << ",";
     
     // delete last comma and end line
-    buf.pop_back();
     line << std::endl;
 
+    line >> buf;
     return buf;
 }

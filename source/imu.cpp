@@ -4,7 +4,9 @@
 
 // This Thread periodically reads the IMU and updates values accordingly
 
+#include <iostream>
 #include <chrono>
+#include <thread>
 #include "sbThreads.hpp"
 
 void imu(varTable *systemVar)

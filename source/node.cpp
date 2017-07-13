@@ -14,13 +14,13 @@ node::node(int x, int y)
 // return x position
 int node::x()
 {
-    return std::get<0>(x);
+    return std::get<0>(pos);
 }
 
 // return y position
 int node::y()
 {
-    return std::get<1>(y);
+    return std::get<1>(pos);
 }
 
 // connect

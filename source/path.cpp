@@ -10,11 +10,13 @@
 #include <tuple>
 #include <list>
 #include <algorithm>
+#include "node.h"
+#include "varTable.hpp"
 
 // Simple list search
 bool isin(std::list<node> elemList, node elem);
 
-void path(varTable *systemVar)
+void path(varTable &systemVar)
 {
     node begin(0, 0), end(5,6);
 

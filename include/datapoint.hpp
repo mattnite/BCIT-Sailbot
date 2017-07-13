@@ -10,16 +10,16 @@
 #ifndef DATAPOINT_H_
 #define DATAPOINT_H_
 
-#include <atomic>
 #include <chrono>
-
+#include <mutex>
 using namespace std::chrono;
 
 // Datapoint class
 template <typename T>
 class datapoint
 {
-    std::atomic<T> data;
+    std::mutex mtx;
+    T data;
     system_clock::time_point sampTime;
 
 public:
@@ -36,7 +36,7 @@ public:
     void operator=(const T &val);
 
     // Loading data from datapoint class
-    operator T() {return data.load();}
+    operator T();
 };
 
 template <typename T>
@@ -46,27 +46,34 @@ datapoint<T>::datapoint()
 
 template <typename T>
 datapoint<T>::datapoint(T initVal)
-:sampTime(std::system_clock::now())
+:sampTime(system_clock::now())
 {
-    data.store(initVal);
+    std::lock_guard<std::mutex> lck(mtx);
+    data = initVal;
 }
 
 template <typename T>
 int datapoint<T>::time_since()
 {
-    duration<int,milliseconds> period;
-    period = system_clock::now() - sampTime;
+    milliseconds period = system_clock::now() - sampTime;
     return period.count();
 }
 
 template <typename T>
 void datapoint<T>::operator=(const T &val)
 {
-    // atomically store new value
-    data.store(val);
-
-    // update sample timepoint
+    std::lock_guard<std::mutex> lck(mtx);
+    
+    // store new value and update timestamp
+    data = val;
     sampTime = std::chrono::system_clock::now();
+}
+
+template <typename T>
+datapoint<T>::operator T()
+{
+    std::lock_guard<std::mutex> lck(mtx);
+    return data; 
 }
 
 #endif

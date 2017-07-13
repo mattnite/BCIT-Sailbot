@@ -49,10 +49,8 @@ void gps(varTable *systemVar)
 	    if (newData->status)
 	    {
 		if (LATLON_SET & newData->set)
-		{
-		    systemVar->lat.store(newData->fix.latitude);
-		    systemVar->lon.store(newData->fix.longitude);
-		}
+		    systemVar->setPosition(newData->fix.latitude,
+			newData->fix.longitude);
 	    }
 	}
     }
