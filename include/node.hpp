@@ -13,8 +13,8 @@
 
 class node
 {
-    std::tuple <int, int> pos;
-    std::tuple <int, int> cost;
+    std::array<int, 2ul> pos;
+    std::array<int, 2ul> cost;
     node *parent;
     std::vector<node*> children;
 

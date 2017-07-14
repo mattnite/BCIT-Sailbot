@@ -36,23 +36,43 @@ std::string time_stamp(system_clock::time_point time)
     // get milliseconds count
     system_clock::duration tp = time.time_since_epoch();
     tp -=duration_cast<seconds>(tp);
-    tm t = gmtime(time.to_time_t());
-    
+    time_t cTime = system_clock::to_time_t(time);
+    tm *t = gmtime(&cTime);
+
     // allocate space for string
     char buf[BUFLEN];
     
     // format entire string
     snprintf(buf, BUFLEN, "%04u-%02u-%02u %02u:%02u:%02u.%03u",
-	t.tm_year + 1900,
-	t.tm_mon,
-	t.tm_mday,
-	t.tm_hour,
-	t.tm_min,
-	t.tm_sec,
+	t->tm_year + 1900,
+	t->tm_mon,
+	t->tm_mday,
+	t->tm_hour,
+	t->tm_min,
+	t->tm_sec,
 	static_cast<unsigned>(tp/milliseconds(1))
     );
     
     return std::string(buf);
+}
+
+// Operator overloading for 2 element array
+std::ostream& operator<<(
+    std::ostream& stream, 
+    const std::array<double, 2ul> pair
+)
+{
+    return stream << pair[0] << "," << pair[1];
+    
+}
+
+// Operator overloading for 3 element array
+std::ostream& operator<<(
+    std::ostream& stream, 
+    const std::array<double, 3ul> thruple
+)
+{
+    return stream << thruple[0] << "," << thruple[1] << "," << thruple[2];
 }
 
 // datalogger ctor
@@ -116,11 +136,11 @@ std::string datalogger::sample()
     if (flags & D_POS_ERR)
 	line << systemVar->getError() << ",";
     if (flags & D_ACC)
-	line << systemVar->getAcc << ",";
+	line << systemVar->getAcc() << ",";
     if (flags & D_HEAD)
-	line << systemVar->getHeading << ",";
+	line << systemVar->getHeading() << ",";
     if (flags & D_QUAT)
-	line << systemVar->getQuat << ",";
+	line << systemVar->getQuat() << ",";
     if (flags & D_W_SPD)
 	line << systemVar->getWindSpeed() << ",";
     if (flags & D_W_DIR)
