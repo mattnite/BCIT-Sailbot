@@ -23,13 +23,13 @@ int main(void)
     varTable system;
     
     // create threads
-    //std::thread gpsThread(gps, &system);
+    std::thread gpsThread(gps, &system);
     std::thread imuThread(imu, &system);
-    //std::thread windThread(wind, system);
+    std::thread windThread(wind, &system);
 
-  //  gpsThread.detach();
-    //imuThread.detach();
-    //windThread.detach();
+    gpsThread.detach();
+    imuThread.detach();
+    windThread.detach();
     
     // run forever
     while (true)

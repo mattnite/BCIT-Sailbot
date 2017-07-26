@@ -9,30 +9,24 @@
 #ifndef NODE_H_
 #define NODE_H_
 
-#include <tuple>
+#include <iostream>
+#include <array>
+#include <vector>
+#include "aStar_base.hpp"
 
 class node
 {
-    std::tuple <int, int> pos;
-    std::tuple <int, int> cost;
+    friend class aStar_base;
+    std::array<int, 2> pos;
+    double cost;
     node *parent;
-    std::vector<node*> children;
 
 public:
-    // ctor 1
+    // ctor
     node(int x, int y);
     
-    // return x position
-    int x();
-
-    // return y position
-    int y();
-
-    // connect
-    void connect(node *newParent);
-
-    // evaluate cost
-    void eval(node &end);
+    // add parent via pointer
+    int adopt(node *newParent);
 };
 
 #endif
