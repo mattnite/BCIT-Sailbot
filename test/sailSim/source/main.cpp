@@ -15,20 +15,6 @@
 
 #include "sailEntities.hpp"
 
-class wingSail : public sf::Drawable, sf::Transformable
-{
-    
-    arrow mainForce;
-    arrow aileronForce;
-    
-    sf::VertexArray frame;
-    
-
-public:
-    // default ctor
-    wingSail()
-};
-
 int main()
 {
     sf::ContextSettings settings;
@@ -39,6 +25,7 @@ int main()
     window.setVerticalSyncEnabled(true);
 
     float time = 0;
+    wingSail sailbot(240, 320, 0, 30);
 
     while (window.isOpen())
     {
@@ -52,12 +39,10 @@ int main()
 	sf::Time elapsed = clock.restart();
 	time += elapsed.asSeconds();
 		
-	force.setPolar(time, 360*time);
 
 	window.clear(sf::Color::Black);
+	window.draw(sailbot);
 	window.draw(force);
-	window.draw(wind);
-	window.draw(text);
 	window.display();
 
 	sf::sleep(sf::milliseconds(33));

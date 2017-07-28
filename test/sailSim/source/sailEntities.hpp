@@ -9,7 +9,7 @@
 
 #include <SFML/Graphics.hpp>
 
-class arrow : public sf::Drawable, sf::Transformable
+class arrow : public sf::Drawable, public sf::Transformable
 {
     float mag;
     float k;
@@ -32,5 +32,22 @@ public:
     void setPolar(float magnitude, float angle);
 
 private:
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+};
+
+class wingSail : public sf::Drawable, public sf::Transformable
+{
+    float l1,l2, x, y;
+
+    sf::VertexArray frame;
+
+public:
+    // Parameterized ctor
+    wingSail(float xPos, float yPos, float ang1, float ang2);
+
+    void setState(float ang1, float ang2);
+
+private:
+    // draw method
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

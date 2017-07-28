@@ -7,6 +7,7 @@
 // This header file contains the declarations of several entities that will be
 // used in the wingsail simulation program.
 
+#include <cmath>
 #include "sailEntities.hpp"
 
 // parameterized ctor polar
@@ -53,4 +54,35 @@ void arrow::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	
     target.draw(head, states);
     target.draw(stem, states);
+}
+
+
+// Parameterized ctor
+wingSail::wingSail(float xPos, float yPos, float ang1, float ang2)
+    : x(xPos)
+    , y(yPos)
+    , l1(150)
+    , l2(30)
+    , frame(sf::LinesStrip, 3)
+{
+    frame[0].position = sf::Vector2f(0, 0);
+    frame[1].position = sf::Vector2f(l1, 0);
+    frame[2].position = sf::Vector2f(l1 + l2, 0);
+
+    setPosition(x, y);
+    setState(ang1, ang2);
+}
+
+void wingSail::setState(float ang1, float ang2)
+{
+    frame[2].position = sf::Vector2f(l1 + l2*cos(ang2*M_PI/180), l2*sin(ang2*M_PI/180));	
+    setRotation(ang1);
+}
+
+// draw method
+void wingSail::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    states.transform *= getTransform();
+	
+    target.draw(frame, states);
 }
