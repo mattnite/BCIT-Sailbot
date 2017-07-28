@@ -10,72 +10,35 @@
 // numerically and with sliders.
 
 #include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <cmath>
 
-class arrow : public sf::Drawable, sf::Transformable
+#include "sailEntities.hpp"
+
+class wingSail : public sf::Drawable, sf::Transformable
 {
-    float mag;
-    float k;
     
-    // Arrowhead
-    float width;
-    float height;
-
-    sf::VertexArray stem, head;
-    sf::Color color;
+    arrow mainForce;
+    arrow aileronForce;
+    
+    sf::VertexArray frame;
+    
 
 public:
     // default ctor
-    arrow()
-    {}
-
-    // parameterized ctor polar
-    arrow(float magnitude, float convert, float angle, float x, float y, sf::Color color)
-	: mag(magnitude)
-	, k(convert)
-	, width(6)
-	, height(10)
-	, stem(sf::Lines, 2)
-	, head(sf::Triangles, 3)
-	, color(color)
-    {
-	// Initialize arrow shape
-	stem[0].position = sf::Vector2f(0, 100);
-	stem[1].position = sf::Vector2f(mag*k, 100);
-	
-	head[0].position = sf::Vector2f(mag*k - height, 100 + width/2);
-	head[1].position = sf::Vector2f(mag*k, 100);
-	head[2].position = sf::Vector2f(mag*k - height, 100 - width/2);
-
-	// Transform arrow
-    }
-    
-    // Set position
-    void setPosition(float x, float y);
-    
-    // Set polar representation of arrow wrt its origin 
-    void setPolar(float magnitude, float angle);
-
-
-private:
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
-    {
-
-	states.transform *= getTransform();
-	    
-	target.draw(head, states);
-	target.draw(stem, states);
-    }
+    wingSail()
 };
-
 
 int main()
 {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    
+    sf::Clock clock;
+
     sf::RenderWindow window(sf::VideoMode(480,640), "Wing Sail Sim", sf::Style::Default, settings);
-    
-    arrow force(300, 1, 0, 50, 50, sf::Color::Red);
+    window.setVerticalSyncEnabled(true);
+
+    float time = 0;
 
     while (window.isOpen())
     {
@@ -85,10 +48,19 @@ int main()
 	    if (event.type == sf::Event::Closed)
 		window.close();
 	}
+	
+	sf::Time elapsed = clock.restart();
+	time += elapsed.asSeconds();
+		
+	force.setPolar(time, 360*time);
 
 	window.clear(sf::Color::Black);
 	window.draw(force);
+	window.draw(wind);
+	window.draw(text);
 	window.display();
+
+	sf::sleep(sf::milliseconds(33));
     }
 
     return 0;
