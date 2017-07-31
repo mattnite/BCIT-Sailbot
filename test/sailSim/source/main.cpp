@@ -38,11 +38,11 @@ int main()
 	
 	sf::Time elapsed = clock.restart();
 	time += elapsed.asSeconds();
-		
+	
+	sailbot.setState(120*time, 200*time);
 
 	window.clear(sf::Color::Black);
 	window.draw(sailbot);
-	window.draw(force);
 	window.display();
 
 	sf::sleep(sf::milliseconds(33));
