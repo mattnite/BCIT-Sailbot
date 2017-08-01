@@ -28,10 +28,11 @@ int main()
 
     float angle = 0, speed = 10;
     wingSail sailbot(240, 320, 0, 30);
-    arrow wind(speed, 2, 90, 240, 50, sf::Color::White);
+    arrow wind(speed, 2, 90, 240, 50, sf::Color::Green);
 
     while (window.isOpen())
     {
+	
 	sf::Event event;
 	while (window.pollEvent(event))
 	{
@@ -80,7 +81,9 @@ int main()
 	if (speed < 0)
 	    speed = 0;
 	
-	sailbot.setState(90, angle);
+	sailbot.setState(20*time, -angle);
+	sailbot.setAil(25, 45);
+	sailbot.setMain(50, -45); 
 	wind.setPolar(speed, 90);
 
 	window.clear(sf::Color::Black);

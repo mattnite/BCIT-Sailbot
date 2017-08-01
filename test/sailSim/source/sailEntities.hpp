@@ -31,6 +31,9 @@ public:
     // Set polar representation of arrow wrt its origin 
     void setPolar(float magnitude, float angle);
 
+    // Set position of arrow
+    void setPos(float x, float y);
+
 private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
@@ -39,6 +42,7 @@ class wingSail : public sf::Drawable, public sf::Transformable
 {
     float l1,l2, x, y;
 
+    arrow mainForce, ailForce;
     sf::VertexArray frame;
 
 public:
@@ -46,6 +50,12 @@ public:
     wingSail(float xPos, float yPos, float ang1, float ang2);
 
     void setState(float ang1, float ang2);
+
+    // set Main force arrow
+    void setMain(float magnitude, float angle);
+
+    // set aileron force arrow
+    void setAil(float magnitude, float angle);
 
 private:
     // draw method
