@@ -85,6 +85,7 @@ wingSail::wingSail(float xPos, float yPos, float ang1, float ang2)
     frame[1].position = sf::Vector2f(l1, 0);
     frame[2].position = sf::Vector2f(l1 + l2, 0);
     
+
     setPosition(x, y);
     setState(ang1, ang2);
 }
@@ -115,7 +116,11 @@ void wingSail::setAil(float magnitude, float angle)
 void wingSail::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
-    target.draw(mainForce, states);
-    target.draw(ailForce, states);
     target.draw(frame, states);
+    // Need to fix aileron arrow
+    target.draw(ailForce, states);
+    
+    states.transform.rotate(-getRotation());
+    target.draw(mainForce, states);
+
 }
