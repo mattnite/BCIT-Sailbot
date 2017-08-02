@@ -28,7 +28,7 @@ sail::sail()
 // get force vector
 std::complex<float> sail::force()	// Wind vector
 {
-    return rotate(main.force(abs(wind), arg(wind) - theta), theta);
+    return rotate(main.force(std::abs(wind), std::arg(wind) - theta), theta);
 }
 
 // update for time interval

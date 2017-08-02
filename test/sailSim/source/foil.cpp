@@ -41,7 +41,7 @@ foil::foil( const char *name, double area, double chord)
     cd = LUT(drag.c_str());
 
     // Print size of look up tables
-    std::cout
+    std::clog
 	<< name << " Air Foil:" << std::endl
 	<< "\tLift table size: " << cl.rowNum <<  ", " << cl.colNum <<std::endl
 	<< "\tDrag table size: " << cd.rowNum <<  ", " << cd.colNum <<std::endl
