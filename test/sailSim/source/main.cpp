@@ -84,7 +84,7 @@ int main()
 	
 	std::complex<float> windVect(0, -speed);
 
-	sailbot.process(windVect,  float(0.0), elapsed.asSeconds()); 
+	sailbot.process(windVect,  float(angle), elapsed.asSeconds()); 
 	wind.setPolar(speed, 90);
 
 	window.clear(sf::Color::Black);

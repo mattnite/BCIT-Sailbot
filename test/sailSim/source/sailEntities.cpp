@@ -94,7 +94,7 @@ void wingSail::process(std::complex<float>& windVect, float ailAngle, float time
 {
     update(windVect, ailAngle, time);
     
-    std::complex<double> mainForceVect = force();
+    std::complex<float> mainForceVect = force();
 
     setState(theta*180/M_PI, ailAngle);
     setMain(abs(mainForceVect), -arg(mainForceVect)*180/M_PI);

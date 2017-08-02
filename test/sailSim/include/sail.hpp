@@ -23,25 +23,25 @@ public:
     foil aileron;			// Aileron foil, NACA0009
     
     // Rotational mechanics
-    double J;				// Moment of interia
-    double b;				// Angular friction 
-    double d;				// Distance between pivot points
-    double tD;				// angle between aileron and main
-    double theta;			// angle of wingsail
-    double w;				// angular velocity
-    double a;				// angular acceleration
+    float J;				// Moment of interia
+    float b;				// Angular friction 
+    float d;				// Distance between pivot points
+    float tD;				// angle between aileron and main
+    float theta;			// angle of wingsail
+    float w;				// angular velocity
+    float a;				// angular acceleration
 public:
     //ctor
     sail();
 
     // get force vector
-    std::complex<double> force();
+    std::complex<float> force();
 
     // update for time interval
     void update (
-	std::complex<double>& windVect,
-	double ang,			// New angle of aileron wrt main
-	double t
+	std::complex<float>& windVect,
+	float ang,			// New angle of aileron wrt main
+	float t
     );
 };
 
