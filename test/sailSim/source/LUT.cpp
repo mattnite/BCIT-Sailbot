@@ -66,11 +66,11 @@ double LUT::interp(double x, double y)
     // Find interpolation points
     int i, j;
 
-    for (i = 1; i < rowNum; i++)
+    for (i = 1; i < rowNum-1; i++)
 	if (row[i] > x)
 	    break;
 
-    for (j = 1; j < colNum; j++)
+    for (j = 1; j < colNum-1; j++)
 	if (col[j] > y)
 	    break;
     

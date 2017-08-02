@@ -17,7 +17,7 @@ objects = $(patsubst $(sourceDir)%.cpp, $(buildDir)%.o, $(sources))
 all: $(objects) sailSim
 
 sailSim: $(objects)
-	$(CC) -o source/sailSim $(objects) -std=c++11 -I./include
+	$(CC) -o sailSim $(objects) -std=c++11 -I./include
 
 $(objects): $(buildDir)%.o : $(sourceDir)%.cpp
 	-$(CC) $(CFLAGS) $< -o $@
