@@ -5,7 +5,7 @@
 CC=g++
 
 # Options Passed to compiler
-CFLAGS=-c -Wall -std=c++11 -I./include -g
+CFLAGS= -Wall -std=c++11 -I./include -g -lsfml-graphics -lsfml-window -lsfml-system
 
 # Directories
 sourceDir = source/
@@ -17,7 +17,7 @@ objects = $(patsubst $(sourceDir)%.cpp, $(buildDir)%.o, $(sources))
 all: $(objects) sailSim
 
 sailSim: $(objects)
-	$(CC) -o sailSim $(objects) -std=c++11 -I./include
+	$(CC) -o source/sailSim $(objects) $(CFLAGS) 
 
 $(objects): $(buildDir)%.o : $(sourceDir)%.cpp
-	-$(CC) $(CFLAGS) $< -o $@
+	-$(CC) -c $(CFLAGS) $< -o $@
