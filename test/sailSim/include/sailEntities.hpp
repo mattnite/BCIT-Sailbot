@@ -52,7 +52,7 @@ public:
     wingSail(float xPos, float yPos, float ang1, float ang2);
 
     // Update real time simulation of wingsail
-    void process(std::complex<float> wind, float ailAngle, float time);
+    void process(std::complex<float>& windVect, float ailAngle, float time);
 
 private:
     // set angular positions of members

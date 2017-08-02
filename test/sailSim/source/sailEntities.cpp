@@ -90,9 +90,9 @@ wingSail::wingSail(float xPos, float yPos, float ang1, float ang2)
     setState(ang1, ang2);
 }
 
-void wingSail::process(std::complex<float> wind, float ailAngle, float time)
+void wingSail::process(std::complex<float>& windVect, float ailAngle, float time)
 {
-    update(wind, ailAngle, time);
+    update(windVect, ailAngle, time);
     
     std::complex<double> mainForceVect = force();
 

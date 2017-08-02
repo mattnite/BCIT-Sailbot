@@ -32,7 +32,7 @@ std::complex<double> sail::force()	// Wind vector
 }
 
 // update for time interval
-void sail::update(std::complex<double> &windVect, double ang, double t)		
+void sail::update(std::complex<double>& windVect, double ang, double t)		
 {
     // Update values
     wind = windVect;

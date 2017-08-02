@@ -16,7 +16,7 @@
 class sail
 {
 public:
-    std::complex<double> wind;		// variable for holding last wind read
+    std::complex<float> wind;		// variable for holding last wind read
 
     // The foils
     foil main;				// Main foil, NACA0018
@@ -39,7 +39,7 @@ public:
 
     // update for time interval
     void update (
-	std::complex<double> &windVect,
+	std::complex<double>& windVect,
 	double ang,			// New angle of aileron wrt main
 	double t
     );

@@ -82,7 +82,9 @@ int main()
 	if (speed < 0)
 	    speed = 0;
 	
-	sailbot.process(std::complex<double>(0, -50),  angle, elapsed.asSeconds()); 
+	std::complex<float> windVect(0, -speed);
+
+	sailbot.process(windVect,  float(0.0), elapsed.asSeconds()); 
 	wind.setPolar(speed, 90);
 
 	window.clear(sf::Color::Black);
