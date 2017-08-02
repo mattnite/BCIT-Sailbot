@@ -15,6 +15,7 @@ pages:
     - Contact Us: 'about/contact.md'
 - Design Documentation:
     - Project Overview: 'design/overview.md'
+    - Command Set: 'design/commandSet.md'
     - Wing Sail Design and Manufacturing: 'design/wingSailReport.md'
 - Team Documents:
     - Project Guidelines: 'team/guidelines.md'
