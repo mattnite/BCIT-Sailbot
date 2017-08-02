@@ -75,8 +75,8 @@ void arrow::draw(sf::RenderTarget& target, sf::RenderStates states) const
 wingSail::wingSail(float xPos, float yPos, float ang1, float ang2)
     : x(xPos)
     , y(yPos)
-    , l1(150)
-    , l2(30)
+    , l1(100)
+    , l2(55)
     , frame(sf::LinesStrip, 3)
     , mainForce(0, 1, 0, 0, 0, sf::Color::Red)
     , ailForce(0, 1, 0, l1, 0, sf::Color::Blue)
@@ -103,13 +103,13 @@ void wingSail::setState(float ang1, float ang2)
 // set main force
 void wingSail::setMain(float magnitude, float angle)
 {
-    mainForce.setPolar(magnitude, angle);
+    mainForce.setPolar(magnitude, angle - getRotation());
 }
 
 // set aileron force
 void wingSail::setAil(float magnitude, float angle)
 {
-    ailForce.setPolar(magnitude, angle);
+    ailForce.setPolar(magnitude, angle - getRotation());
 }
 
 // draw method
@@ -117,10 +117,6 @@ void wingSail::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
     target.draw(frame, states);
-    // Need to fix aileron arrow
     target.draw(ailForce, states);
-    
-    states.transform.rotate(-getRotation());
     target.draw(mainForce, states);
-
 }

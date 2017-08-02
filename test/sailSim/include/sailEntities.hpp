@@ -8,6 +8,7 @@
 // used in the wingsail simulation program.
 
 #include <SFML/Graphics.hpp>
+#include "sail.hpp"
 
 class arrow : public sf::Drawable, public sf::Transformable
 {
@@ -38,7 +39,7 @@ private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 
-class wingSail : public sf::Drawable, public sf::Transformable
+class wingSail : public sf::Drawable, public sf::Transformable, public sail
 {
     float l1,l2, x, y;
 
