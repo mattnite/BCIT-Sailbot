@@ -8,6 +8,7 @@ behavior can be "scripted".
 The messages are intended to be transmitted over a Zigbee transciever or even a
 satellite modem. Commands are framed in JSON, and can be converted to CBOR to
 compress message length (and reduce cost in the case of the satellite modem).
+Commands can be sent one at a time, or sent over as an array.
 
 ## Commands
 
