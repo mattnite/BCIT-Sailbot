@@ -13,6 +13,7 @@
 #include <SFML/System.hpp>
 #include <cmath>
 #include <iostream>
+#include <complex>
 #include "sailEntities.hpp"
 
 int main()
@@ -81,9 +82,7 @@ int main()
 	if (speed < 0)
 	    speed = 0;
 	
-	sailbot.setState(20*time, -angle);
-	sailbot.setAil(25, 45);
-	sailbot.setMain(50, -45); 
+	sailbot.process(std::complex<double>(0, -50),  angle, elapsed.asSeconds()); 
 	wind.setPolar(speed, 90);
 
 	window.clear(sf::Color::Black);

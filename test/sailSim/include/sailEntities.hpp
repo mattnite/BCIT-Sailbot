@@ -7,6 +7,7 @@
 // This header file contains the declarations of several entities that will be
 // used in the wingsail simulation program.
 
+#include <complex>
 #include <SFML/Graphics.hpp>
 #include "sail.hpp"
 
@@ -50,6 +51,11 @@ public:
     // Parameterized ctor
     wingSail(float xPos, float yPos, float ang1, float ang2);
 
+    // Update real time simulation of wingsail
+    void process(std::complex<float> wind, float ailAngle, float time);
+
+private:
+    // set angular positions of members
     void setState(float ang1, float ang2);
 
     // set Main force arrow
@@ -57,8 +63,7 @@ public:
 
     // set aileron force arrow
     void setAil(float magnitude, float angle);
-
-private:
+    
     // draw method
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

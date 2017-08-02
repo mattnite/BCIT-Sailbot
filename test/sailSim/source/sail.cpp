@@ -13,8 +13,7 @@
 
 //ctor
 sail::sail()
-    : t(0.1)
-    , J(0.843)
+    : J(0.843)
     , b(1.186)
     , d(0.4191)
     , tD(0.0)
@@ -33,7 +32,7 @@ std::complex<double> sail::force()	// Wind vector
 }
 
 // update for time interval
-void sail::update(std::complex<double> &windVect, double ang)		
+void sail::update(std::complex<double> &windVect, double ang, double t)		
 {
     // Update values
     wind = windVect;

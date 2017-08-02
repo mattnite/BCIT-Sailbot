@@ -73,7 +73,8 @@ void arrow::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 // Parameterized ctor
 wingSail::wingSail(float xPos, float yPos, float ang1, float ang2)
-    : x(xPos)
+    : sail()
+    , x(xPos)
     , y(yPos)
     , l1(100)
     , l2(55)
@@ -85,9 +86,18 @@ wingSail::wingSail(float xPos, float yPos, float ang1, float ang2)
     frame[1].position = sf::Vector2f(l1, 0);
     frame[2].position = sf::Vector2f(l1 + l2, 0);
     
-
     setPosition(x, y);
     setState(ang1, ang2);
+}
+
+void wingSail::process(std::complex<float> wind, float ailAngle, float time)
+{
+    update(wind, ailAngle, time);
+    
+    std::complex<double> mainForceVect = force();
+
+    setState(theta*180/M_PI, ailAngle);
+    setMain(abs(mainForceVect), -arg(mainForceVect)*180/M_PI);
 }
 
 // set member rotation

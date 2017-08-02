@@ -16,7 +16,6 @@
 class sail
 {
 public:
-    double t;				// Simulation time interval
     std::complex<double> wind;		// variable for holding last wind read
 
     // The foils
@@ -41,7 +40,8 @@ public:
     // update for time interval
     void update (
 	std::complex<double> &windVect,
-	double ang			// New angle of aileron wrt main
+	double ang,			// New angle of aileron wrt main
+	double t
     );
 };
 
