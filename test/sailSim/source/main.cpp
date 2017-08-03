@@ -25,9 +25,9 @@ int main()
     sf::RenderWindow window(sf::VideoMode(480,640), "Wing Sail Sim", sf::Style::Default, settings);
     window.setVerticalSyncEnabled(true);
 
-    float time = 0;
+    double time = 0;
 
-    float angle = 0, speed = 10;
+    double angle = 0, speed = 10;
     wingSail sailbot(240, 320, 0, 30);
     arrow wind(speed, 2, 90, 240, 50, sf::Color::Green);
 
@@ -82,9 +82,9 @@ int main()
 	if (speed < 0)
 	    speed = 0;
 	
-	std::complex<float> windVect(0, -speed);
+	std::complex<double> windVect(0, -speed);
 
-	sailbot.process(windVect,  float(angle), elapsed.asSeconds()); 
+	sailbot.process(windVect,  angle, elapsed.asSeconds()); 
 	wind.setPolar(speed, 90);
 
 	window.clear(sf::Color::Black);

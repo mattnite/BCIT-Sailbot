@@ -26,26 +26,26 @@ sail::sail()
 {};
 
 // get force vector
-std::complex<float> sail::force()	// Wind vector
+std::complex<double> sail::force()	// Wind vector
 {
     return rotate(main.force(std::abs(wind), std::arg(wind) - theta), theta);
 }
 
 // update for time interval
-void sail::update(std::complex<float>& windVect, float ang, float t)		
+void sail::update(std::complex<double>& windVect, double ang, double t)		
 {
     // Update values
     wind = windVect;
     tD = ang;
 
     // Determine angle of attack
-    float alpha = arg(wind) - (tD + theta);
+    double alpha = arg(wind) - (tD + theta);
 
     // Get force from aileron
-    std::complex<float> F = rotate(aileron.force(alpha, abs(wind)), theta + tD);
+    std::complex<double> F = rotate(aileron.force(alpha, abs(wind)), theta + tD);
 
     // Find Torque
-    float T = dot(F, std::polar(PLEN, theta));
+    double T = dot(F, std::polar(PLEN, theta));
 
     // update knematics
     a = T/J;

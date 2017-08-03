@@ -16,32 +16,32 @@
 class sail
 {
 public:
-    std::complex<float> wind;		// variable for holding last wind read
+    std::complex<double> wind;		// variable for holding last wind read
 
     // The foils
     foil main;				// Main foil, NACA0018
     foil aileron;			// Aileron foil, NACA0009
     
     // Rotational mechanics
-    float J;				// Moment of interia
-    float b;				// Angular friction 
-    float d;				// Distance between pivot points
-    float tD;				// angle between aileron and main
-    float theta;			// angle of wingsail
-    float w;				// angular velocity
-    float a;				// angular acceleration
+    double J;				// Moment of interia
+    double b;				// Angular friction 
+    double d;				// Distance between pivot points
+    double tD;				// angle between aileron and main
+    double theta;			// angle of wingsail
+    double w;				// angular velocity
+    double a;				// angular acceleration
 public:
     //ctor
     sail();
 
     // get force vector
-    std::complex<float> force();
+    std::complex<double> force();
 
     // update for time interval
     void update (
-	std::complex<float>& windVect,
-	float ang,			// New angle of aileron wrt main
-	float t
+	std::complex<double>& windVect,
+	double ang,			// New angle of aileron wrt main
+	double t
     );
 };
 
