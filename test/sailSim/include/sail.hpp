@@ -39,7 +39,7 @@ public:
 
     // update for time interval
     void update (
-	std::complex<double> &windVect,
+	std::complex<double>& windVect,
 	double ang,			// New angle of aileron wrt main
 	double t
     );

@@ -11,7 +11,7 @@
 #include "sailEntities.hpp"
 
 // parameterized ctor polar
-arrow::arrow(float magnitude, float convert, float angle, float x, float y, sf::Color color)
+arrow::arrow(double magnitude, double convert, double angle, double x, double y, sf::Color color)
     : mag(magnitude)
     , k(convert)
     , width(6)
@@ -42,7 +42,7 @@ arrow::arrow(float magnitude, float convert, float angle, float x, float y, sf::
 }
 
 // Set polar representation of arrow wrt its origin 
-void arrow::setPolar(float magnitude, float angle)
+void arrow::setPolar(double magnitude, double angle)
 {
     mag = magnitude;
     
@@ -55,7 +55,7 @@ void arrow::setPolar(float magnitude, float angle)
 }
 
 // Set arrow position
-void arrow::setPos(float x, float y)
+void arrow::setPos(double x, double y)
 {
     setPosition(x, y);
 }
@@ -72,7 +72,7 @@ void arrow::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 
 // Parameterized ctor
-wingSail::wingSail(float xPos, float yPos, float ang1, float ang2)
+wingSail::wingSail(double xPos, double yPos, double ang1, double ang2)
     : sail()
     , x(xPos)
     , y(yPos)
@@ -90,9 +90,9 @@ wingSail::wingSail(float xPos, float yPos, float ang1, float ang2)
     setState(ang1, ang2);
 }
 
-void wingSail::process(std::complex<float> wind, float ailAngle, float time)
+void wingSail::process(std::complex<double>& windVect, double ailAngle, double time)
 {
-    update(wind, ailAngle, time);
+    update(windVect, ailAngle, time);
     
     std::complex<double> mainForceVect = force();
 
@@ -101,23 +101,23 @@ void wingSail::process(std::complex<float> wind, float ailAngle, float time)
 }
 
 // set member rotation
-void wingSail::setState(float ang1, float ang2)
+void wingSail::setState(double ang1, double ang2)
 {
-    float newX = l1 + l2*cos(ang2*M_PI/180);
-    float newY = l2*sin(ang2*M_PI/180);
+    double newX = l1 + l2*cos(ang2*M_PI/180);
+    double newY = l2*sin(ang2*M_PI/180);
     frame[2].position = sf::Vector2f(newX, newY);
     ailForce.setPos(newX, newY);
     setRotation(ang1);
 }
 
 // set main force
-void wingSail::setMain(float magnitude, float angle)
+void wingSail::setMain(double magnitude, double angle)
 {
     mainForce.setPolar(magnitude, angle - getRotation());
 }
 
 // set aileron force
-void wingSail::setAil(float magnitude, float angle)
+void wingSail::setAil(double magnitude, double angle)
 {
     ailForce.setPolar(magnitude, angle - getRotation());
 }

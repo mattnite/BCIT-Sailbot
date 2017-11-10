@@ -13,12 +13,12 @@
 
 class arrow : public sf::Drawable, public sf::Transformable
 {
-    float mag;
-    float k;
+    double mag;
+    double k;
     
     // Arrowhead
-    float width;
-    float height;
+    double width;
+    double height;
 
     sf::VertexArray stem, head;
     sf::Color color;
@@ -28,13 +28,13 @@ public:
     arrow();
 
     // parameterized ctor polar
-    arrow(float magnitude, float convert, float angle, float x, float y, sf::Color color);
+    arrow(double magnitude, double convert, double angle, double x, double y, sf::Color color);
     
     // Set polar representation of arrow wrt its origin 
-    void setPolar(float magnitude, float angle);
+    void setPolar(double magnitude, double angle);
 
     // Set position of arrow
-    void setPos(float x, float y);
+    void setPos(double x, double y);
 
 private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -42,27 +42,27 @@ private:
 
 class wingSail : public sf::Drawable, public sf::Transformable, public sail
 {
-    float l1,l2, x, y;
+    double l1,l2, x, y;
 
     arrow mainForce, ailForce;
     sf::VertexArray frame;
 
 public:
     // Parameterized ctor
-    wingSail(float xPos, float yPos, float ang1, float ang2);
+    wingSail(double xPos, double yPos, double ang1, double ang2);
 
     // Update real time simulation of wingsail
-    void process(std::complex<float> wind, float ailAngle, float time);
+    void process(std::complex<double>& windVect, double ailAngle, double time);
 
 private:
     // set angular positions of members
-    void setState(float ang1, float ang2);
+    void setState(double ang1, double ang2);
 
     // set Main force arrow
-    void setMain(float magnitude, float angle);
+    void setMain(double magnitude, double angle);
 
     // set aileron force arrow
-    void setAil(float magnitude, float angle);
+    void setAil(double magnitude, double angle);
     
     // draw method
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

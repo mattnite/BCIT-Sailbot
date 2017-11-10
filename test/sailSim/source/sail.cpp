@@ -32,7 +32,7 @@ std::complex<double> sail::force()	// Wind vector
 }
 
 // update for time interval
-void sail::update(std::complex<double> &windVect, double ang, double t)		
+void sail::update(std::complex<double>& windVect, double ang, double t)		
 {
     // Update values
     wind = windVect;
@@ -42,7 +42,7 @@ void sail::update(std::complex<double> &windVect, double ang, double t)
     double alpha = arg(wind) - (tD + theta);
 
     // Get force from aileron
-    std::complex<double> F = rotate(aileron.force(alpha, std::abs(wind)), theta + tD);
+    std::complex<double> F = rotate(aileron.force(alpha, abs(wind)), theta + tD);
 
     // Find Torque
     double T = dot(F, std::polar(PLEN, theta));
