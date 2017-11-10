@@ -8,9 +8,13 @@ pages:
 - About Us:
     - The Team: 'about/team.md'
     - Sponsorship: 'about/sponsorship.md'
+    - Budget: 'about/budget.md'
+    - Current Progress: 'about/progress.md'
     - Contact Us: 'about/contact.md'
 - Design Documentation:
     - Project Overview: 'design/overview.md'
+    - Command Set: 'design/commandSet.md'
+    - Wing Sail Design and Manufacturing: 'design/wingSailReport.md'
 - Team Documents:
     - Project Guidelines: 'team/guidelines.md'
     - Using Zenhub: 'team/zenhub.md'

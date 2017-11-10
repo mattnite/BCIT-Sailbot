@@ -1,21 +1,23 @@
 # We Need Your Help
 
-This project is large, and 
+This project is large. We have enough team members who have the drive to make it
+happen, but in order to make this project come together we need help. We mainly
+need help financially and we always welcome any sort of mentorship and guidance.
 
 ## Budget
 
 Our current focus of the project is simply getting the sailbot built, and this
 will require $5000 - $10000. Once the competition gets closer and we have more
-information on the logistics of getting to the competition we will be needing
-help to transport this machine from Vancouver to somewhere on the east coast.
+information on the logistics of getting to the competition, we will need help to
+transport this machine from Vancouver to somewhere on the east coast.
 
 # How You Can Get Involved
 
 ## Mentorship
 
-An important resource for the team are experienced induviduals who we can bounce
+An important resource for the team is experienced individuals we can bounce
 ideas off of. This is a great way for professionals to get involved with the
-project and seeing it come to fruition.
+project and see it come to fruition.
 
 ## Financial Sponsorship
 
