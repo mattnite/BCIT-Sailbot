@@ -1,14 +1,16 @@
 // A-star pathfinding class implementation
 
 // Author: Matthew Knight
-// File Name: aStar.cpp
+// File Name: AStar.cpp
 // Date: 2017-08-07
+
+#include "a-star.hpp"
 
 #include <iostream>
 #include <cstdlib>
 #include <cmath>
 #include <algorithm>
-#include "aStar.hpp"
+
 
 // Overload for printing position
 std::ostream& operator<<(std::ostream& os, std::array<int,2>& pair)
@@ -17,7 +19,7 @@ std::ostream& operator<<(std::ostream& os, std::array<int,2>& pair)
 }
 
 // default ctor
-aStar::aStar()
+AStar::AStar()
 {
     node begin(0, 0);
     begin.cost = 0;
@@ -26,7 +28,7 @@ aStar::aStar()
 
 
 // end node ctor
-aStar::aStar(node &End)
+AStar::AStar(node &End)
     : end(End)
 {
     node begin(0, 0);
@@ -35,7 +37,7 @@ aStar::aStar(node &End)
 }
 
 // full ctor
-aStar::aStar(node &End, std::list<node> &Obj)
+AStar::AStar(node &End, std::list<node> &Obj)
     : end(End)
     , objects(Obj)
 {
@@ -46,28 +48,28 @@ aStar::aStar(node &End, std::list<node> &Obj)
 }
 
 // set end node
-int aStar::setEnd(int x, int y)
+int AStar::setEnd(int x, int y)
 {
     end = node(x, y);
     return 0;
 }
 
 // set object list
-int aStar::setObj(std::list<node> &Obj)
+int AStar::setObj(std::list<node> &Obj)
 {
     objects = Obj;
     return 0;
 }
 
 // add object
-int aStar::addObj(int x, int y)
+int AStar::addObj(int x, int y)
 {
     objects.push_back(node(x, y));
     return 0;
 }
 
 // run the algorithm
-int aStar::run()
+int AStar::run()
 {
     // while end node is not in closed list
     while (!inList(end, closed))
@@ -98,13 +100,13 @@ int aStar::run()
 }
 
 // return calculated path
-std::stack<node> &aStar::getPath()
+std::stack<node> &AStar::getPath()
 {
     return path;
 }
 
 // check if node is in list
-bool aStar::inList(node &nd, std::list<node> &lst)
+bool AStar::inList(node &nd, std::list<node> &lst)
 {
     for (std::list<node>::iterator it = lst.begin(); it != lst.end(); it++)
 	if ((*it).pos == nd.pos)
@@ -114,7 +116,7 @@ bool aStar::inList(node &nd, std::list<node> &lst)
 }
 
 // Evaluate node
-int aStar::evalNode(node &nd)
+int AStar::evalNode(node &nd)
 {
     int x = nd.pos[0];
     int y = nd.pos[1];
@@ -183,7 +185,7 @@ int aStar::evalNode(node &nd)
 }
 
 // Find lowest cost node in list
-std::list<node>::iterator aStar::lowCost(std::list<node> &lst)
+std::list<node>::iterator AStar::lowCost(std::list<node> &lst)
 {
     std::list<node>::iterator low = lst.begin();
     for (std::list<node>::iterator it = lst.begin(); it != lst.end(); it++)
@@ -196,7 +198,7 @@ std::list<node>::iterator aStar::lowCost(std::list<node> &lst)
 }
 
 // return cost of node with parent
-double aStar::nodeCost(node &child, node &parent)
+double AStar::nodeCost(node &child, node &parent)
 {
     double c;
     
