@@ -1,0 +1,7 @@
+# build tests
+Program(
+	'nav-node-test',
+	Glob('src/*.cpp', exclude="src/main.cpp") + Glob('tests/*.cpp'),
+	CPPPATH=['inc'], 
+	LIBS=['gtest', 'gtest_main', 'pthread']
+)
