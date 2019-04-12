@@ -2,20 +2,10 @@
 #include "bridge.hpp"
 
 namespace Sailbot {
-	void Bridge::setCoordinates(const Gps::Coordinates& coord) {
-		coordinates = Measurement<Gps::Coordinates>(coord);	
-	}
-
-	Gps::Coordinates Bridge::getCoordinates() {
-		return coordinates.load();
-	}
-}
-
-
-/*
-			: gps(createGps(config, WriteAccess<SystemCoordinates>(coordinates))
-			, imu(createImu(config, WriteAccess<SystemKinetics>(kinetics))
-			, wind(createWind(config, WriteAccess<SystemWind>(wind)) 
+		Bridge::Bridge()
+			: gps(createGps(*this))
+			, imu(createImu(*this))
+			, wind(createWind(*this))
 		{
 			if (!gps)
 				throw std::runtime_error("GPS module not started");
@@ -27,4 +17,13 @@ namespace Sailbot {
 				throw std::runtime_error("Wind module not started");
 
 		}
-		*/
+	void Bridge::setCoordinates(const Gps::Coordinates& coord) {
+		coordinates = Measurement<Gps::Coordinates>(coord);	
+	}
+
+	Gps::Coordinates Bridge::getCoordinates() {
+		return coordinates.load();
+	}
+
+
+	

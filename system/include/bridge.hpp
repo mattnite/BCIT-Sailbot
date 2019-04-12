@@ -10,7 +10,6 @@
 #include "imu.hpp"
 #include "types.hpp"
 #include "wind.hpp"
-#include "write-access.hpp"
 
 namespace Sailbot {
 
@@ -23,18 +22,22 @@ namespace Sailbot {
 	 */
 	class Bridge {
 		SystemCoordinates coordinates;
-//		SystemKinetics kinetics;
-//		SystemWind wind;
+		SystemKinetics kinetics;
+		SystemWind reading;
 
 		GpsPtr gps;
-//		ImuPtr imu;
-//		WindPtr wind;
+		ImuPtr imu;
+		WindPtr wind;
 
 	public:
+		Bridge(const Configuration& config);
+		
 		void setCoordinates(const Gps::Coordinates& coord);
+		void setImuData(const Imu::Data& kinetics);
+		void setWindReading(const Wind::Reading& reading);
 
 		Gps::Coordinates getCoordinates();
-
-//		Bridge(const Configuration& config);
+		Imu::Data getImuData();
+		Wind::Reading getWindReading();
 	};
 }
