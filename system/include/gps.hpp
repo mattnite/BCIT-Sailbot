@@ -22,6 +22,6 @@ namespace Sailbot {
 		struct Coordinates {
 			double latitude;
 			double longitude;
-		}
+		};
 	};
 }

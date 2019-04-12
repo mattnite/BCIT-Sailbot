@@ -4,9 +4,18 @@
 // File Name: daemon-gps.hpp
 // Date: 2019-04-10
 
+#pragma once
+
 #include "gps.hpp"
 
 #include "bridge.hpp"
+#include "types.hpp"
+#include "write-access.hpp"
+
+#include <libgpsmm.h>
+
+#include <atomic>
+#include <thread>
 
 namespace Sailbot {
 	/**
@@ -16,9 +25,10 @@ namespace Sailbot {
 	 * coming in via uart.
 	 */
 	class DaemonGps : public Gps {
-		Bridge::WriteAccess<SystemCoordinates> coordinates;
+		Bridge& bridge;
 		gpsmm gpsRx;
-		std::atomic<bool> running = true;
+		bool running;
+		std::thread thread;
 
 	public:
 		DaemonGps(Bridge& bridge);

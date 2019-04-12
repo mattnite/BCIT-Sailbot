@@ -4,6 +4,8 @@
 // File Name: measurement.hpp
 // Date: 2019-04-11
 
+#pragma once
+
 namespace Sailbot {
 	/**
 	 * Measurement assignment tracker
@@ -15,10 +17,13 @@ namespace Sailbot {
 	class Measurement {
 		using Clock = std::chrono::steady_clock;
 
-		T val;
+		T value;
 		Clock::time_point timestamp;
 
 	public:
+
+		Measurement(const T& val) : value(val), timestamp(Clock::now()) {}
+
 		/**
 		 * Value assignment
 		 *
@@ -28,9 +33,9 @@ namespace Sailbot {
 		 * There is potential for race conditions with this class, the user has
 		 * been warned.
 		 */
-		Measurement<T>& operator=(const T& newVal) {
+		Measurement<T>& operator=(const T& val) {
 			timestamp = Clock::now();
-			val = newVal;
+			value = val;
 			return *this;
 		}
 
@@ -45,7 +50,7 @@ namespace Sailbot {
 		 * Implicit conversion to the value type.
 		 */
 		operator T() {
-			return val;
+			return value;
 		}
 	};
 }

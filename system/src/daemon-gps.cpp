@@ -14,24 +14,26 @@
 #include <thread>
 
 namespace Sailbot {
-    DaemonGps(Bridge::WriteAccess<SystemCoordinates>&& coord)
-		: coordinates(coord)
+	DaemonGps::DaemonGps(Bridge& bridge)
+		: bridge(bridge)
 		, gpsRx("localhost", "2947") 
-		, th([&]() {
+		, thread([&]() {
 			while (running) {
 				struct gps_data_t *newData;
 
-				if (!gpsRec.waiting(5000000))
+				if (!gpsRx.waiting(5000000))
 					continue;
 
-				if ((newData = gpsRec.read()) == NULL) {
+				if ((newData = gpsRx.read()) == NULL) {
 					std::cerr << "GPS: Read Error" << std::endl;
 				}
 				else if (newData->status && (LATLON_SET & newData->set)) {
-					coordinates() = {
+					Coordinates coord {
 						newData->fix.latitude,
-						newData->fix.longitude;
+						newData->fix.longitude
 					};
+
+					bridge.setCoordinates(coord);
 				}
 			}
 		})
@@ -43,6 +45,6 @@ namespace Sailbot {
 
 	DaemonGps::~DaemonGps() {
 		running = false;
-		th.join();
+		thread.join();
 	}
 }

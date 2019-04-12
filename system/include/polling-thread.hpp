@@ -36,7 +36,7 @@ namespace Sailbot {
 				std::unique_lock<std::mutex> lock(mtx);
 				Clock::time_point next = Clock::now();
 
-				while(cv.wait_until(lock, next)) {
+				while(cv.wait_until(lock, next) == std::cv_status::timeout) {
 					task();
 					while (next < Clock::now())
 						next += period;
@@ -48,5 +48,5 @@ namespace Sailbot {
 			cv.notify_one();
 			thread.join();
 		}
-	}
+	};
 }

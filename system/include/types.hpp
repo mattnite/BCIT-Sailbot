@@ -23,5 +23,5 @@ namespace Sailbot {
 
 	using SystemCoordinates = std::atomic<Measurement<Gps::Coordinates>>;
 	using SystemKinetics = std::atomic<Measurement<Imu::Data>>;
-	using SystemWind = std::atomic<Measurement<Wind::Data>>;
+	using SystemWind = std::atomic<Measurement<Wind::Readings>>;
 }

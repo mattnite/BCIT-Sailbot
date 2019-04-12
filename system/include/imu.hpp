@@ -6,6 +6,10 @@
 
 #pragma once
 
+#include "polling-thread.hpp"
+
+#include <iostream>
+
 namespace Sailbot {
 	/**
 	 * @brief IMU Interface
@@ -39,6 +43,7 @@ namespace Sailbot {
 		Imu() : thread(std::chrono::milliseconds(500), []() {
 			std::cout << "hello" << std::endl;
 		})
+		{}
 
 
 	};

@@ -10,8 +10,10 @@
 #include "imu.hpp"
 #include "types.hpp"
 #include "wind.hpp"
+#include "write-access.hpp"
 
 namespace Sailbot {
+
 	/**
 	 * @brief Bridge
 	 *
@@ -21,41 +23,18 @@ namespace Sailbot {
 	 */
 	class Bridge {
 		SystemCoordinates coordinates;
-		SystemKinetics kinetics;
-		SystemWind wind;
+//		SystemKinetics kinetics;
+//		SystemWind wind;
 
 		GpsPtr gps;
-		ImuPtr imu;
-		WindPtr wind;
-		
+//		ImuPtr imu;
+//		WindPtr wind;
+
 	public:
-		template <typename T>
-		class WriteAccess {
-			friend class Bridge;
-			T& value;
+		void setCoordinates(const Gps::Coordinates& coord);
 
-		public:
-			WriteAccess(T& val) : value(val) {}
+		Gps::Coordinates getCoordinates();
 
-			T& operator()() {
-				return value;
-			}
-		};
-
-		Bridge(const Configuration& config) 
-			: gps(createGps(config, WriteAccess<SystemCoordinates>(coordinates))
-			, imu(createImu(config, WriteAccess<SystemKinetics>(kinetics))
-			, wind(createWind(config, WriteAccess<SystemWind>(wind)) 
-		{
-			if (!gps)
-				throw std::runtime_error("GPS module not started");
-
-			if (!imu)
-				throw std::runtime_error("IMU module not started");
-
-			if (!wind)
-				throw std::runtime_error("Wind module not started");
-
-		}
+//		Bridge(const Configuration& config);
 	};
 }

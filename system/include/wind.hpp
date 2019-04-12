@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include <complex>
+
 namespace Sailbot {
 	/**
 	 * @brief Wind Sensor Interface
@@ -21,4 +23,5 @@ namespace Sailbot {
 	public:
 		// Positive directions are east and north respectively
 		using Readings = std::complex<double>;
+	};
 }
