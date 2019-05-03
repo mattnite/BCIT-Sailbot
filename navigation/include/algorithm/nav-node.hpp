@@ -8,8 +8,7 @@
 // it's parent so that the cost calculation can use past history of the route,
 // and 8 pointers to children which represent 8 different directions it can go.
 
-#ifndef SAILBOT_NAV_NODE_HPP_
-#define SAILBOT_NAV_NODE_HPP_
+#pragma once
 
 #include <array>
 #include <complex>
@@ -32,6 +31,6 @@ public:
 
 	// handle deletion of children
 	~NavNode();
-};
 
-#endif
+	const double& getCost();
+};

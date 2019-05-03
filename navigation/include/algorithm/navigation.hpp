@@ -8,8 +8,7 @@
 // star, but the cost function is a parameter so that it may be changed to
 // account for different variables such as wind.
 
-#ifndef SAILBOT_NAVIGATION_HPP_
-#define SAILBOT_NAVIGATION_HPP_
+#pragma once
 
 #include "nav-node.hpp"
 
@@ -20,7 +19,7 @@
 // Function object to compare NavNodes
 struct compNavNode {
 	bool operator()(NavNode *lhs, NavNode *rhs) {
-		return lhs->cost < rhs->cost;
+		return lhs->getCost() < rhs->getCost();
 	}
 };
 
@@ -55,6 +54,3 @@ public:
 	// dtor
 	~Navigation();
 };
-
-
-#endif

@@ -8,7 +8,7 @@
 // star, but the cost function is a parameter so that it may be changed to
 // account for different variables such as wind.
 
-#include "navigation.hpp"
+#include "algorithm/navigation.hpp"
 
 // ctor
 Navigation::Navigation(std::complex<int> end, CostFunc costCalc)

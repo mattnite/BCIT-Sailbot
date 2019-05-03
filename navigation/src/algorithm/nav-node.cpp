@@ -8,7 +8,7 @@
 // it's parent so that the cost calculation can use past history of the route,
 // and 8 pointers to children which represent 8 different directions it can go.
 
-#include "nav-node.hpp"
+#include "algorithm/nav-node.hpp"
 
 // ctor
 NavNode::NavNode(NavNode *parent, std::complex<int> &position, double cost) 
@@ -42,3 +42,6 @@ NavNode::~NavNode() {
 	}
 }
 
+const double& NavNode::getCost() {
+	return cost;
+}

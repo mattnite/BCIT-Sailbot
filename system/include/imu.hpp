@@ -40,7 +40,7 @@ namespace Sailbot {
 			Orientation orientation;
 		};
 		
-		Imu() : thread(std::chrono::milliseconds(500), []() {
+		Imu(const std::chrono::milliseconds& period, std::function<void()> cb) : thread(std::chrono::milliseconds(500), []() {
 			std::cout << "hello" << std::endl;
 		})
 		{}
