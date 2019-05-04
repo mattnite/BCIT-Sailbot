@@ -6,7 +6,11 @@
 
 #pragma once
 
+#include "polygon.hpp"
+
 #include <filesystem>
+#include <vector>
+#include <map>
 
 namespace Sailbot::Navigation {
 	/**
@@ -23,7 +27,7 @@ namespace Sailbot::Navigation {
 		/**
 		 * Query for polygons who's bounding boxes overlap with another box
 		 */
-		std::vector<const Polygon&> queryBox(const BoundingBox& box);
+		std::vector<Polygon*> queryBox(const BoundingBox& box);
 
 	public:
 		/**

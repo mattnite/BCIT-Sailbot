@@ -9,7 +9,7 @@
 #include "point.hpp"
 #include "bounding-box.hpp"
 
-#include <algorithm>
+#include <vector>
 
 namespace Sailbot::Navigation {
 	/**
@@ -21,43 +21,8 @@ namespace Sailbot::Navigation {
 		BoundingBox box;
 
 	public:
-		Polygon(std::vector<Point>&& points) 
-			: points(points) 
-			, box({
-				std::max_element(
-					points.begin(), 
-					points.end(), 
-					[](auto& a, auto& b) {
-						return a.latitude() > b.latitude();
-					}
-				)->latitude(),
-				std::min_element(
-					points.begin(), 
-					points.end(), 
-					[](auto& a, auto& b) {
-						return a.longitude() < b.longitude();
-					}
-				)->longitude(),
-			}, {
-				std::max_element(
-					points.begin(), 
-					points.end(), 
-					[](auto& a, auto& b) {
-						return a.latitude() < b.latitude();
-					}
-				)->latitude(),
-				std::min_element(
-					points.begin(), 
-					points.end(), 
-					[](auto& a, auto& b) {
-						return a.longitude() > b.longitude();
-					}
-				)->longitude(),
-			})
-		{}
+		Polygon(std::vector<Point>&& points);
 
-		const BoundingBox& boundingBox() const noexcept {
-			return box;
-		}
+		const BoundingBox& bounds() const noexcept;
 	};
 }

@@ -7,19 +7,15 @@
 #pragma once
 
 namespace Sailbot::Navigation {
-	class Point {
-		double lat;
-		double lon;
+	struct Point {
+		double latitude;
+		double longitude;
 
-	public:
-		Point(double lat, double lon) noexcept : lat(lat), lon(lon) {}
-		
-		double longitude() const noexcept {
-			return lon;
-		}
+		Point() = default;
 
-		double latitude() const noexcept {
-			return lat;
-		}
+		Point(double lat, double lon) noexcept 
+			: latitude(lat)
+			, longitude(lon)
+		{}
 	};
 }

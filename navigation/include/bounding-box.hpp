@@ -8,18 +8,13 @@
 
 #include "point.hpp"
 
-class BoundingBox {
-	Point tl;
-	Point br;
+namespace Sailbot::Navigation {
+	struct BoundingBox {
+		Point tl;
+		Point br;
 
-public:
-	BoundingBox(const Point& tl, const Point& br) : tl(tl) br(br) {}
+		BoundingBox() = default;
 
-	const Point& topLeft() const noexcept {
-		return tl;
-	}
-
-	const Point& bottomRight const noexcept {
-		return br;
-	}
-};
+		BoundingBox(const Point& tl, const Point& br) : tl(tl), br(br) {}
+	};
+}

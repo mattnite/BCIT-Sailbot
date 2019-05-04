@@ -6,28 +6,28 @@
 
 #pragma once
 
-#include "endian.hpp"
+#include "polygon.hpp"
+
 #include <iostream>
+#include <vector>
+#include <cstdint>
 
-/**
- * Parses the record header
- */
-class Record {
-	uint32_t number;
-	uint32_t length;
+namespace Sailbot::Navigation::ShapeFile {
+	/**
+	* Parses the record header
+	*/
+	class Record {
+		uint32_t number;
+		uint32_t length;
+		std::vector<char> buf;
 
-public:
-	Record(std::istream& is) {
-		extractEndian(Endian::Big, is, number);
-		extractEndian(Endian::Big, is, length);
-		length *= 2;
-	}
-	
-	uint32_t getNumber() {
-		return number;
-	}
-	
-	uint32_t getLength() {
-		return length;
-	}
-};
+	public:
+		Record(std::istream& is);
+		
+		uint32_t getNumber() const noexcept;
+		
+		uint32_t getLength() const noexcept;
+
+		std::vector<Polygon> extractPolygons();
+	};
+}

@@ -6,17 +6,19 @@
 
 #pragma once
 
+#include "point.hpp"
+
 namespace Sailbot::Navigation {
 	class Vector {
 		friend Vector operator-(const Point& a, const Point& b);
 		double heading;
 		double theta;
 	public:
-		Vector(double heading, double theta) : heading(heading), theta(theta) {}
+		Vector(double heading, double theta);
 
 		Point operator+(const Point& point);
 
-		void rotate(double t
+		void rotate(double theta);
 
 	};
 }
